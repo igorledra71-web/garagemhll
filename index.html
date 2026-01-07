@@ -199,13 +199,13 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
     <h1>Garagem HL</h1>
     <p>Estética Automotiva Premium</p>
   </header>
-  <button class="btn-main" onclick="openScreen('services')">Serviços Disponíveis</button>
-  <button class="btn-alt" onclick="openScreen('booking')">Agendamento</button>
+  <button class="btn-main" id="btnServices">Serviços Disponíveis</button>
+<button class="btn-alt" id="btnBooking">Agendamento</button>
 </div>
 
 <!-- SERVICES -->
 <div class="screen" id="services">
-  <span class="back" onclick="openScreen('home')">⬅ Voltar</span>
+ <span class="back" id="btnBackHome">⬅ Voltar</span>
 
   <div class="grid">
 
@@ -215,7 +215,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Lavação Completa</h3>
       <p>Externa + interna</p>
       <div class="price">R$ 50,00</div>
-      <button class="btn" onclick="add('Lavação Completa',50)">Adicionar</button>
+     <button class="btn add-btn" data-nome="Lavação Completa" data-valor="50">Adicionar</button>
     </div>
 
     <!-- Lavação Detalhada -->
@@ -224,7 +224,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Lavação Detalhada</h3>
       <p>Detalhamento premium</p>
       <div class="price">R$ 120,00</div>
-      <button class="btn" onclick="add('Lavação Detalhada',120)">Adicionar</button>
+       <button class="btn add-btn" data-nome='Lavação Detalhada'data-valor="120">Adicionar</button>
     </div>
 
     <!-- Lavação de Motor -->
@@ -233,7 +233,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Lavação de Motor</h3>
       <p>Limpeza do cofre</p>
       <div class="price">R$ 60,00</div>
-      <button class="btn" onclick="add('Lavação de Motor',60)">Adicionar</button>
+      <button class="btn add-btn" data-nome='Lavação de Motor'data-valor=60)">Adicionar</button>
     </div>
 
     <!-- Descontaminação -->
@@ -242,7 +242,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Descontaminação de Pintura</h3>
       <p>Remove resíduos</p>
       <div class="price">R$ 180,00</div>
-      <button class="btn" onclick="add('Descontaminação de Pintura',180)">Adicionar</button>
+      <button class="btn add-btn" data-nome='Descontaminação de Pintura'data-valor 180)">Adicionar</button>
     </div>
 
     <!-- Polimento Faróis -->
@@ -251,7 +251,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Polimento de Faróis</h3>
       <p>Restauração</p>
       <div class="price">R$ 80,00</div>
-      <button class="btn" onclick="add('Polimento de Faróis',80)">Adicionar</button>
+      <button class="btn add-btn" data-nome='Polimento de Faróis'data-valor,80)">Adicionar</button>
     </div>
 
     <!-- Polimento Técnico -->
@@ -260,7 +260,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Polimento Técnico</h3>
       <p>Correção de pintura</p>
       <div class="price">R$ 300,00</div>
-      <button class="btn" onclick="add('Polimento Técnico',300)">Adicionar</button>
+     <button class="btn add-btn" data-nome='Polimento Técnico'data-valor,300)">Adicionar</button>
     </div>
 
     <!-- Polimento de Vidros -->
@@ -269,7 +269,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Polimento de Vidros</h3>
       <p>Clareza total</p>
       <div class="price">R$ 160,00</div>
-      <button class="btn" onclick="add('Polimento de Vidros',160)">Adicionar</button>
+     <button class="btn add-btn" data-nome="('Polimento de Vidros'data-valor,160)">Adicionar</button>
     </div>
 
     <!-- Aplicação de Cera -->
@@ -278,7 +278,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Aplicação de Cera</h3>
       <p>Brilho intenso</p>
       <div class="price">R$ 70,00</div>
-      <button class="btn" onclick="add('Aplicação de Cera',70)">Adicionar</button>
+      <button class="btn add-btn" data-nome="Aplicação de Cera'data-valor,70)">Adicionar</button>
     </div>
 
     <!-- Selante -->
@@ -287,7 +287,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Aplicação de Selante</h3>
       <p>Proteção sintética</p>
       <div class="price">R$ 120,00</div>
-      <button class="btn" onclick="add('Aplicação de Selante',120)">Adicionar</button>
+     <button class="btn add-btn" data-nome="'Aplicação de Selante'data-valor,120)">Adicionar</button>
     </div>
 
     <!-- Vitrificação -->
@@ -296,7 +296,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Vitrificação</h3>
       <p>Proteção cerâmica</p>
       <div class="price">R$ 600,00</div>
-      <button class="btn" onclick="add('Vitrificação',600)">Adicionar</button>
+      <button class="btn add-btn" data-nome="'Vitrificação'data-valor,600)">Adicionar</button>
     </div>
 
     <!-- Revitalização -->
@@ -305,7 +305,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Revitalização de Plásticos</h3>
       <p>Renovação externa</p>
       <div class="price">R$ 90,00</div>
-      <button class="btn" onclick="add('Revitalização de Plásticos',90)">Adicionar</button>
+       <button class="btn add-btn" data-nome="'Revitalização de Plásticos'data-valor,90)">Adicionar</button>
     </div>
 
     <!-- Chuva Ácida -->
@@ -314,7 +314,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Remoção de Chuva Ácida</h3>
       <p>Vidros</p>
       <div class="price">R$ 110,00</div>
-      <button class="btn" onclick="add('Remoção de Chuva Ácida',110)">Adicionar</button>
+      <button class="btn add-btn" data-nome="'Remoção de Chuva Ácida'data-valor,110)">Adicionar</button>
     </div>
 
     <!-- Cristalização -->
@@ -323,7 +323,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Cristalização Para-brisa</h3>
       <p>Repelência água</p>
       <div class="price">R$ 100,00</div>
-      <button class="btn" onclick="add('Cristalização Para-brisa',100)">Adicionar</button>
+      <button class="btn add-btn" data-nome="'Cristalização Para-brisa'data-valor,100)">Adicionar</button>
     </div>
 
     <!-- Bancos de Couro -->
@@ -332,7 +332,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Higienização Bancos de Couro</h3>
       <p>Limpeza + hidratação</p>
       <div class="price">R$ 180,00</div>
-      <button class="btn" onclick="add('Higienização Bancos de Couro',180)">Adicionar</button>
+      <button class="btn add-btn" data-nome="'Higienização Bancos de Couro'data-valor,180)">Adicionar</button>
     </div>
 
     <!-- Higienização Automotiva -->
@@ -341,7 +341,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Higienização Automotiva</h3>
       <p>Interno completo</p>
       <div class="price">R$ 150,00</div>
-      <button class="btn" onclick="add('Higienização Automotiva',150)">Adicionar</button>
+     <button class="btn add-btn" data-nome="'Higienização Automotiva'data-valor,150)">Adicionar</button>
     </div>
 
     <!-- Residencial -->
@@ -350,7 +350,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Higienização Residencial</h3>
       <p>Sofá, colchão, tapete</p>
       <div class="price">R$ 200,00</div>
-      <button class="btn" onclick="add('Higienização Residencial',200)">Adicionar</button>
+      <button class="btn add-btn" data-nome="'Higienização Residencial'data-valor,200)">Adicionar</button>
     </div>
 
     <!-- PPF -->
@@ -359,7 +359,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Aplicação de PPF</h3>
       <p>Película proteção</p>
       <div class="price">R$ 900,00</div>
-      <button class="btn" onclick="add('Aplicação de PPF',900)">Adicionar</button>
+     <button class="btn add-btn" data-nome="'Aplicação de PPF'data-valor,900)">Adicionar</button>
     </div>
 
     <!-- Martelinho -->
@@ -368,7 +368,7 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
       <h3>Martelinho de Ouro</h3>
       <p>Reparo sem pintura</p>
       <div class="price">R$ 150,00</div>
-      <button class="btn" onclick="add('Martelinho de Ouro',150)">Adicionar</button>
+     <button class="btn add-btn" data-nome="'Martelinho de Ouro'data-valor,150)">Adicionar</button>
     </div>
 
   </div>
@@ -519,5 +519,41 @@ window.agendar = async function(){
     }
   }
 };
-</script>
+// ====== NAVEGAÇÃO ENTRE TELAS ======
+const btnServices = document.getElementById("btnServices");
+const btnBooking = document.getElementById("btnBooking");
+const btnBackHome = document.getElementById("btnBackHome");
+
+const home = document.getElementById("home");
+const services = document.getElementById("services");
+const booking = document.getElementById("booking");
+
+function showScreen(screen){
+  home.style.display = "none";
+  services.style.display = "none";
+  booking.style.display = "none";
+  screen.style.display = "block";
+}
+
+btnServices.addEventListener("click", () => {
+  showScreen(services);
+});
+
+btnBooking.addEventListener("click", () => {
+  showScreen(booking);
+});
+
+btnBackHome.addEventListener("click", () => {
+  showScreen(home);
+});
+// ====== BOTÕES ADICIONAR AO CARRINHO ======
+document.querySelectorAll(".add-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const nome = btn.getAttribute("data-nome");
+    const valor = parseFloat(btn.getAttribute("data-valor"));
+    add(nome, valor);
+  });
+
+
+
 
