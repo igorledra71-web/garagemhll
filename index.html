@@ -410,58 +410,114 @@ footer{text-align:center;font-size:12px;color:#777;padding:16px}
   <p>@garagemhl_ot</p>
 </footer>
 
-<script>
-let carrinho=[];
-let total=0;
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, doc, runTransaction, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-function openScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
-  document.getElementById(id).style.display="block";
-}
+/* ===== COLE AQUI SUA firebaseConfig ===== */
+const firebaseConfig = {
+ // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-function add(nome,valor){
-  carrinho.push({nome,valor});
-  total+=valor;
-  atualizar();
-  document.getElementById("cart").style.display="block";
-}
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCZ0a41Ilp6ABPeTwXYNvvHo3ebB7YuWFk",
+  authDomain: "garagemhl-bca04.firebaseapp.com",
+  projectId: "garagemhl-bca04",
+  storageBucket: "garagemhl-bca04.firebasestorage.app",
+  messagingSenderId: "228208341458",
+  appId: "1:228208341458:web:2c3644e0dd73fabc56d80b"
+};
 
-function remover(i){
-  total-=carrinho[i].valor;
-  carrinho.splice(i,1);
-  atualizar();
-  if(carrinho.length==0){
-    document.getElementById("cart").style.display="none";
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+};
+/* ====================================== */
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const horariosBase = ["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00"];
+
+const dataInput = document.getElementById("data");
+const horaSelect = document.getElementById("hora");
+
+/* ========= CARREGAR HORÁRIOS EM TEMPO REAL ========= */
+dataInput.addEventListener("change", carregarHorarios);
+
+function carregarHorarios(){
+  const data = dataInput.value;
+  horaSelect.innerHTML = "";
+
+  if(!data){
+    horaSelect.innerHTML = "<option>Selecione a data</option>";
+    return;
   }
-}
 
-function atualizar(){
-  let html="";
-  carrinho.forEach((item,i)=>{
-    html+=`<div class="cart-item">${item.nome} <span class="remove" onclick="remover(${i})">❌</span></div>`;
+  const colRef = collection(db, "reservas", data, "horarios");
+
+  onSnapshot(colRef, (snapshot) => {
+    let reservados = [];
+    snapshot.forEach(doc => reservados.push(doc.id));
+
+    horaSelect.innerHTML = "";
+
+    horariosBase.forEach(h=>{
+      if(!reservados.includes(h)){
+        const opt = document.createElement("option");
+        opt.value = h;
+        opt.textContent = h;
+        horaSelect.appendChild(opt);
+      }
+    });
+
+    if(horaSelect.innerHTML === ""){
+      horaSelect.innerHTML = "<option>Sem horários disponíveis</option>";
+    }
   });
-  document.getElementById("itens").innerHTML=html;
-  document.getElementById("total").innerText=total.toFixed(2);
 }
 
-function agendar(){
-  let n=document.getElementById("nome").value;
-  let d=document.getElementById("data").value;
-  let h=document.getElementById("hora").value;
-  if(n&&d&&h){
-    document.getElementById("msg").innerText="Agendado para "+d+" às "+h;
-  }else{
-    document.getElementById("msg").innerText="Preencha todos os campos";
+/* ========= AGENDAMENTO COM TRANSACTION (ANTI DUPLICIDADE) ========= */
+window.agendar = async function(){
+  const nome = document.getElementById("nome").value;
+  const data = dataInput.value;
+  const hora = horaSelect.value;
+
+  if(!nome || !data || !hora || hora==="Sem horários disponíveis"){
+    document.getElementById("msg").innerText = "Preencha todos os campos corretamente";
+    return;
   }
-}
 
-function whats(){
-  let texto="Olá, gostaria de agendar:%0A";
-  carrinho.forEach(i=>{texto+="- "+i.nome+"%0A";});
-  texto+="%0ATotal: R$ "+total.toFixed(2);
-  window.open("https://wa.me/5547991194498?text="+texto,"_blank");
-}
+  const ref = doc(db, "reservas", data, "horarios", hora);
+
+  try {
+    await runTransaction(db, async (transaction) => {
+      const snap = await transaction.get(ref);
+
+      if(snap.exists()){
+        throw "HORARIO_JA_RESERVADO";
+      }
+
+      transaction.set(ref, {
+        nome: nome,
+        data: data,
+        hora: hora,
+        criadoEm: new Date()
+      });
+    });
+
+    document.getElementById("msg").innerText = "Agendado com sucesso para "+data+" às "+hora+" ⏰";
+
+  } catch (e) {
+    if(e === "HORARIO_JA_RESERVADO"){
+      document.getElementById("msg").innerText = "❌ Esse horário acabou de ser reservado por outro cliente.";
+    } else {
+      document.getElementById("msg").innerText = "Erro ao reservar. Tente novamente.";
+      console.error(e);
+    }
+  }
+};
 </script>
 
-</body>
-</html>
