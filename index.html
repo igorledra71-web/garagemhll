@@ -15,10 +15,12 @@
 
     section{
       min-height:100vh;
-      padding:50px 20px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+      padding:50px 20px 140px;
+      display:none;
+    }
+
+    #home{
+      display:block;
     }
 
     h1{
@@ -57,18 +59,60 @@
       border:2px solid #f5c542;
       color:#f5c542;
     }
+
+    .back{
+      color:#f5c542;
+      margin-bottom:30px;
+      display:inline-block;
+      font-size:16px;
+    }
   </style>
 </head>
 
 <body>
 
-<section>
+<!-- HOME -->
+<section id="home">
   <h1>Garagem HL</h1>
   <p>Estética Automotiva Premium</p>
 
-  <button class="btn-main">🚗 SERVIÇOS DISPONÍVEIS</button>
-  <button class="btn-alt">📲 AGENDAMENTO</button>
+  <button class="btn-main" onclick="abrirServicos()">🚗 SERVIÇOS DISPONÍVEIS</button>
+  <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
 </section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+  <h1>Serviços</h1>
+  <p>Aqui vamos listar os serviços da garagem</p>
+</section>
+
+<!-- AGENDAMENTO -->
+<section id="agendamento">
+  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+  <h1>Agendamento</h1>
+  <p>Aqui vai entrar o WhatsApp do Henrique e do Luan</p>
+</section>
+
+<script>
+function abrirServicos(){
+  document.getElementById("home").style.display = "none";
+  document.getElementById("agendamento").style.display = "none";
+  document.getElementById("servicos").style.display = "block";
+}
+
+function abrirAgendamento(){
+  document.getElementById("home").style.display = "none";
+  document.getElementById("servicos").style.display = "none";
+  document.getElementById("agendamento").style.display = "block";
+}
+
+function voltarHome(){
+  document.getElementById("servicos").style.display = "none";
+  document.getElementById("agendamento").style.display = "none";
+  document.getElementById("home").style.display = "block";
+}
+</script>
 
 </body>
 </html>
