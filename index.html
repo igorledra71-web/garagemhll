@@ -1,223 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Garagem HL Automotiva</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Garagem HL Automotiva</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body{
-      margin:0;
-      background:#0b0b0b;
-      color:#ffffff;
-      font-family:Arial, Helvetica, sans-serif;
-    }
-
-    section{
-      min-height:100vh;
-      padding:40px 20px 140px;
-      display:none;
-    }
-
-    #home{
-      display:block;
-    }
-
-    h1{
-      text-align:center;
-      color:#f5c542;
-      font-size:34px;
-      margin-bottom:10px;
-      letter-spacing:1px;
-    }
-
-    p{
-      text-align:center;
-      color:#aaaaaa;
-      font-size:14px;
-      margin-bottom:30px;
-    }
-
-    button{
-      width:100%;
-      padding:26px;
-      margin-bottom:20px;
-      font-size:22px;
-      border:none;
-      border-radius:22px;
-      font-weight:bold;
-    }
-
-    .btn-main{
-      background:linear-gradient(135deg,#f5c542,#ffdf7e);
-      color:#000;
-      box-shadow:0 10px 25px rgba(245,197,66,0.35);
-    }
-
-    .btn-alt{
-      background:transparent;
-      border:2px solid #f5c542;
-      color:#f5c542;
-    }
-
-    .back{
-      color:#f5c542;
-      margin-bottom:25px;
-      display:inline-block;
-      font-size:16px;
-    }
-
-    /* SERVIÇOS */
-    .service{
-      background:#141414;
-      border:1px solid #2a2a2a;
-      border-radius:18px;
-      padding:16px;
-      margin-bottom:18px;
-    }
-
-    .service h3{
-      margin:0 0 6px;
-      font-size:16px;
-    }
-
-    .service p{
-      margin:0 0 10px;
-      font-size:12px;
-      color:#aaaaaa;
-      text-align:left;
-    }
-
-    .price{
-      color:#f5c542;
-      font-weight:bold;
-      margin-bottom:10px;
-    }
-
-    .add-btn{
-      width:100%;
-      padding:14px;
-      background:#f5c542;
-      color:#000;
-      border:none;
-      border-radius:14px;
-      font-weight:bold;
-    }
-  </style>
-</head>
-
-<body>
-
-<!-- HOME -->
-<section id="home">
-  <h1>Garagem HL</h1>
-  <p>Estética Automotiva Premium</p>
-
-  <button class="btn-main" onclick="abrirServicos()">🚗 SERVIÇOS DISPONÍVEIS</button>
-  <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
-</section>
-
-<!-- SERVIÇOS -->
-<section id="servicos">
-  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-
-  <div class="service">
-    <h3>Lavação Completa</h3>
-    <p>Externa + interna</p>
-    <div class="price">R$ 50,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Lavação Detalhada</h3>
-    <p>Detalhamento premium</p>
-    <div class="price">R$ 120,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Lavação de Motor</h3>
-    <p>Limpeza do cofre do motor</p>
-    <div class="price">R$ 60,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Polimento Técnico</h3>
-    <p>Correção de pintura</p>
-    <div class="price">R$ 300,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Polimento de Faróis</h3>
-    <p>Restauração e clareamento</p>
-    <div class="price">R$ 80,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Vitrificação</h3>
-    <p>Proteção cerâmica da pintura</p>
-    <div class="price">R$ 600,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Higienização Interna</h3>
-    <p>Limpeza completa interna</p>
-    <div class="price">R$ 150,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Higienização Bancos de Couro</h3>
-    <p>Limpeza + hidratação</p>
-    <div class="price">R$ 180,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Revitalização de Plásticos</h3>
-    <p>Renovação externa</p>
-    <div class="price">R$ 90,00</div>
-  </div>
-
-  <div class="service">
-    <h3>Cristalização de Vidros</h3>
-    <p>Repelência à água</p>
-    <div class="price">R$ 100,00</div>
-  </div>
-
-</section>
-
-<!-- AGENDAMENTO -->
-<section id="agendamento">
-  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-
-  <h1>Agendamento</h1>
-  <p>Fale direto conosco no WhatsApp</p>
-
-  <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">
-    💬 Henrique – WhatsApp
-  </button>
-
-  <button class="btn-alt" onclick="window.open('https://wa.me/5547991194498','_blank')">
-    💬 Luan – WhatsApp
-  </button>
-</section>
-
-<script>
-function abrirServicos(){
-  document.getElementById("home").style.display = "none";
-  document.getElementById("agendamento").style.display = "none";
-  document.getElementById("servicos").style.display = "block";
+<style>
+body{
+  margin:0;
+  background:#0b0b0b;
+  color:#ffffff;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
-function abrirAgendamento(){
-  document.getElementById("home").style.display = "none";
-  document.getElementById("servicos").style.display = "none";
-  document.getElementById("agendamento").style.display = "block";
+section{
+  display:none;
+  min-height:100vh;
+  padding:40px 20px 120px;
 }
 
-function voltarHome(){
-  document.getElementById("servicos").style.display = "none";
-  document.getElementById("agendamento").style.display = "none";
-  document.getElementById("home").style.display = "block";
+#home{
+  display:block;
 }
-</script>
 
-</body>
-</html>
+h1{
+  text-align:center;
+  color:#f5c542;
+  font-size:34px;
+  margin-bottom:10px;
+  letter-spacing:1px;
+}
+
+p{
+  text-align:center;
+  color:#aaaaaa;
+  font-size:14px;
+  margin-bottom:30px;
+}
+
+button{
+  width:100%;
+  padding:26px;
+  margin-bottom:20px;
+  font-size:22px;
+  border:none;
+  border-radius:22px;
+  font-weight:bold;
+}
+
+.btn-main{
+  background:linear-gradient(135deg,#f5c542,#ffdf7e);
+  color:#000;
