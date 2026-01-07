@@ -2,118 +2,63 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Garagem HL Automotiva</title>
+<title>Garagem HL</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:#0b0b0b;
-  color:#fff;
-  font-family:Arial, Helvetica, sans-serif;
+body {
+  margin: 0;
+  background: #0b0b0b;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* TELAS */
-.screen{display:none;min-height:100vh;padding:36px 20px 140px}
-.screen.active{display:block}
-
-/* HEADER */
-header{text-align:center;margin-bottom:42px}
-header h1{margin:0;color:#f5c542;font-size:32px;letter-spacing:1px}
-header p{margin-top:8px;color:#aaa;font-size:14px}
-
-/* BOTÕES PRINCIPAIS */
-.btn-main{
-  width:100%;
-  padding:28px;
-  margin-bottom:22px;
-  border:none;
-  border-radius:26px;
-  background:linear-gradient(135deg,#f5c542,#ffdf7e);
-  color:#000;
-  font-size:22px;
-  font-weight:bold;
-  box-shadow:0 10px 30px rgba(245,197,66,.35);
+section {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
 }
 
-.btn-alt{
-  width:100%;
-  padding:28px;
-  border-radius:26px;
-  border:2px solid #f5c542;
-  background:transparent;
-  color:#f5c542;
-  font-size:22px;
-  font-weight:bold;
+#home {
+  display: block;
 }
 
-/* VOLTAR */
-.back{
-  color:#f5c542;
-  margin-bottom:24px;
-  display:inline-block;
-  font-size:16px;
+h1 {
+  text-align: center;
+  color: #f5c542;
 }
 
-/* GRID SERVIÇOS */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
+p {
+  text-align: center;
+  color: #aaaaaa;
 }
 
-/* CARD */
-.card{
-  background:#151515;
-  border-radius:20px;
-  padding:16px;
-  border:1px solid #2a2a2a;
-}
-.card h3{margin:6px 0;font-size:15px}
-.card p{margin:0 0 10px;font-size:12px;color:#aaa}
-.price{color:#f5c542;font-weight:bold;margin-bottom:10px}
-
-/* ADD */
-.btn-add{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  background:#f5c542;
-  color:#000;
-  font-weight:bold;
+button {
+  width: 100%;
+  padding: 24px;
+  margin-top: 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 16px;
+  font-weight: bold;
 }
 
-/* CARRINHO */
-.cart{
-  position:fixed;
-  bottom:12px;
-  left:12px;
-  right:12px;
-  background:#000;
-  border-radius:20px;
-  padding:14px;
-  display:none;
-  border:1px solid #222;
+.btn-main {
+  background: #f5c542;
+  color: #000;
 }
-.cart-item{
-  display:flex;
-  justify-content:space-between;
-  font-size:13px;
-  padding:6px 0;
-  border-bottom:1px dashed #333;
+
+.btn-alt {
+  background: transparent;
+  border: 2px solid #f5c542;
+  color: #f5c542;
 }
-.remove{color:#ff4d4d}
-.whatsapp{
-  width:100%;
-  padding:16px;
-  background:#25D366;
-  border:none;
-  border-radius:14px;
-  color:#fff;
-  font-weight:bold;
-  margin-top:12px;
+
+.back {
+  color: #f5c542;
+  margin-bottom: 20px;
+  display: inline-block;
+  font-size: 16px;
 }
 </style>
 </head>
@@ -121,20 +66,47 @@ header p{margin-top:8px;color:#aaa;font-size:14px}
 <body>
 
 <!-- HOME -->
-<div class="screen active" id="home">
-  <header>
-    <h1>Garagem HL</h1>
-    <p>Estética Automotiva Premium</p>
-  </header>
+<section id="home">
+  <h1>Garagem HL</h1>
+  <p>Estética Automotiva Premium</p>
 
-  <button class="btn-main" id="btnServices">🚗 SERVIÇOS DISPONÍVEIS</button>
-  <button class="btn-alt" id="btnBooking">📲 AGENDAMENTO</button>
-</div>
+  <button class="btn-main" onclick="abrirServicos()">🚗 SERVIÇOS</button>
+  <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
+</section>
 
-<!-- SERVICES -->
-<div class="screen" id="services">
-  <span class="back" id="backHome1">⬅ Voltar</span>
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+  <h1>Serviços</h1>
+  <p>Aqui entrarão os serviços</p>
+</section>
 
-  <div class="grid">
+<!-- AGENDAMENTO -->
+<section id="agendamento">
+  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+  <h1>Agendamento</h1>
+  <p>Henrique e Luan no WhatsApp</p>
+</section>
 
-    <div class="card"><h3>Lavação Completa</h3><p>Externa + interna</p><div class="price">R$ 50,00</div><button class="btn-add" data-nome="Lavação Completa" data-valor="50">Adicionar</button></di
+<script>
+function abrirServicos() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("agendamento").style.display = "none";
+  document.getElementById("servicos").style.display = "block";
+}
+
+function abrirAgendamento() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("servicos").style.display = "none";
+  document.getElementById("agendamento").style.display = "block";
+}
+
+function voltarHome() {
+  document.getElementById("servicos").style.display = "none";
+  document.getElementById("agendamento").style.display = "none";
+  document.getElementById("home").style.display = "block";
+}
+</script>
+
+</body>
+</html>
