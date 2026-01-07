@@ -51,3 +51,119 @@ button{
 .btn-main{
   background:linear-gradient(135deg,#f5c542,#ffdf7e);
   color:#000;
+}
+
+.btn-alt{
+  background:transparent;
+  border:2px solid #f5c542;
+  color:#f5c542;
+}
+
+.back{
+  color:#f5c542;
+  margin-bottom:25px;
+  display:inline-block;
+  font-size:16px;
+}
+
+/* SERVIÇOS */
+.service{
+  background:#141414;
+  border:1px solid #2a2a2a;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:16px;
+}
+
+.service h3{
+  margin:0;
+  font-size:16px;
+}
+
+.service p{
+  margin:6px 0 0;
+  font-size:12px;
+  color:#aaaaaa;
+  text-align:left;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<section id="home">
+  <h1>Garagem HL</h1>
+  <p>Estética Automotiva Premium</p>
+
+  <button class="btn-main" onclick="abrirServicos()">🚗 SERVIÇOS DISPONÍVEIS</button>
+  <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+
+  <div class="service"><h3>Lavação de Motor</h3></div>
+  <div class="service"><h3>Lavação Completa</h3></div>
+  <div class="service"><h3>Lavação Detalhada</h3></div>
+  <div class="service"><h3>Descontaminação de Pintura</h3></div>
+  <div class="service"><h3>Polimento Técnico</h3></div>
+  <div class="service"><h3>Polimento de Faróis</h3></div>
+  <div class="service"><h3>Aplicação de Cera</h3></div>
+  <div class="service"><h3>Aplicação de Selante</h3></div>
+  <div class="service"><h3>Vitrificação</h3></div>
+  <div class="service"><h3>Revitalização de Plásticos</h3></div>
+  <div class="service"><h3>Cristalização de Para-brisa</h3></div>
+  <div class="service"><h3>Remoção de Chuva Ácida dos Vidros</h3></div>
+  <div class="service"><h3>Higienização em Bancos de Couro</h3></div>
+  <div class="service"><h3>Higienização Automotiva</h3></div>
+  <div class="service"><h3>Higienização Residencial</h3></div>
+
+  <p style="margin-top:25px;color:#f5c542;text-align:center;font-size:13px;">
+    Em breve teremos novos procedimentos
+  </p>
+
+  <div class="service"><h3>Polimento de Vidros</h3></div>
+  <div class="service"><h3>Aplicação de PPF</h3></div>
+  <div class="service"><h3>Martelinho de Ouro</h3></div>
+</section>
+
+<!-- AGENDAMENTO -->
+<section id="agendamento">
+  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+
+  <h1>Agendamento</h1>
+  <p>Fale direto conosco no WhatsApp</p>
+
+  <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">
+    💬 Henrique – WhatsApp
+  </button>
+
+  <button class="btn-alt" onclick="window.open('https://wa.me/5547991194498','_blank')">
+    💬 Luan – WhatsApp
+  </button>
+</section>
+
+<script>
+function abrirServicos(){
+  document.getElementById("home").style.display="none";
+  document.getElementById("agendamento").style.display="none";
+  document.getElementById("servicos").style.display="block";
+}
+
+function abrirAgendamento(){
+  document.getElementById("home").style.display="none";
+  document.getElementById("servicos").style.display="none";
+  document.getElementById("agendamento").style.display="block";
+}
+
+function voltarHome(){
+  document.getElementById("servicos").style.display="none";
+  document.getElementById("agendamento").style.display="none";
+  document.getElementById("home").style.display="block";
+}
+</script>
+
+</body>
+</html>
