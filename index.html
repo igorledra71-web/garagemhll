@@ -11,41 +11,15 @@ body{
   background:#0b0b0b;
   color:#ffffff;
   font-family:Arial, Helvetica, sans-serif;
-  overflow-x:hidden;
-}
-
-/* ANIMAÇÕES */
-.fade-in{
-  animation:fadeIn .4s ease;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
 }
 
 section{
   display:none;
   min-height:100vh;
   padding:40px 20px 160px;
-  position:relative;
 }
 
 #home{display:block;}
-
-/* FUNDO COM CARRO EM LINHAS */
-.bg-car{
-  position:absolute;
-  inset:0;
-  background:url("data:image/svg+xml;utf8,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 200'>
-    <path d='M50 120 C150 60 250 60 350 80 C420 95 480 95 550 110' fill='none' stroke='%23f5c542' stroke-width='2' stroke-dasharray='6,6' opacity='0.25'/>
-    <circle cx='170' cy='120' r='20' fill='none' stroke='%23f5c542' stroke-width='2' stroke-dasharray='4,4' opacity='0.25'/>
-    <circle cx='430' cy='120' r='20' fill='none' stroke='%23f5c542' stroke-width='2' stroke-dasharray='4,4' opacity='0.25'/>
-    <text x='300' y='170' text-anchor='middle' fill='none' stroke='%23f5c542' stroke-width='1' opacity='0.25' font-size='32'>GARAGEM HL</text>
-  </svg>") center/500px no-repeat;
-  opacity:0.15;
-  pointer-events:none;
-}
 
 h1{
   text-align:center;
@@ -101,21 +75,11 @@ button{
 
 .service-title{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   font-size:16px;
   color:#f5c542;
   cursor:pointer;
-}
-
-.service-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.icon{
-  font-size:20px;
 }
 
 .service-desc{
@@ -184,8 +148,7 @@ button{
 <body>
 
 <!-- HOME -->
-<section id="home" class="fade-in">
-  <div class="bg-car"></div>
+<section id="home">
   <h1>Garagem HL</h1>
   <p>Estética Automotiva Premium</p>
 
@@ -195,14 +158,10 @@ button{
 
 <!-- SERVIÇOS -->
 <section id="servicos">
-  <div class="bg-car"></div>
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
 
-  <!-- Cada serviço -->
-  <div class="service fade-in">
-    <div class="service-title" onclick="toggle(this)">
-      <div class="service-left"><span class="icon">🛠️</span> Lavação de Motor</div> <span>▼</span>
-    </div>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Lavação de Motor <span>▼</span></div>
     <div class="service-desc">
       Limpeza completa do cofre do motor.
       <div class="price">R$ 60,00</div>
@@ -210,10 +169,8 @@ button{
     </div>
   </div>
 
-  <div class="service fade-in">
-    <div class="service-title" onclick="toggle(this)">
-      <div class="service-left"><span class="icon">🚿</span> Lavação Completa</div> <span>▼</span>
-    </div>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Lavação Completa <span>▼</span></div>
     <div class="service-desc">
       Lavagem externa + limpeza interna básica.
       <div class="price">R$ 50,00</div>
@@ -221,10 +178,8 @@ button{
     </div>
   </div>
 
-  <div class="service fade-in">
-    <div class="service-title" onclick="toggle(this)">
-      <div class="service-left"><span class="icon">✨</span> Lavação Detalhada</div> <span>▼</span>
-    </div>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Lavação Detalhada <span>▼</span></div>
     <div class="service-desc">
       Detalhamento completo com foco em acabamento.
       <div class="price">R$ 120,00</div>
@@ -232,10 +187,8 @@ button{
     </div>
   </div>
 
-  <div class="service fade-in">
-    <div class="service-title" onclick="toggle(this)">
-      <div class="service-left"><span class="icon">🧽</span> Descontaminação de Pintura</div> <span>▼</span>
-    </div>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Descontaminação de Pintura <span>▼</span></div>
     <div class="service-desc">
       Remoção de resíduos impregnados.
       <div class="price">R$ 180,00</div>
@@ -243,10 +196,8 @@ button{
     </div>
   </div>
 
-  <div class="service fade-in">
-    <div class="service-title" onclick="toggle(this)">
-      <div class="service-left"><span class="icon">💎</span> Polimento Técnico</div> <span>▼</span>
-    </div>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Polimento Técnico <span>▼</span></div>
     <div class="service-desc">
       Correção de imperfeições da pintura.
       <div class="price">R$ 300,00</div>
@@ -254,10 +205,8 @@ button{
     </div>
   </div>
 
-  <div class="service fade-in">
-    <div class="service-title" onclick="toggle(this)">
-      <div class="service-left"><span class="icon">🔦</span> Polimento de Faróis</div> <span>▼</span>
-    </div>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Polimento de Faróis <span>▼</span></div>
     <div class="service-desc">
       Restauração de faróis.
       <div class="price">R$ 80,00</div>
@@ -265,10 +214,26 @@ button{
     </div>
   </div>
 
-  <div class="service fade-in">
-    <div class="service-title" onclick="toggle(this)">
-      <div class="service-left"><span class="icon">🛡️</span> Vitrificação</div> <span>▼</span>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Aplicação de Cera <span>▼</span></div>
+    <div class="service-desc">
+      Proteção e brilho da pintura.
+      <div class="price">R$ 70,00</div>
+      <button class="add-btn" onclick="add('Aplicação de Cera',70)">Adicionar ao carrinho</button>
     </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Aplicação de Selante <span>▼</span></div>
+    <div class="service-desc">
+      Proteção sintética de longa duração.
+      <div class="price">R$ 120,00</div>
+      <button class="add-btn" onclick="add('Aplicação de Selante',120)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Vitrificação <span>▼</span></div>
     <div class="service-desc">
       Proteção cerâmica da pintura.
       <div class="price">R$ 600,00</div>
@@ -276,11 +241,64 @@ button{
     </div>
   </div>
 
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Revitalização de Plásticos <span>▼</span></div>
+    <div class="service-desc">
+      Renovação de plásticos externos.
+      <div class="price">R$ 90,00</div>
+      <button class="add-btn" onclick="add('Revitalização de Plásticos',90)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Cristalização de Para-brisa <span>▼</span></div>
+    <div class="service-desc">
+      Repelência à água no vidro.
+      <div class="price">R$ 100,00</div>
+      <button class="add-btn" onclick="add('Cristalização de Para-brisa',100)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Remoção de Chuva Ácida <span>▼</span></div>
+    <div class="service-desc">
+      Limpeza profunda dos vidros.
+      <div class="price">R$ 110,00</div>
+      <button class="add-btn" onclick="add('Remoção de Chuva Ácida',110)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Higienização Bancos de Couro <span>▼</span></div>
+    <div class="service-desc">
+      Limpeza + hidratação dos bancos.
+      <div class="price">R$ 180,00</div>
+      <button class="add-btn" onclick="add('Higienização Bancos de Couro',180)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Higienização Automotiva <span>▼</span></div>
+    <div class="service-desc">
+      Limpeza completa interna.
+      <div class="price">R$ 150,00</div>
+      <button class="add-btn" onclick="add('Higienização Automotiva',150)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Higienização Residencial <span>▼</span></div>
+    <div class="service-desc">
+      Sofás, colchões e estofados.
+      <div class="price">R$ 200,00</div>
+      <button class="add-btn" onclick="add('Higienização Residencial',200)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
 </section>
 
 <!-- AGENDAMENTO -->
 <section id="agendamento">
-  <div class="bg-car"></div>
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
 
   <h1>Agendamento</h1>
@@ -307,27 +325,21 @@ let cart = [];
 let total = 0;
 
 function abrirServicos(){
-  trocarTela("servicos");
+  document.getElementById("home").style.display="none";
+  document.getElementById("agendamento").style.display="none";
+  document.getElementById("servicos").style.display="block";
 }
 
 function abrirAgendamento(){
-  trocarTela("agendamento");
+  document.getElementById("home").style.display="none";
+  document.getElementById("servicos").style.display="none";
+  document.getElementById("agendamento").style.display="block";
 }
 
 function voltarHome(){
-  trocarTela("home");
-}
-
-function trocarTela(id){
-  document.getElementById("home").style.display="none";
   document.getElementById("servicos").style.display="none";
   document.getElementById("agendamento").style.display="none";
-
-  const tela = document.getElementById(id);
-  tela.style.display="block";
-  tela.classList.remove("fade-in");
-  void tela.offsetWidth;
-  tela.classList.add("fade-in");
+  document.getElementById("home").style.display="block";
 }
 
 function toggle(el){
