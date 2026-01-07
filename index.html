@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Garagem HL Automotiva</title>
+<title>Garagem HL - Estética Automotiva</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -13,36 +13,25 @@ body{
   font-family:Arial, Helvetica, sans-serif;
 }
 
-/* FUNDO HOME */
-.home-theme{
+/* FUNDO */
+.theme{
   background:linear-gradient(180deg, #050b10 0%, #0b1a22 40%, #0b0b0b 100%);
   min-height:100vh;
   padding:30px 20px 160px;
 }
 
-/* LOGO TEXTO */
-.logo-text{
+/* LOGO */
+.logo-container{
+  width:90%;
+  max-width:420px;
+  margin:20px auto 10px;
   text-align:center;
-  font-size:28px;
-  font-weight:900;
-  color:#f5c542;
-  letter-spacing:2px;
 }
-.logo-sub{
-  text-align:center;
-  font-size:12px;
-  color:#aaaaaa;
-  letter-spacing:3px;
-  margin-top:-4px;
-}
-
-/* LOGO CARRO */
-.logo-carro{
-  width:300px;
-  max-width:90%;
+.logo-container img{
+  width:100%;
   height:auto;
   display:block;
-  margin:20px auto 10px;
+  margin:auto;
 }
 
 /* BOTÕES */
@@ -151,60 +140,73 @@ section{ display:none; }
 <body>
 
 <!-- HOME -->
-<section id="home" class="home-theme">
+<section id="home" class="theme">
 
   <button class="btn-main" onclick="abrirServicos()">🚿 SERVIÇOS DISPONÍVEIS</button>
   <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
 
-  <!-- LOGO CARRO -->
-  <img src="carro.png" alt="Logo Carro Garagem HL" class="logo-carro">
-
-  <!-- TEXTO -->
-  <div class="logo-text">GARAGEM HL</div>
-  <div class="logo-sub">AUTOMOTIVA</div>
+  <div class="logo-container">
+    <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
+  </div>
 
 </section>
 
 <!-- SERVIÇOS -->
-<section id="servicos" class="home-theme">
+<section id="servicos" class="theme">
 
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
 
-  <div class="logo-text">GARAGEM HL</div>
-  <div class="logo-sub" style="margin-bottom:25px;">AUTOMOTIVA</div>
+  <div class="logo-container">
+    <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
+  </div>
 
-  <!-- LISTA COMPLETA -->
+  <!-- LISTA COMPLETA DE SERVIÇOS -->
   <div class="service"><div class="service-title" onclick="toggle(this)">Lavação de Motor <span>▼</span></div><div class="service-desc">Limpeza completa do cofre do motor.<div class="price">R$ 60,00</div><button class="add-btn" onclick="add('Lavação de Motor',60)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Lavação Completa <span>▼</span></div><div class="service-desc">Lavagem externa + limpeza interna básica.<div class="price">R$ 50,00</div><button class="add-btn" onclick="add('Lavação Completa',50)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Lavação Detalhada <span>▼</span></div><div class="service-desc">Detalhamento completo com foco em acabamento.<div class="price">R$ 120,00</div><button class="add-btn" onclick="add('Lavação Detalhada',120)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Descontaminação de Pintura <span>▼</span></div><div class="service-desc">Remoção de resíduos impregnados.<div class="price">R$ 180,00</div><button class="add-btn" onclick="add('Descontaminação de Pintura',180)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Polimento Técnico <span>▼</span></div><div class="service-desc">Correção de imperfeições da pintura.<div class="price">R$ 300,00</div><button class="add-btn" onclick="add('Polimento Técnico',300)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Polimento de Faróis <span>▼</span></div><div class="service-desc">Restauração de faróis.<div class="price">R$ 80,00</div><button class="add-btn" onclick="add('Polimento de Faróis',80)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Aplicação de Cera <span>▼</span></div><div class="service-desc">Proteção e brilho da pintura.<div class="price">R$ 70,00</div><button class="add-btn" onclick="add('Aplicação de Cera',70)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Aplicação de Selante <span>▼</span></div><div class="service-desc">Proteção sintética de longa duração.<div class="price">R$ 120,00</div><button class="add-btn" onclick="add('Aplicação de Selante',120)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Vitrificação <span>▼</span></div><div class="service-desc">Proteção cerâmica da pintura.<div class="price">R$ 600,00</div><button class="add-btn" onclick="add('Vitrificação',600)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Revitalização de Plásticos <span>▼</span></div><div class="service-desc">Renovação de plásticos externos.<div class="price">R$ 90,00</div><button class="add-btn" onclick="add('Revitalização de Plásticos',90)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Cristalização de Para-brisa <span>▼</span></div><div class="service-desc">Repelência à água no vidro.<div class="price">R$ 100,00</div><button class="add-btn" onclick="add('Cristalização de Para-brisa',100)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Remoção de Chuva Ácida dos Vidros <span>▼</span></div><div class="service-desc">Limpeza profunda dos vidros.<div class="price">R$ 110,00</div><button class="add-btn" onclick="add('Remoção de Chuva Ácida dos Vidros',110)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Higienização Bancos de Couro <span>▼</span></div><div class="service-desc">Limpeza e hidratação dos bancos.<div class="price">R$ 180,00</div><button class="add-btn" onclick="add('Higienização Bancos de Couro',180)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Higienização Automotiva <span>▼</span></div><div class="service-desc">Limpeza completa interna.<div class="price">R$ 150,00</div><button class="add-btn" onclick="add('Higienização Automotiva',150)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Higienização Residencial <span>▼</span></div><div class="service-desc">Sofás, colchões e estofados.<div class="price">R$ 200,00</div><button class="add-btn" onclick="add('Higienização Residencial',200)">Adicionar ao carrinho</button></div></div>
 
-  <p style="margin-top:25px;color:#f5c542;text-align:center;font-size:13px;">Em breve teremos novos procedimentos</p>
-
   <div class="service"><div class="service-title" onclick="toggle(this)">Polimento de Vidros <span>▼</span></div><div class="service-desc">Clareza total dos vidros.<div class="price">R$ 160,00</div><button class="add-btn" onclick="add('Polimento de Vidros',160)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Aplicação de PPF <span>▼</span></div><div class="service-desc">Película de proteção da pintura.<div class="price">R$ 900,00</div><button class="add-btn" onclick="add('Aplicação de PPF',900)">Adicionar ao carrinho</button></div></div>
+
   <div class="service"><div class="service-title" onclick="toggle(this)">Martelinho de Ouro <span>▼</span></div><div class="service-desc">Reparo sem pintura.<div class="price">R$ 150,00</div><button class="add-btn" onclick="add('Martelinho de Ouro',150)">Adicionar ao carrinho</button></div></div>
 
 </section>
 
 <!-- AGENDAMENTO -->
-<section id="agendamento" class="home-theme">
+<section id="agendamento" class="theme">
 
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
 
-  <div class="logo-text">GARAGEM HL</div>
-  <div class="logo-sub" style="margin-bottom:30px;">AUTOMOTIVA</div>
+  <div class="logo-container">
+    <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
+  </div>
 
   <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">💬 Henrique – WhatsApp</button>
   <button class="btn-alt" onclick="window.open('https://wa.me/5547991194498','_blank')">💬 Luan – WhatsApp</button>
