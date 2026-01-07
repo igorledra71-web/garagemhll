@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Garagem HL</title>
+<title>Garagem HL Automotiva</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   margin: 0;
-  background: #0b0b0b;
+  background: linear-gradient(180deg,#050505,#0b0b0b);
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -16,7 +16,7 @@ body {
 section {
   display: none;
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 40px 20px 140px;
 }
 
 #home {
@@ -25,88 +25,3 @@ section {
 
 h1 {
   text-align: center;
-  color: #f5c542;
-}
-
-p {
-  text-align: center;
-  color: #aaaaaa;
-}
-
-button {
-  width: 100%;
-  padding: 24px;
-  margin-top: 20px;
-  font-size: 20px;
-  border: none;
-  border-radius: 16px;
-  font-weight: bold;
-}
-
-.btn-main {
-  background: #f5c542;
-  color: #000;
-}
-
-.btn-alt {
-  background: transparent;
-  border: 2px solid #f5c542;
-  color: #f5c542;
-}
-
-.back {
-  color: #f5c542;
-  margin-bottom: 20px;
-  display: inline-block;
-  font-size: 16px;
-}
-</style>
-</head>
-
-<body>
-
-<!-- HOME -->
-<section id="home">
-  <h1>Garagem HL</h1>
-  <p>Estética Automotiva Premium</p>
-
-  <button class="btn-main" onclick="abrirServicos()">🚗 SERVIÇOS</button>
-  <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
-</section>
-
-<!-- SERVIÇOS -->
-<section id="servicos">
-  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-  <h1>Serviços</h1>
-  <p>Aqui entrarão os serviços</p>
-</section>
-
-<!-- AGENDAMENTO -->
-<section id="agendamento">
-  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-  <h1>Agendamento</h1>
-  <p>Henrique e Luan no WhatsApp</p>
-</section>
-
-<script>
-function abrirServicos() {
-  document.getElementById("home").style.display = "none";
-  document.getElementById("agendamento").style.display = "none";
-  document.getElementById("servicos").style.display = "block";
-}
-
-function abrirAgendamento() {
-  document.getElementById("home").style.display = "none";
-  document.getElementById("servicos").style.display = "none";
-  document.getElementById("agendamento").style.display = "block";
-}
-
-function voltarHome() {
-  document.getElementById("servicos").style.display = "none";
-  document.getElementById("agendamento").style.display = "none";
-  document.getElementById("home").style.display = "block";
-}
-</script>
-
-</body>
-</html>
