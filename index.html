@@ -13,24 +13,25 @@ body{
   font-family:Arial, Helvetica, sans-serif;
 }
 
-/* LOGO EM CÓDIGO */
+/* LOGO */
 .logo{
   text-align:center;
-  margin-bottom:20px;
+  margin-top:30px;
+  margin-bottom:10px;
 }
 
 .logo .hl{
-  font-size:42px;
+  font-size:36px;
   font-weight:900;
   color:#f5c542;
   letter-spacing:2px;
 }
 
 .logo .auto{
-  font-size:14px;
+  font-size:13px;
   color:#aaaaaa;
   letter-spacing:3px;
-  margin-top:-5px;
+  margin-top:-4px;
 }
 
 /* TELAS */
@@ -68,6 +69,19 @@ button{
   margin-bottom:25px;
   display:inline-block;
   font-size:16px;
+}
+
+/* CARRO EM LINHAS */
+.car-line{
+  width:100%;
+  margin:10px 0 10px;
+  text-align:center;
+}
+
+.car-line svg{
+  width:90%;
+  max-width:320px;
+  opacity:0.7;
 }
 
 /* SERVIÇOS */
@@ -155,23 +169,37 @@ button{
 
 <!-- HOME -->
 <section id="home">
+
+  <button class="btn-main" onclick="abrirServicos()">🚗 SERVIÇOS DISPONÍVEIS</button>
+  <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
+
+  <!-- CARRO EM LINHAS -->
+  <div class="car-line">
+    <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 100 C80 40 160 40 240 60 C300 75 360 75 420 90" 
+            fill="none" stroke="#f5c542" stroke-width="2" stroke-dasharray="6,6"/>
+      <circle cx="140" cy="100" r="18" fill="none" stroke="#f5c542" stroke-width="2"/>
+      <circle cx="340" cy="100" r="18" fill="none" stroke="#f5c542" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <!-- LOGO -->
   <div class="logo">
     <div class="hl">GARAGEM HL</div>
     <div class="auto">AUTOMOTIVA</div>
   </div>
 
-  <button class="btn-main" onclick="abrirServicos()">🚗 SERVIÇOS DISPONÍVEIS</button>
-  <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
 </section>
 
 <!-- SERVIÇOS -->
 <section id="servicos">
-  <div class="logo">
-    <div class="hl" style="font-size:26px">GARAGEM HL</div>
-    <div class="auto">AUTOMOTIVA</div>
-  </div>
 
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+
+  <div class="logo" style="margin-bottom:25px;">
+    <div class="hl" style="font-size:26px;">GARAGEM HL</div>
+    <div class="auto">AUTOMOTIVA</div>
+  </div>
 
   <div class="service">
     <div class="service-title" onclick="toggle(this)">Lavação Completa <span>▼</span></div>
@@ -199,16 +227,18 @@ button{
       <button class="add-btn" onclick="add('Higienização Automotiva',150)">Adicionar ao carrinho</button>
     </div>
   </div>
+
 </section>
 
 <!-- AGENDAMENTO -->
 <section id="agendamento">
-  <div class="logo">
-    <div class="hl" style="font-size:26px">GARAGEM HL</div>
-    <div class="auto">AUTOMOTIVA</div>
-  </div>
 
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+
+  <div class="logo" style="margin-bottom:30px;">
+    <div class="hl" style="font-size:26px;">GARAGEM HL</div>
+    <div class="auto">AUTOMOTIVA</div>
+  </div>
 
   <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">
     💬 Henrique – WhatsApp
@@ -217,6 +247,7 @@ button{
   <button class="btn-alt" onclick="window.open('https://wa.me/5547991194498','_blank')">
     💬 Luan – WhatsApp
   </button>
+
 </section>
 
 <!-- CARRINHO -->
@@ -230,15 +261,9 @@ button{
 let cart = [];
 let total = 0;
 
-function abrirServicos(){
-  mostrar("servicos");
-}
-function abrirAgendamento(){
-  mostrar("agendamento");
-}
-function voltarHome(){
-  mostrar("home");
-}
+function abrirServicos(){ mostrar("servicos"); }
+function abrirAgendamento(){ mostrar("agendamento"); }
+function voltarHome(){ mostrar("home"); }
 
 function mostrar(id){
   document.getElementById("home").style.display="none";
