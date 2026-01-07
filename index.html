@@ -9,7 +9,7 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  background:linear-gradient(180deg,#050505,#0f0f0f);
+  background:#0b0b0b;
   color:#fff;
   font-family:Arial,Helvetica,sans-serif;
 }
@@ -18,117 +18,86 @@ body{
 .screen{
   display:none;
   min-height:100vh;
-  padding:24px 16px 140px;
-  animation:fade .3s ease;
-  position:relative;
+  padding:30px 20px 140px;
 }
-@keyframes fade{
-  from{opacity:0;transform:translateY(15px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* FUNDO */
-.bg-car{
-  position:absolute;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(245,197,66,0.04) 0px,
-      rgba(245,197,66,0.04) 1px,
-      transparent 1px,
-      transparent 80px
-    ),
-    url("data:image/svg+xml;utf8,
-    <svg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300'>
-      <rect width='600' height='300' fill='none'/>
-      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'
-        font-family='Arial' font-size='48'
-        fill='none' stroke='%23f5c542' stroke-width='1.2'
-        opacity='0.25'>GARAGEM HL</text>
-      <path d='M60 170 C140 110, 220 110, 300 120 C380 130, 460 130, 540 150'
-        fill='none' stroke='%23f5c542' stroke-width='1' opacity='0.25'/>
-      <circle cx='170' cy='170' r='22' fill='none' stroke='%23f5c542' stroke-width='1' opacity='0.25'/>
-      <circle cx='430' cy='170' r='22' fill='none' stroke='%23f5c542' stroke-width='1' opacity='0.25'/>
-    </svg>");
-  background-size:600px 300px;
-  opacity:0.10;
-  pointer-events:none; /* ISSO GARANTE QUE NÃO BLOQUEIA CLIQUES */
-  z-index:1;
-}
-
-/* CONTEÚDO SEMPRE ACIMA DO FUNDO */
-.content{
-  position:relative;
-  z-index:2;
-}
+.screen.active{display:block}
 
 /* HEADER */
 header{
   text-align:center;
-  margin-bottom:28px;
+  margin-bottom:40px;
 }
-header h1{margin:0;color:#f5c542;font-size:26px}
-header p{margin-top:6px;color:#aaa;font-size:13px}
+header h1{
+  margin:0;
+  color:#f5c542;
+  font-size:30px;
+  letter-spacing:1px;
+}
+header p{
+  margin-top:8px;
+  color:#aaa;
+  font-size:14px;
+}
 
-/* BOTÕES */
+/* BOTÕES PRINCIPAIS */
 .btn-main{
   width:100%;
-  padding:20px;
+  padding:26px;
+  margin-bottom:20px;
   border:none;
-  border-radius:20px;
-  background:linear-gradient(135deg,#f5c542,#ffd86b);
+  border-radius:22px;
+  background:linear-gradient(135deg,#f5c542,#ffdf7e);
   color:#000;
-  font-size:18px;
+  font-size:22px;
   font-weight:bold;
-  margin-bottom:16px;
 }
+
 .btn-alt{
   width:100%;
-  padding:20px;
-  border-radius:20px;
+  padding:26px;
+  border-radius:22px;
   border:2px solid #f5c542;
   background:transparent;
   color:#f5c542;
-  font-size:18px;
-  font-weight:bold;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-/* CARD */
-.card{
-  background:linear-gradient(180deg,#1a1a1a,#121212);
-  border:1px solid #2a2a2a;
-  border-radius:18px;
-  padding:14px;
-}
-.card h3{margin:6px 0;font-size:15px}
-.card p{margin:0 0 8px;font-size:12px;color:#aaa}
-.price{color:#f5c542;font-weight:bold;margin-bottom:8px}
-
-/* BOTÃO ADD */
-.btn{
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:12px;
-  background:#f5c542;
-  color:#000;
+  font-size:22px;
   font-weight:bold;
 }
 
 /* VOLTAR */
 .back{
   color:#f5c542;
-  margin-bottom:16px;
+  margin-bottom:20px;
   display:inline-block;
-  cursor:pointer;
+  font-size:16px;
+}
+
+/* GRID SERVIÇOS */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+/* CARD */
+.card{
+  background:#151515;
+  border-radius:18px;
+  padding:14px;
+  border:1px solid #2a2a2a;
+}
+.card h3{margin:6px 0;font-size:15px}
+.card p{margin:0 0 8px;font-size:12px;color:#aaa}
+.price{color:#f5c542;font-weight:bold;margin-bottom:8px}
+
+/* ADD */
+.btn-add{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#f5c542;
+  color:#000;
+  font-weight:bold;
 }
 
 /* CARRINHO */
@@ -138,11 +107,9 @@ header p{margin-top:6px;color:#aaa;font-size:13px}
   left:12px;
   right:12px;
   background:#000;
-  border:1px solid #222;
   border-radius:18px;
-  padding:12px;
+  padding:14px;
   display:none;
-  z-index:10;
 }
 .cart-item{
   display:flex;
@@ -151,147 +118,15 @@ header p{margin-top:6px;color:#aaa;font-size:13px}
   padding:4px 0;
   border-bottom:1px dashed #333;
 }
-.remove{color:#ff4d4d;cursor:pointer}
+.remove{color:#ff4d4d}
 .whatsapp{
   width:100%;
-  padding:12px;
+  padding:14px;
   background:#25D366;
   border:none;
   border-radius:12px;
   color:#fff;
   font-weight:bold;
-  margin-top:8px;
+  margin-top:10px;
 }
-</style>
-</head>
-
-<body>
-
-<!-- HOME -->
-<div class="screen" id="home" style="display:block">
-  <div class="bg-car"></div>
-  <div class="content">
-    <header>
-      <h1>Garagem HL</h1>
-      <p>Estética Automotiva Premium</p>
-    </header>
-
-    <button class="btn-main" id="btnServices">🚗 Serviços Disponíveis</button>
-    <button class="btn-alt" id="btnBooking">📲 Agendamento</button>
-  </div>
-</div>
-
-<!-- SERVICES -->
-<div class="screen" id="services">
-  <div class="bg-car"></div>
-  <div class="content">
-    <span class="back" id="backHome1">⬅ Voltar</span>
-
-    <div class="grid">
-
-      <div class="card"><h3>Lavação Completa</h3><p>Externa + interna</p><div class="price">R$ 50,00</div><button class="btn add" data-nome="Lavação Completa" data-valor="50">Adicionar</button></div>
-      <div class="card"><h3>Lavação Detalhada</h3><p>Detalhamento premium</p><div class="price">R$ 120,00</div><button class="btn add" data-nome="Lavação Detalhada" data-valor="120">Adicionar</button></div>
-      <div class="card"><h3>Lavação de Motor</h3><p>Limpeza do cofre</p><div class="price">R$ 60,00</div><button class="btn add" data-nome="Lavação de Motor" data-valor="60">Adicionar</button></div>
-      <div class="card"><h3>Descontaminação de Pintura</h3><p>Remove resíduos</p><div class="price">R$ 180,00</div><button class="btn add" data-nome="Descontaminação de Pintura" data-valor="180">Adicionar</button></div>
-      <div class="card"><h3>Polimento de Faróis</h3><p>Restauração</p><div class="price">R$ 80,00</div><button class="btn add" data-nome="Polimento de Faróis" data-valor="80">Adicionar</button></div>
-      <div class="card"><h3>Polimento Técnico</h3><p>Correção de pintura</p><div class="price">R$ 300,00</div><button class="btn add" data-nome="Polimento Técnico" data-valor="300">Adicionar</button></div>
-      <div class="card"><h3>Polimento de Vidros</h3><p>Clareza total</p><div class="price">R$ 160,00</div><button class="btn add" data-nome="Polimento de Vidros" data-valor="160">Adicionar</button></div>
-      <div class="card"><h3>Aplicação de Cera</h3><p>Brilho intenso</p><div class="price">R$ 70,00</div><button class="btn add" data-nome="Aplicação de Cera" data-valor="70">Adicionar</button></div>
-      <div class="card"><h3>Aplicação de Selante</h3><p>Proteção sintética</p><div class="price">R$ 120,00</div><button class="btn add" data-nome="Aplicação de Selante" data-valor="120">Adicionar</button></div>
-      <div class="card"><h3>Vitrificação</h3><p>Proteção cerâmica</p><div class="price">R$ 600,00</div><button class="btn add" data-nome="Vitrificação" data-valor="600">Adicionar</button></div>
-      <div class="card"><h3>Revitalização de Plásticos</h3><p>Renovação externa</p><div class="price">R$ 90,00</div><button class="btn add" data-nome="Revitalização de Plásticos" data-valor="90">Adicionar</button></div>
-      <div class="card"><h3>Remoção de Chuva Ácida</h3><p>Vidros</p><div class="price">R$ 110,00</div><button class="btn add" data-nome="Remoção de Chuva Ácida" data-valor="110">Adicionar</button></div>
-      <div class="card"><h3>Cristalização Para-brisa</h3><p>Repelência água</p><div class="price">R$ 100,00</div><button class="btn add" data-nome="Cristalização Para-brisa" data-valor="100">Adicionar</button></div>
-      <div class="card"><h3>Higienização Bancos de Couro</h3><p>Limpeza + hidratação</p><div class="price">R$ 180,00</div><button class="btn add" data-nome="Higienização Bancos de Couro" data-valor="180">Adicionar</button></div>
-      <div class="card"><h3>Higienização Automotiva</h3><p>Interno completo</p><div class="price">R$ 150,00</div><button class="btn add" data-nome="Higienização Automotiva" data-valor="150">Adicionar</button></div>
-      <div class="card"><h3>Higienização Residencial</h3><p>Sofá, colchão, tapete</p><div class="price">R$ 200,00</div><button class="btn add" data-nome="Higienização Residencial" data-valor="200">Adicionar</button></div>
-      <div class="card"><h3>Aplicação de PPF</h3><p>Película proteção</p><div class="price">R$ 900,00</div><button class="btn add" data-nome="Aplicação de PPF" data-valor="900">Adicionar</button></div>
-      <div class="card"><h3>Martelinho de Ouro</h3><p>Reparo sem pintura</p><div class="price">R$ 150,00</div><button class="btn add" data-nome="Martelinho de Ouro" data-valor="150">Adicionar</button></div>
-
-    </div>
-  </div>
-</div>
-
-<!-- BOOKING -->
-<div class="screen" id="booking">
-  <div class="bg-car"></div>
-  <div class="content">
-    <span class="back" id="backHome2">⬅ Voltar</span>
-
-    <header>
-      <h1>Agendamento</h1>
-      <p>Fale direto conosco no WhatsApp</p>
-    </header>
-
-    <!-- TROQUE PELOS NÚMEROS COMPLETOS -->
-    <button class="btn-main" onclick="window.open('https://wa.me/55XXXXXXXX91','_blank')">
-      💬 Henrique – WhatsApp
-    </button>
-
-    <button class="btn-alt" onclick="window.open('https://wa.me/55XXXXXXXX98','_blank')">
-      💬 Luan – WhatsApp
-    </button>
-  </div>
-</div>
-
-<!-- CART -->
-<div class="cart" id="cart">
-  <div id="items"></div>
-  <strong>Total: R$ <span id="total">0</span></strong>
-  <button class="whatsapp" onclick="finalizar()">Finalizar no WhatsApp</button>
-</div>
-
-<script>
-const home=document.getElementById("home");
-const services=document.getElementById("services");
-const booking=document.getElementById("booking");
-
-function show(t){
-  home.style.display="none";
-  services.style.display="none";
-  booking.style.display="none";
-  t.style.display="block";
-}
-
-document.getElementById("btnServices").onclick=()=>show(services);
-document.getElementById("btnBooking").onclick=()=>show(booking);
-document.getElementById("backHome1").onclick=()=>show(home);
-document.getElementById("backHome2").onclick=()=>show(home);
-
-let cart=[], total=0;
-
-document.querySelectorAll(".add").forEach(btn=>{
-  btn.onclick=()=>{
-    cart.push({n:btn.dataset.nome,v:+btn.dataset.valor});
-    total+=+btn.dataset.valor;
-    render();
-    document.getElementById("cart").style.display="block";
-  };
-});
-
-function render(){
-  const el=document.getElementById("items");
-  el.innerHTML="";
-  cart.forEach((i,idx)=>{
-    el.innerHTML+=`<div class="cart-item">${i.n}<span class="remove" onclick="rem(${idx})">❌</span></div>`;
-  });
-  document.getElementById("total").innerText=total.toFixed(2);
-}
-
-function rem(i){
-  total-=cart[i].v;
-  cart.splice(i,1);
-  render();
-  if(cart.length===0)document.getElementById("cart").style.display="none";
-}
-
-function finalizar(){
-  let msg="Olá, gostaria de contratar:%0A";
-  cart.forEach(i=>msg+=`- ${i.n}%0A`);
-  msg+=`%0ATotal: R$ ${total.toFixed(2)}`;
-  window.open("https://wa.me/55XXXXXXXX91?text="+msg,"_blank");
-}
-</script>
-
-</body>
-</html>
+</
