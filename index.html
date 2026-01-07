@@ -1,116 +1,140 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Garagem HL</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      background: #0b0b0b;
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<meta charset="UTF-8">
+<title>Garagem HL Automotiva</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .screen {
-      display: none;
-      min-height: 100vh;
-      padding: 40px 20px;
-    }
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#0b0b0b;
+  color:#fff;
+  font-family:Arial, Helvetica, sans-serif;
+}
 
-    .active {
-      display: block;
-    }
+/* TELAS */
+.screen{display:none;min-height:100vh;padding:36px 20px 140px}
+.screen.active{display:block}
 
-    h1 {
-      color: #f5c542;
-      text-align: center;
-    }
+/* HEADER */
+header{text-align:center;margin-bottom:42px}
+header h1{margin:0;color:#f5c542;font-size:32px;letter-spacing:1px}
+header p{margin-top:8px;color:#aaa;font-size:14px}
 
-    p {
-      text-align: center;
-      color: #aaa;
-    }
+/* BOTÕES PRINCIPAIS */
+.btn-main{
+  width:100%;
+  padding:28px;
+  margin-bottom:22px;
+  border:none;
+  border-radius:26px;
+  background:linear-gradient(135deg,#f5c542,#ffdf7e);
+  color:#000;
+  font-size:22px;
+  font-weight:bold;
+  box-shadow:0 10px 30px rgba(245,197,66,.35);
+}
 
-    button {
-      width: 100%;
-      padding: 22px;
-      margin-top: 20px;
-      font-size: 20px;
-      border: none;
-      border-radius: 16px;
-      font-weight: bold;
-    }
+.btn-alt{
+  width:100%;
+  padding:28px;
+  border-radius:26px;
+  border:2px solid #f5c542;
+  background:transparent;
+  color:#f5c542;
+  font-size:22px;
+  font-weight:bold;
+}
 
-    .btn-main {
-      background: #f5c542;
-      color: #000;
-    }
+/* VOLTAR */
+.back{
+  color:#f5c542;
+  margin-bottom:24px;
+  display:inline-block;
+  font-size:16px;
+}
 
-    .btn-alt {
-      background: transparent;
-      border: 2px solid #f5c542;
-      color: #f5c542;
-    }
+/* GRID SERVIÇOS */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
 
-    .back {
-      color: #f5c542;
-      margin-bottom: 20px;
-      display: inline-block;
-    }
-  </style>
+/* CARD */
+.card{
+  background:#151515;
+  border-radius:20px;
+  padding:16px;
+  border:1px solid #2a2a2a;
+}
+.card h3{margin:6px 0;font-size:15px}
+.card p{margin:0 0 10px;font-size:12px;color:#aaa}
+.price{color:#f5c542;font-weight:bold;margin-bottom:10px}
+
+/* ADD */
+.btn-add{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#f5c542;
+  color:#000;
+  font-weight:bold;
+}
+
+/* CARRINHO */
+.cart{
+  position:fixed;
+  bottom:12px;
+  left:12px;
+  right:12px;
+  background:#000;
+  border-radius:20px;
+  padding:14px;
+  display:none;
+  border:1px solid #222;
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  padding:6px 0;
+  border-bottom:1px dashed #333;
+}
+.remove{color:#ff4d4d}
+.whatsapp{
+  width:100%;
+  padding:16px;
+  background:#25D366;
+  border:none;
+  border-radius:14px;
+  color:#fff;
+  font-weight:bold;
+  margin-top:12px;
+}
+</style>
 </head>
 
 <body>
 
 <!-- HOME -->
 <div class="screen active" id="home">
-  <h1>Garagem HL</h1>
-  <p>Estética Automotiva Premium</p>
+  <header>
+    <h1>Garagem HL</h1>
+    <p>Estética Automotiva Premium</p>
+  </header>
 
-  <button class="btn-main" id="goServices">🚗 SERVIÇOS</button>
-  <button class="btn-alt" id="goBooking">📲 AGENDAMENTO</button>
+  <button class="btn-main" id="btnServices">🚗 SERVIÇOS DISPONÍVEIS</button>
+  <button class="btn-alt" id="btnBooking">📲 AGENDAMENTO</button>
 </div>
 
 <!-- SERVICES -->
 <div class="screen" id="services">
-  <span class="back" id="back1">⬅ Voltar</span>
-  <h1>Serviços</h1>
-  <p>Aqui vai aparecer sua lista de serviços</p>
-</div>
+  <span class="back" id="backHome1">⬅ Voltar</span>
 
-<!-- BOOKING -->
-<div class="screen" id="booking">
-  <span class="back" id="back2">⬅ Voltar</span>
-  <h1>Agendamento</h1>
-  <p>WhatsApp do Henrique e do Luan</p>
-</div>
+  <div class="grid">
 
-<script>
-  const home = document.getElementById("home");
-  const services = document.getElementById("services");
-  const booking = document.getElementById("booking");
-
-  document.getElementById("goServices").onclick = () => {
-    home.classList.remove("active");
-    services.classList.add("active");
-  };
-
-  document.getElementById("goBooking").onclick = () => {
-    home.classList.remove("active");
-    booking.classList.add("active");
-  };
-
-  document.getElementById("back1").onclick = () => {
-    services.classList.remove("active");
-    home.classList.add("active");
-  };
-
-  document.getElementById("back2").onclick = () => {
-    booking.classList.remove("active");
-    home.classList.add("active");
-  };
-</script>
-
-</body>
-</html>
+    <div class="card"><h3>Lavação Completa</h3><p>Externa + interna</p><div class="price">R$ 50,00</div><button class="btn-add" data-nome="Lavação Completa" data-valor="50">Adicionar</button></di
