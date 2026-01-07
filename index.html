@@ -1,91 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Garagem HL Automotiva</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Garagem HL Automotiva</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      background: #0b0b0b;
-      color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<style>
+body{
+  margin:0;
+  background:#0b0b0b;
+  color:#ffffff;
+  font-family:Arial, Helvetica, sans-serif;
+}
 
-    section {
-      display: none;
-      min-height: 100vh;
-      padding: 40px 20px 120px;
-    }
+section{
+  display:none;
+  min-height:100vh;
+  padding:40px 20px 160px;
+}
 
-    #home {
-      display: block;
-    }
+#home{display:block;}
 
-    h1 {
-      text-align: center;
-      color: #f5c542;
-      font-size: 34px;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
+h1{
+  text-align:center;
+  color:#f5c542;
+  font-size:34px;
+  margin-bottom:10px;
+  letter-spacing:1px;
+}
 
-    p {
-      text-align: center;
-      color: #aaaaaa;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
+p{
+  text-align:center;
+  color:#aaaaaa;
+  font-size:14px;
+  margin-bottom:25px;
+}
 
-    button {
-      width: 100%;
-      padding: 26px;
-      margin-bottom: 20px;
-      font-size: 22px;
-      border: none;
-      border-radius: 22px;
-      font-weight: bold;
-    }
+button{
+  width:100%;
+  padding:26px;
+  margin-bottom:20px;
+  font-size:20px;
+  border:none;
+  border-radius:22px;
+  font-weight:bold;
+}
 
-    .btn-main {
-      background: linear-gradient(135deg, #f5c542, #ffdf7e);
-      color: #000;
-    }
+.btn-main{
+  background:linear-gradient(135deg,#f5c542,#ffdf7e);
+  color:#000;
+}
 
-    .btn-alt {
-      background: transparent;
-      border: 2px solid #f5c542;
-      color: #f5c542;
-    }
+.btn-alt{
+  background:transparent;
+  border:2px solid #f5c542;
+  color:#f5c542;
+}
 
-    .back {
-      color: #f5c542;
-      margin-bottom: 25px;
-      display: inline-block;
-      font-size: 16px;
-    }
+.back{
+  color:#f5c542;
+  margin-bottom:25px;
+  display:inline-block;
+  font-size:16px;
+}
 
-    /* LISTA DE SERVIÇOS */
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+/* SERVIÇOS */
+.service{
+  background:#141414;
+  border:1px solid #2a2a2a;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:16px;
+}
 
-    li {
-      padding: 14px;
-      border-bottom: 1px solid #333;
-      font-size: 15px;
-    }
+.service-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:16px;
+  color:#f5c542;
+  cursor:pointer;
+}
 
-    .destaque {
-      color: #f5c542;
-      text-align: center;
-      margin: 25px 0 10px;
-      font-size: 13px;
-    }
-  </style>
+.service-desc{
+  display:none;
+  margin-top:10px;
+  font-size:13px;
+  color:#cccccc;
+}
+
+.price{
+  color:#ffffff;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.add-btn{
+  margin-top:10px;
+  width:100%;
+  padding:14px;
+  background:#f5c542;
+  color:#000;
+  border:none;
+  border-radius:14px;
+  font-weight:bold;
+}
+
+/* CARRINHO */
+#cart{
+  position:fixed;
+  bottom:10px;
+  left:10px;
+  right:10px;
+  background:#000;
+  border:1px solid #222;
+  border-radius:20px;
+  padding:14px;
+  display:none;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  padding:6px 0;
+  border-bottom:1px dashed #333;
+}
+
+.remove{
+  color:#ff4d4d;
+  cursor:pointer;
+}
+
+.whatsapp{
+  width:100%;
+  padding:16px;
+  background:#25D366;
+  border:none;
+  border-radius:14px;
+  color:#fff;
+  font-weight:bold;
+  margin-top:12px;
+}
+</style>
 </head>
 
 <body>
@@ -103,33 +160,173 @@
 <section id="servicos">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
 
-  <h1>Serviços</h1>
+  <!-- Serviço -->
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Lavação de Motor <span>▼</span></div>
+    <div class="service-desc">
+      Limpeza completa do cofre do motor com produtos específicos.
+      <div class="price">R$ 60,00</div>
+      <button class="add-btn" onclick="add('Lavação de Motor',60)">Adicionar ao carrinho</button>
+    </div>
+  </div>
 
-  <ul>
-    <li>Lavação de Motor</li>
-    <li>Lavação Completa</li>
-    <li>Lavação Detalhada</li>
-    <li>Descontaminação de Pintura</li>
-    <li>Polimento Técnico</li>
-    <li>Polimento de Faróis</li>
-    <li>Aplicação de Cera</li>
-    <li>Aplicação de Selante</li>
-    <li>Vitrificação</li>
-    <li>Revitalização de Plásticos</li>
-    <li>Cristalização de Para-brisa</li>
-    <li>Remoção de Chuva Ácida dos Vidros</li>
-    <li>Higienização em Bancos de Couro</li>
-    <li>Higienização Automotiva</li>
-    <li>Higienização Residencial</li>
-  </ul>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Lavação Completa <span>▼</span></div>
+    <div class="service-desc">
+      Lavagem externa + limpeza interna básica.
+      <div class="price">R$ 50,00</div>
+      <button class="add-btn" onclick="add('Lavação Completa',50)">Adicionar ao carrinho</button>
+    </div>
+  </div>
 
-  <div class="destaque">Em breve teremos novos procedimentos</div>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Lavação Detalhada <span>▼</span></div>
+    <div class="service-desc">
+      Detalhamento completo com foco em acabamento e brilho.
+      <div class="price">R$ 120,00</div>
+      <button class="add-btn" onclick="add('Lavação Detalhada',120)">Adicionar ao carrinho</button>
+    </div>
+  </div>
 
-  <ul>
-    <li>Polimento de Vidros</li>
-    <li>Aplicação de PPF</li>
-    <li>Martelinho de Ouro</li>
-  </ul>
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Descontaminação de Pintura <span>▼</span></div>
+    <div class="service-desc">
+      Remoção de resíduos impregnados na pintura.
+      <div class="price">R$ 180,00</div>
+      <button class="add-btn" onclick="add('Descontaminação de Pintura',180)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Polimento Técnico <span>▼</span></div>
+    <div class="service-desc">
+      Correção de imperfeições e riscos na pintura.
+      <div class="price">R$ 300,00</div>
+      <button class="add-btn" onclick="add('Polimento Técnico',300)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Polimento de Faróis <span>▼</span></div>
+    <div class="service-desc">
+      Restauração de faróis amarelados.
+      <div class="price">R$ 80,00</div>
+      <button class="add-btn" onclick="add('Polimento de Faróis',80)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Aplicação de Cera <span>▼</span></div>
+    <div class="service-desc">
+      Proteção e brilho da pintura.
+      <div class="price">R$ 70,00</div>
+      <button class="add-btn" onclick="add('Aplicação de Cera',70)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Aplicação de Selante <span>▼</span></div>
+    <div class="service-desc">
+      Proteção sintética de longa duração.
+      <div class="price">R$ 120,00</div>
+      <button class="add-btn" onclick="add('Aplicação de Selante',120)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Vitrificação <span>▼</span></div>
+    <div class="service-desc">
+      Proteção cerâmica da pintura.
+      <div class="price">R$ 600,00</div>
+      <button class="add-btn" onclick="add('Vitrificação',600)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Revitalização de Plásticos <span>▼</span></div>
+    <div class="service-desc">
+      Renovação de plásticos externos.
+      <div class="price">R$ 90,00</div>
+      <button class="add-btn" onclick="add('Revitalização de Plásticos',90)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Cristalização de Para-brisa <span>▼</span></div>
+    <div class="service-desc">
+      Repelência à água no vidro.
+      <div class="price">R$ 100,00</div>
+      <button class="add-btn" onclick="add('Cristalização de Para-brisa',100)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Remoção de Chuva Ácida <span>▼</span></div>
+    <div class="service-desc">
+      Limpeza profunda dos vidros.
+      <div class="price">R$ 110,00</div>
+      <button class="add-btn" onclick="add('Remoção de Chuva Ácida',110)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Higienização Bancos de Couro <span>▼</span></div>
+    <div class="service-desc">
+      Limpeza + hidratação dos bancos.
+      <div class="price">R$ 180,00</div>
+      <button class="add-btn" onclick="add('Higienização Bancos de Couro',180)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Higienização Automotiva <span>▼</span></div>
+    <div class="service-desc">
+      Limpeza completa interna.
+      <div class="price">R$ 150,00</div>
+      <button class="add-btn" onclick="add('Higienização Automotiva',150)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Higienização Residencial <span>▼</span></div>
+    <div class="service-desc">
+      Sofás, colchões e estofados.
+      <div class="price">R$ 200,00</div>
+      <button class="add-btn" onclick="add('Higienização Residencial',200)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <p style="margin-top:25px;color:#f5c542;text-align:center;font-size:13px;">
+    Em breve teremos novos procedimentos
+  </p>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Polimento de Vidros <span>▼</span></div>
+    <div class="service-desc">
+      Clareza total dos vidros.
+      <div class="price">R$ 160,00</div>
+      <button class="add-btn" onclick="add('Polimento de Vidros',160)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Aplicação de PPF <span>▼</span></div>
+    <div class="service-desc">
+      Película de proteção da pintura.
+      <div class="price">R$ 900,00</div>
+      <button class="add-btn" onclick="add('Aplicação de PPF',900)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-title" onclick="toggle(this)">Martelinho de Ouro <span>▼</span></div>
+    <div class="service-desc">
+      Reparo sem pintura.
+      <div class="price">R$ 150,00</div>
+      <button class="add-btn" onclick="add('Martelinho de Ouro',150)">Adicionar ao carrinho</button>
+    </div>
+  </div>
+
 </section>
 
 <!-- AGENDAMENTO -->
@@ -148,23 +345,70 @@
   </button>
 </section>
 
+<!-- CARRINHO -->
+<div id="cart">
+  <div id="cartItems"></div>
+  <strong>Total: R$ <span id="total">0</span></strong>
+  <button class="whatsapp" onclick="finalizar()">Finalizar no WhatsApp</button>
+</div>
+
 <script>
+let cart = [];
+let total = 0;
+
 function abrirServicos(){
-  document.getElementById("home").style.display = "none";
-  document.getElementById("agendamento").style.display = "none";
-  document.getElementById("servicos").style.display = "block";
+  document.getElementById("home").style.display="none";
+  document.getElementById("agendamento").style.display="none";
+  document.getElementById("servicos").style.display="block";
 }
 
 function abrirAgendamento(){
-  document.getElementById("home").style.display = "none";
-  document.getElementById("servicos").style.display = "none";
-  document.getElementById("agendamento").style.display = "block";
+  document.getElementById("home").style.display="none";
+  document.getElementById("servicos").style.display="none";
+  document.getElementById("agendamento").style.display="block";
 }
 
 function voltarHome(){
-  document.getElementById("servicos").style.display = "none";
-  document.getElementById("agendamento").style.display = "none";
-  document.getElementById("home").style.display = "block";
+  document.getElementById("servicos").style.display="none";
+  document.getElementById("agendamento").style.display="none";
+  document.getElementById("home").style.display="block";
+}
+
+function toggle(el){
+  const desc = el.nextElementSibling;
+  desc.style.display = desc.style.display === "block" ? "none" : "block";
+}
+
+function add(nome, valor){
+  cart.push({nome, valor});
+  total += valor;
+  renderCart();
+  document.getElementById("cart").style.display="block";
+}
+
+function renderCart(){
+  let html="";
+  cart.forEach((item,index)=>{
+    html += `<div class="cart-item">${item.nome} <span class="remove" onclick="removeItem(${index})">❌</span></div>`;
+  });
+  document.getElementById("cartItems").innerHTML = html;
+  document.getElementById("total").innerText = total.toFixed(2);
+}
+
+function removeItem(i){
+  total -= cart[i].valor;
+  cart.splice(i,1);
+  renderCart();
+  if(cart.length===0){
+    document.getElementById("cart").style.display="none";
+  }
+}
+
+function finalizar(){
+  let msg="Olá, gostaria de contratar:%0A";
+  cart.forEach(i=>msg += "- " + i.nome + "%0A");
+  msg += "%0ATotal: R$ " + total.toFixed(2);
+  window.open("https://wa.me/5549999741891?text="+msg,"_blank");
 }
 </script>
 
