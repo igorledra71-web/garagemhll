@@ -1,148 +1,467 @@
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Garagem HL Estética Automotiva</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#050505 0%,#0f0f0f 100%);
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
 
-/* ====== COLE AQUI SUA firebaseConfig ====== */
-const firebaseConfig = {
- // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+/* SPLASH */
+#splash{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#1a1a1a,#000);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9999;
+  animation:fadeOut 1s ease 2.5s forwards;
+}
+#splash h1{
+  color:#f5c542;
+  font-size:30px;
+  letter-spacing:1px;
+  margin:0;
+  animation:zoomIn .8s ease;
+}
+#splash p{
+  color:#aaa;
+  margin-top:8px;
+  animation:fadeIn 1.2s ease;
+}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCWmDsvkcIUcxcWGgyCQtZeEE2uD_Vabao",
-  authDomain: "igor-13245.firebaseapp.com",
-  projectId: "igor-13245",
-  storageBucket: "igor-13245.firebasestorage.app",
-  messagingSenderId: "30334496242",
-  appId: "1:30334496242:web:5b1bd1e50adc5a2c278f6b",
-  measurementId: "G-QC2VTWT0RX"
-};
+/* SCREENS */
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:24px 16px 140px;
+  animation:slide .35s ease;
+}
+@keyframes slide{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-};
-/* ======================================== */
+header{text-align:center;margin-bottom:24px}
+header h1{margin:0;color:#f5c542;font-size:24px;letter-spacing:.5px}
+header p{margin:6px 0 0;color:#bdbdbd;font-size:13px}
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+/* BUTTONS */
+.btn-main{
+  width:100%;
+  padding:20px;
+  margin-bottom:16px;
+  border:none;
+  border-radius:18px;
+  font-size:18px;
+  font-weight:bold;
+  background:linear-gradient(135deg,#f5c542,#ffd86b);
+  color:#000;
+  box-shadow:0 10px 25px rgba(245,197,66,.35);
+}
+.btn-alt{
+  width:100%;
+  padding:20px;
+  margin-bottom:16px;
+  border:2px solid #f5c542;
+  border-radius:18px;
+  font-size:18px;
+  font-weight:bold;
+  background:transparent;
+  color:#f5c542;
+}
 
-const horariosBase = ["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00"];
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
 
-let carrinho = [];
-let total = 0;
+/* CARD */
+.card{
+  background:linear-gradient(180deg,#1b1b1b,#121212);
+  border:1px solid #2a2a2a;
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 8px 18px rgba(0,0,0,.5);
+  transition:.2s;
+}
+.card:hover{transform:scale(1.02)}
+.card h3{margin:0 0 6px;font-size:15px}
+.card p{margin:0 0 8px;font-size:12px;color:#bdbdbd}
 
-window.openScreen = function(id){
+.icon{
+  width:32px;
+  height:32px;
+  margin-bottom:8px;
+  fill:#f5c542;
+}
+
+.price{color:#f5c542;font-weight:bold;margin-bottom:8px}
+.btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:12px;
+  background:#f5c542;
+  color:#000;
+  font-weight:bold;
+}
+
+/* BACK */
+.back{
+  color:#f5c542;
+  margin-bottom:16px;
+  display:inline-block;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* FORM */
+input,select{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:12px;
+  border:1px solid #333;
+  background:#000;
+  color:#fff;
+  font-size:14px;
+}
+
+/* CART */
+.cart{
+  position:fixed;
+  bottom:12px;
+  left:12px;
+  right:12px;
+  background:linear-gradient(180deg,#000,#0a0a0a);
+  border:1px solid #1f1f1f;
+  border-radius:18px;
+  padding:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.6);
+  display:none;
+  animation:slideUp .3s ease;
+}
+@keyframes slideUp{
+  from{transform:translateY(30px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+.cart-item{
+  font-size:13px;
+  border-bottom:1px dashed #333;
+  padding:6px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.remove{color:#ff4d4d;font-size:16px;cursor:pointer}
+.whatsapp{
+  width:100%;
+  padding:12px;
+  background:#25D366;
+  border:none;
+  border-radius:12px;
+  color:#fff;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+/* FOOTER */
+footer{text-align:center;font-size:12px;color:#777;padding:16px}
+.contact{margin-top:6px}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <h1>Garagem HL</h1>
+  <p>Estética Automotiva Premium</p>
+</div>
+
+<!-- HOME -->
+<div class="screen" id="home" style="display:block">
+  <header>
+    <h1>Garagem HL</h1>
+    <p>Estética Automotiva Premium</p>
+  </header>
+  <button class="btn-main" onclick="openScreen('services')">Serviços Disponíveis</button>
+  <button class="btn-alt" onclick="openScreen('booking')">Agendamento</button>
+</div>
+
+<!-- SERVICES -->
+<div class="screen" id="services">
+  <span class="back" onclick="openScreen('home')">⬅ Voltar</span>
+
+  <div class="grid">
+
+    <!-- Lavação Completa -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C9 6 6 9 6 13a6 6 0 0012 0c0-4-3-7-6-11z"/></svg>
+      <h3>Lavação Completa</h3>
+      <p>Externa + interna</p>
+      <div class="price">R$ 50,00</div>
+      <button class="btn" onclick="add('Lavação Completa',50)">Adicionar</button>
+    </div>
+
+    <!-- Lavação Detalhada -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/></svg>
+      <h3>Lavação Detalhada</h3>
+      <p>Detalhamento premium</p>
+      <div class="price">R$ 120,00</div>
+      <button class="btn" onclick="add('Lavação Detalhada',120)">Adicionar</button>
+    </div>
+
+    <!-- Lavação de Motor -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M5 7h14v10H5z"/><path d="M9 7V5h6v2"/></svg>
+      <h3>Lavação de Motor</h3>
+      <p>Limpeza do cofre</p>
+      <div class="price">R$ 60,00</div>
+      <button class="btn" onclick="add('Lavação de Motor',60)">Adicionar</button>
+    </div>
+
+    <!-- Descontaminação -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 8l8 8"/></svg>
+      <h3>Descontaminação de Pintura</h3>
+      <p>Remove resíduos</p>
+      <div class="price">R$ 180,00</div>
+      <button class="btn" onclick="add('Descontaminação de Pintura',180)">Adicionar</button>
+    </div>
+
+    <!-- Polimento Faróis -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M2 12h4M18 12h4"/></svg>
+      <h3>Polimento de Faróis</h3>
+      <p>Restauração</p>
+      <div class="price">R$ 80,00</div>
+      <button class="btn" onclick="add('Polimento de Faróis',80)">Adicionar</button>
+    </div>
+
+    <!-- Polimento Técnico -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 21l6-6"/><circle cx="15" cy="9" r="5"/></svg>
+      <h3>Polimento Técnico</h3>
+      <p>Correção de pintura</p>
+      <div class="price">R$ 300,00</div>
+      <button class="btn" onclick="add('Polimento Técnico',300)">Adicionar</button>
+    </div>
+
+    <!-- Polimento de Vidros -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 12h16"/></svg>
+      <h3>Polimento de Vidros</h3>
+      <p>Clareza total</p>
+      <div class="price">R$ 160,00</div>
+      <button class="btn" onclick="add('Polimento de Vidros',160)">Adicionar</button>
+    </div>
+
+    <!-- Aplicação de Cera -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 2l4 8H8z"/><path d="M6 14h12v8H6z"/></svg>
+      <h3>Aplicação de Cera</h3>
+      <p>Brilho intenso</p>
+      <div class="price">R$ 70,00</div>
+      <button class="btn" onclick="add('Aplicação de Cera',70)">Adicionar</button>
+    </div>
+
+    <!-- Selante -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M4 12h16"/></svg>
+      <h3>Aplicação de Selante</h3>
+      <p>Proteção sintética</p>
+      <div class="price">R$ 120,00</div>
+      <button class="btn" onclick="add('Aplicação de Selante',120)">Adicionar</button>
+    </div>
+
+    <!-- Vitrificação -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><polygon points="12,2 22,12 12,22 2,12"/></svg>
+      <h3>Vitrificação</h3>
+      <p>Proteção cerâmica</p>
+      <div class="price">R$ 600,00</div>
+      <button class="btn" onclick="add('Vitrificação',600)">Adicionar</button>
+    </div>
+
+    <!-- Revitalização -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 12h16"/></svg>
+      <h3>Revitalização de Plásticos</h3>
+      <p>Renovação externa</p>
+      <div class="price">R$ 90,00</div>
+      <button class="btn" onclick="add('Revitalização de Plásticos',90)">Adicionar</button>
+    </div>
+
+    <!-- Chuva Ácida -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 4l16 16"/><path d="M20 4L4 20"/></svg>
+      <h3>Remoção de Chuva Ácida</h3>
+      <p>Vidros</p>
+      <div class="price">R$ 110,00</div>
+      <button class="btn" onclick="add('Remoção de Chuva Ácida',110)">Adicionar</button>
+    </div>
+
+    <!-- Cristalização -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 2l6 6-6 6-6-6z"/></svg>
+      <h3>Cristalização Para-brisa</h3>
+      <p>Repelência água</p>
+      <div class="price">R$ 100,00</div>
+      <button class="btn" onclick="add('Cristalização Para-brisa',100)">Adicionar</button>
+    </div>
+
+    <!-- Bancos de Couro -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16"/></svg>
+      <h3>Higienização Bancos de Couro</h3>
+      <p>Limpeza + hidratação</p>
+      <div class="price">R$ 180,00</div>
+      <button class="btn" onclick="add('Higienização Bancos de Couro',180)">Adicionar</button>
+    </div>
+
+    <!-- Higienização Automotiva -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M12 3v18"/></svg>
+      <h3>Higienização Automotiva</h3>
+      <p>Interno completo</p>
+      <div class="price">R$ 150,00</div>
+      <button class="btn" onclick="add('Higienização Automotiva',150)">Adicionar</button>
+    </div>
+
+    <!-- Residencial -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 10l9-8 9 8v10H3z"/></svg>
+      <h3>Higienização Residencial</h3>
+      <p>Sofá, colchão, tapete</p>
+      <div class="price">R$ 200,00</div>
+      <button class="btn" onclick="add('Higienização Residencial',200)">Adicionar</button>
+    </div>
+
+    <!-- PPF -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6z"/></svg>
+      <h3>Aplicação de PPF</h3>
+      <p>Película proteção</p>
+      <div class="price">R$ 900,00</div>
+      <button class="btn" onclick="add('Aplicação de PPF',900)">Adicionar</button>
+    </div>
+
+    <!-- Martelinho -->
+    <div class="card">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M2 20l6-6 4 4-6 6z"/><path d="M14 2l8 8-4 4-8-8z"/></svg>
+      <h3>Martelinho de Ouro</h3>
+      <p>Reparo sem pintura</p>
+      <div class="price">R$ 150,00</div>
+      <button class="btn" onclick="add('Martelinho de Ouro',150)">Adicionar</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOOKING -->
+<div class="screen" id="booking">
+  <span class="back" onclick="openScreen('home')">⬅ Voltar</span>
+
+  <header>
+    <h1>Agendamento</h1>
+    <p>Reserve seu horário</p>
+  </header>
+
+  <input type="text" id="nome" placeholder="Seu nome">
+  <label>Data do atendimento</label>
+  <input type="date" id="data">
+  <label>Horário</label>
+  <select id="hora">
+    <option>08:00</option><option>09:00</option><option>10:00</option>
+    <option>11:00</option><option>13:00</option><option>14:00</option>
+    <option>15:00</option><option>16:00</option><option>17:00</option>
+  </select>
+
+  <button class="btn-main" onclick="agendar()">Confirmar Agendamento</button>
+  <p id="msg"></p>
+</div>
+
+<!-- CART -->
+<div class="cart" id="cart">
+  <div id="itens"></div>
+  <div style="margin-top:6px"><strong>Total: R$ <span id="total">0</span></strong></div>
+  <button class="whatsapp" onclick="whats()">Finalizar no WhatsApp</button>
+</div>
+
+<footer>
+  <div class="contact">📞 João – (47) 99119-4498</div>
+  <div class="contact">📞 Marcos – (49) 99974-1891</div>
+  <p>@garagemhl_ot</p>
+</footer>
+
+<script>
+let carrinho=[];
+let total=0;
+
+function openScreen(id){
   document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
-};
+}
 
-window.add = function(nome,valor){
+function add(nome,valor){
   carrinho.push({nome,valor});
-  total += valor;
-  atualizarCarrinho();
+  total+=valor;
+  atualizar();
   document.getElementById("cart").style.display="block";
-};
+}
 
-window.remover = function(i){
-  total -= carrinho[i].valor;
+function remover(i){
+  total-=carrinho[i].valor;
   carrinho.splice(i,1);
-  atualizarCarrinho();
-  if(carrinho.length===0){
+  atualizar();
+  if(carrinho.length==0){
     document.getElementById("cart").style.display="none";
   }
-};
+}
 
-function atualizarCarrinho(){
+function atualizar(){
   let html="";
   carrinho.forEach((item,i)=>{
-    html += `<div class="cart-item">${item.nome} <span class="remove" onclick="remover(${i})">❌</span></div>`;
+    html+=`<div class="cart-item">${item.nome} <span class="remove" onclick="remover(${i})">❌</span></div>`;
   });
-  document.getElementById("itens").innerHTML = html;
-  document.getElementById("total").innerText = total.toFixed(2);
+  document.getElementById("itens").innerHTML=html;
+  document.getElementById("total").innerText=total.toFixed(2);
 }
 
-window.whats = function(){
+function agendar(){
+  let n=document.getElementById("nome").value;
+  let d=document.getElementById("data").value;
+  let h=document.getElementById("hora").value;
+  if(n&&d&&h){
+    document.getElementById("msg").innerText="Agendado para "+d+" às "+h;
+  }else{
+    document.getElementById("msg").innerText="Preencha todos os campos";
+  }
+}
+
+function whats(){
   let texto="Olá, gostaria de agendar:%0A";
-  carrinho.forEach(i=>{ texto += "- "+i.nome+"%0A"; });
-  texto += "%0ATotal: R$ "+total.toFixed(2);
+  carrinho.forEach(i=>{texto+="- "+i.nome+"%0A";});
+  texto+="%0ATotal: R$ "+total.toFixed(2);
   window.open("https://wa.me/5547991194498?text="+texto,"_blank");
-};
-
-/* ====== AGENDAMENTO GLOBAL ====== */
-
-const dataInput = document.getElementById("data");
-const horaSelect = document.getElementById("hora");
-
-dataInput.addEventListener("change", carregarHorarios);
-
-async function carregarHorarios(){
-  const data = dataInput.value;
-  horaSelect.innerHTML = "";
-
-  if(!data){
-    horaSelect.innerHTML = "<option>Selecione a data</option>";
-    return;
-  }
-
-  const ref = doc(db, "reservas", data);
-
-  onSnapshot(ref, (docSnap) => {
-    horaSelect.innerHTML = "";
-    let reservados = [];
-
-    if(docSnap.exists()){
-      reservados = docSnap.data().horarios || [];
-    }
-
-    horariosBase.forEach(h=>{
-      if(!reservados.includes(h)){
-        const opt = document.createElement("option");
-        opt.value = h;
-        opt.textContent = h;
-        horaSelect.appendChild(opt);
-      }
-    });
-
-    if(horaSelect.innerHTML === ""){
-      horaSelect.innerHTML = "<option>Sem horários disponíveis</option>";
-    }
-  });
 }
-
-window.agendar = async function(){
-  const nome = document.getElementById("nome").value;
-  const data = dataInput.value;
-  const hora = horaSelect.value;
-
-  if(!nome || !data || !hora || hora==="Sem horários disponíveis"){
-    document.getElementById("msg").innerText = "Preencha todos os campos corretamente";
-    return;
-  }
-
-  const ref = doc(db, "reservas", data);
-  const snap = await getDoc(ref);
-
-  let horarios = [];
-
-  if(snap.exists()){
-    horarios = snap.data().horarios || [];
-  }
-
-  if(horarios.includes(hora)){
-    document.getElementById("msg").innerText = "Esse horário já foi reservado.";
-    return;
-  }
-
-  horarios.push(hora);
-
-  await setDoc(ref, { horarios });
-
-  document.getElementById("msg").innerText = "Agendado com sucesso para "+data+" às "+hora+" ⏰";
-};
 </script>
 
+</body>
+</html>
