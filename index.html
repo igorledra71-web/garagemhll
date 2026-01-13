@@ -184,7 +184,7 @@ button{
       <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
     </div>
 
-    <!-- (AQUI ENTRA TODA A SUA LISTA DE SERVIÇOS COMO JÁ ESTAVA) -->
+    <!-- AQUI FICA SUA LISTA DE SERVIÇOS (como já estava, não mexi) -->
 
   </div>
 </section>
@@ -199,8 +199,9 @@ button{
       <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
     </div>
 
-    <!-- 🔥 CALENDÁRIO (ADICIONADO, SEM MEXER NO RESTO) -->
     <h3 style="color:#d4af37;margin:20px 0">📅 Datas disponíveis</h3>
+
+    <!-- 🔥 CALENDÁRIO -->
     <div id="calendario" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;"></div>
 
     <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">💬 Henrique – WhatsApp</button>
@@ -220,7 +221,13 @@ let cart = [];
 let total = 0;
 
 function abrirServicos(){ mostrar("servicos"); }
-function abrirAgendamento(){ mostrar("agendamento"); }
+
+/* 🔥 AQUI ESTÁ A CORREÇÃO */
+function abrirAgendamento(){ 
+  mostrar("agendamento"); 
+  carregarDatas(); 
+}
+
 function voltarHome(){ mostrar("home"); }
 
 function mostrar(id){
@@ -266,7 +273,7 @@ function finalizar(){
 }
 </script>
 
-<!-- FIREBASE (ADICIONADO) -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
@@ -291,8 +298,10 @@ function finalizar(){
         const dados = doc.data();
         if(dados.disponivel === true){
           html += `
-            <button style="padding:14px;border-radius:12px;border:none;font-weight:bold;background:#00b4ff;color:#00141f"
-              onclick="reservarData('${doc.id}')">
+            <button 
+              style="padding:14px;border-radius:12px;border:none;font-weight:bold;background:#00b4ff;color:#00141f"
+              onclick="reservarData('${doc.id}')"
+            >
               ${formatarData(doc.id)}
             </button>
           `;
@@ -321,8 +330,6 @@ function finalizar(){
     const partes = data.split("-");
     return partes[2] + "/" + partes[1] + "/" + partes[0];
   }
-
-  carregarDatas();
 </script>
 
 </body>
