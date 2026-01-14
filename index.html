@@ -7,108 +7,47 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  background:#0b0b0b;
-  color:#fff;
-  font-family:Arial, Helvetica, sans-serif;
-  min-height:100vh;
-}
+body{background:#0b0b0b;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
 
 /* TELAS */
-section{
-  display:none;
-  min-height:100vh;
-  padding:30px 20px 140px;
-}
+section{display:none;min-height:100vh;padding:30px 20px 140px}
 #home{display:block}
 
 /* CONTAINER */
-.app-container{
-  max-width:480px;
-  margin:auto;
-  text-align:center;
-}
+.app-container{max-width:480px;margin:auto;text-align:center}
 
 /* LOGO */
-.logo-container{
-  margin:20px auto;
-}
-.logo-container img{
-  width:100%;
-  max-width:380px;
-  display:block;
-  margin:auto;
-}
-.slogan{
-  color:#d4af37;
-  letter-spacing:2px;
-  font-size:14px;
-}
+.logo-container{margin:20px auto}
+.logo-container img{width:100%;max-width:380px;display:block;margin:auto}
+.slogan{color:#d4af37;letter-spacing:2px;font-size:14px}
 
 /* BOTÕES */
-button{
-  width:100%;
-  padding:20px;
-  margin:18px 0;
-  border:none;
-  border-radius:18px;
-  font-size:18px;
-  font-weight:bold;
-}
-.btn-main{
-  background:linear-gradient(135deg,#00b4ff,#5fd1ff);
-  color:#00141f;
-}
-.btn-alt{
-  background:transparent;
-  border:2px solid #00b4ff;
-  color:#00b4ff;
-}
+button{width:100%;padding:20px;margin:18px 0;border:none;border-radius:18px;font-size:18px;font-weight:bold}
+.btn-main{background:linear-gradient(135deg,#00b4ff,#5fd1ff);color:#00141f}
+.btn-alt{background:transparent;border:2px solid #00b4ff;color:#00b4ff}
 
 /* VOLTAR */
-.back{
-  display:inline-block;
-  margin-bottom:20px;
-  color:#d4af37;
-  font-size:15px;
-  cursor:pointer;
+.back{display:inline-block;margin-bottom:20px;color:#d4af37;font-size:15px;cursor:pointer}
+
+/* INPUT BUSCA */
+.search-input{
+  width:100%;padding:14px;border-radius:12px;border:1px solid #333;
+  background:#111;color:#fff;margin-top:30px
 }
 
 /* CARRINHO */
-#cart{
-  position:fixed;
-  bottom:10px;
-  left:10px;
-  right:10px;
-  background:#000;
-  border:1px solid #222;
-  border-radius:16px;
-  padding:12px;
-  display:none;
-  z-index:10;
-}
-.cart-item{
-  display:flex;
-  justify-content:space-between;
-  padding:6px 0;
-  font-size:13px;
-  border-bottom:1px dashed #333;
-}
-.remove{
-  color:#ff4d4d;
-  cursor:pointer;
-}
-.whatsapp{
-  width:100%;
-  padding:14px;
-  background:#25D366;
-  border:none;
-  border-radius:12px;
-  color:#fff;
-  font-weight:bold;
-  margin-top:10px;
-}
+#cart{position:fixed;bottom:10px;left:10px;right:10px;background:#000;border:1px solid #222;border-radius:16px;padding:12px;display:none;z-index:10}
+.cart-item{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px dashed #333}
+.remove{color:#ff4d4d;cursor:pointer}
+.whatsapp{width:100%;padding:14px;background:#25D366;border:none;border-radius:12px;color:#fff;font-weight:bold;margin-top:10px}
+
+/* CARDS */
+.card{background:#141414;padding:12px;border-radius:12px;margin-bottom:12px}
+.badge{display:inline-block;margin:4px;padding:6px 10px;background:#00b4ff;color:#000;border-radius:8px}
+.badge .x{margin-left:6px;cursor:pointer;color:red}
+.small-btn{padding:8px 10px;border-radius:10px;border:none;background:#00b4ff;color:#00141f;margin:6px 6px 0 0}
+.small-btn.red{background:#ff4d4d;color:#fff}
+.small-btn.gray{background:#444;color:#fff}
 </style>
 </head>
 <body>
@@ -116,46 +55,56 @@ button{
 <!-- HOME -->
 <section id="home">
   <div class="app-container">
-
     <div class="logo-container">
       <img src="logo-garagem-hl.png" alt="Garagem HL">
     </div>
-
     <div class="slogan">ESTÉTICA AUTOMOTIVA</div>
 
     <button class="btn-main" onclick="abrirServicos()">🚿 SERVIÇOS DISPONÍVEIS</button>
     <button class="btn-alt" onclick="abrirAgendamento()">📅 AGENDAMENTO</button>
 
+    <!-- Barra de busca para acesso ADMIN -->
+    <input id="buscaAdmin" class="search-input" type="text" placeholder="Pesquisar..." oninput="verificarAdmin()">
   </div>
 </section>
 
 <!-- SERVIÇOS -->
 <section id="servicos">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-
   <div class="app-container">
     <h2 style="color:#d4af37;margin-bottom:20px">Serviços</h2>
-
     <button class="btn-main" onclick="add('Lavagem Simples',30)">Lavagem Simples - R$30</button>
     <button class="btn-main" onclick="add('Lavagem Completa',50)">Lavagem Completa - R$50</button>
     <button class="btn-main" onclick="add('Polimento',150)">Polimento - R$150</button>
     <button class="btn-main" onclick="add('Higienização Interna',120)">Higienização Interna - R$120</button>
-
   </div>
 </section>
 
 <!-- AGENDAMENTO -->
 <section id="agendamento">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-
   <div class="app-container">
     <h2 style="color:#d4af37;margin-bottom:20px">Agendamento</h2>
 
     <!-- CALENDÁRIO -->
-    <div id="calendario" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px"></div>
+    <div id="calendario"></div>
 
     <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">Henrique - WhatsApp</button>
     <button class="btn-alt" onclick="window.open('https://wa.me/5547991194498','_blank')">Luan - WhatsApp</button>
+  </div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin">
+  <span class="back" onclick="voltarHome()">⬅ Voltar</span>
+  <div class="app-container">
+    <h2 style="color:#d4af37;margin-bottom:20px">Painel Administrativo</h2>
+
+    <div id="listaReservas"></div>
+
+    <button class="btn-main" onclick="resetarAgenda()">♻ Resetar Agenda</button>
+
+    <div id="historicoAtendimentos" style="margin-top:30px"></div>
   </div>
 </section>
 
@@ -166,58 +115,73 @@ button{
   <button class="whatsapp" onclick="finalizar()">Finalizar no WhatsApp</button>
 </div>
 <script>
+/* ================== ESTADO ================== */
 let cart = [];
 let total = 0;
+const SENHA_ADMIN = "1234";
+let HORARIOS_PADRAO = ["09:00","10:30","13:30","15:00","16:30"];
 
-function abrirServicos(){mostrar('servicos')}
-function voltarHome(){mostrar('home')}
-
-/* 🔥 AGENDAMENTO COM AUTO GERAÇÃO */
+/* ================== NAVEGAÇÃO ================== */
+function mostrar(id){
+  ["home","servicos","agendamento","admin"].forEach(s=>{
+    document.getElementById(s).style.display="none";
+  });
+  document.getElementById(id).style.display="block";
+}
+function abrirServicos(){mostrar("servicos")}
+function voltarHome(){mostrar("home")}
 function abrirAgendamento(){
-  mostrar('agendamento');
+  mostrar("agendamento");
   gerarDatasAutomaticas();
   carregarDatas();
 }
 
-function mostrar(id){
-  document.getElementById('home').style.display='none';
-  document.getElementById('servicos').style.display='none';
-  document.getElementById('agendamento').style.display='none';
-  document.getElementById(id).style.display='block';
+/* ================== ADMIN VIA BUSCA ================== */
+function verificarAdmin(){
+  const v = document.getElementById("buscaAdmin").value.toLowerCase();
+  if(v === "admin"){
+    const senha = prompt("Digite a senha de administrador:");
+    document.getElementById("buscaAdmin").value = "";
+    if(senha === SENHA_ADMIN){
+      mostrar("admin");
+      carregarReservasAdmin();
+    } else {
+      alert("Senha incorreta");
+    }
+  }
 }
 
+/* ================== CARRINHO ================== */
 function add(nome,valor){
   cart.push({nome,valor});
   total+=valor;
   renderCart();
-  document.getElementById('cart').style.display='block';
+  document.getElementById("cart").style.display="block";
 }
-
 function renderCart(){
-  let h='';
+  let h="";
   cart.forEach((i,n)=>{
     h+=`<div class="cart-item">${i.nome}<span class="remove" onclick="removeItem(${n})">❌</span></div>`;
   });
-  document.getElementById('cartItems').innerHTML=h;
-  document.getElementById('total').innerText=total.toFixed(2);
+  document.getElementById("cartItems").innerHTML=h;
+  document.getElementById("total").innerText=total.toFixed(2);
 }
-
 function removeItem(i){
   total-=cart[i].valor;
   cart.splice(i,1);
   renderCart();
-  if(cart.length===0)document.getElementById('cart').style.display='none';
+  if(cart.length===0)document.getElementById("cart").style.display="none";
 }
-
 function finalizar(){
   let msg="Olá, gostaria de contratar:%0A";
   cart.forEach(i=>msg+="- "+i.nome+"%0A");
   msg+="%0ATotal: R$ "+total.toFixed(2);
   window.open("https://wa.me/5549999741891?text="+msg,"_blank");
 }
+
+/* ================== FIREBASE ================== */
 </script>
 
-<!-- FIREBASE REALTIME -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -231,11 +195,16 @@ const firebaseConfig = {
   messagingSenderId: "1050652036484",
   appId: "1:1050652036484:web:3a053bcbbc610038a921d1"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-/* 🔥 MODO 1 - GERA DATAS AUTOMATICAMENTE */
+/* ================== UTIL ================== */
+function formatarData(data){
+  const p=data.split("-");
+  return p[2]+"/"+p[1]+"/"+p[0];
+}
+
+/* ================== MODO AUTOMÁTICO (GERA DATAS) ================== */
 function gerarDatasAutomaticas(){
   const hoje=new Date();
   const ref=db.ref("datas_disponiveis");
@@ -247,58 +216,157 @@ function gerarDatasAutomaticas(){
     const ano=d.getFullYear();
     const mes=String(d.getMonth()+1).padStart(2,"0");
     const dia=String(d.getDate()).padStart(2,"0");
-
     const data=`${ano}-${mes}-${dia}`;
 
     ref.child(data).once("value",snap=>{
       if(!snap.exists()){
-        ref.child(data).set({disponivel:true});
+        ref.child(data).set({
+          limite: 3,
+          horarios: HORARIOS_PADRAO,
+          reservas: {}
+        });
       }
     });
   }
 }
 
-/* 🔥 CARREGA CALENDÁRIO */
+/* ================== CLIENTE: LISTA HORÁRIOS ================== */
 function carregarDatas(){
   const ref=db.ref("datas_disponiveis");
 
-  ref.on("value",snapshot=>{
+  ref.on("value", snapshot=>{
     const dados=snapshot.val();
     let html="";
 
     if(dados){
       for(let data in dados){
-        if(dados[data].disponivel===true){
-          html+=`
-            <button
-              style="padding:14px;border-radius:12px;border:none;font-weight:bold;background:#00b4ff;color:#00141f"
-              onclick="reservarData('${data}')"
-            >
-              ${formatarData(data)}
-            </button>
-          `;
+        const dia=dados[data];
+        const reservas=dia.reservas||{};
+        const horariosDia=dia.horarios||[];
+        const totalReservas=Object.keys(reservas).length;
+
+        if(totalReservas < dia.limite){
+          html+=`<div class="card">
+                   <strong style="color:#d4af37">${formatarData(data)}</strong><br>`;
+          horariosDia.forEach(h=>{
+            if(!reservas[h]){
+              html+=`<button class="small-btn" onclick="reservarHorario('${data}','${h}')">${h}</button>`;
+            }
+          });
+          html+=`</div>`;
         }
       }
     }
-
-    if(html===""){
-      html="<p style='color:#aaa;text-align:center'>Nenhuma data disponível</p>";
-    }
-
+    if(html==="") html="<p style='color:#aaa;text-align:center'>Nenhum horário disponível</p>";
     document.getElementById("calendario").innerHTML=html;
   });
 }
 
-function reservarData(data){
-  if(confirm("Confirmar reserva para "+formatarData(data)+"?")){
-    db.ref("datas_disponiveis/"+data).update({disponivel:false});
-    alert("✅ Data reservada com sucesso!");
+/* ================== RESERVA + HISTÓRICO + WHATS ================== */
+function reservarHorario(data,hora){
+  const nome=prompt("Digite seu nome:");
+  if(!nome) return;
+
+  if(confirm(`Confirmar reserva em ${formatarData(data)} às ${hora}?`)){
+    db.ref(`datas_disponiveis/${data}/reservas/${hora}`).set({cliente:nome});
+    db.ref(`historico/${data}_${hora}`).set({cliente:nome,data:data,hora:hora});
+
+    const msg=`Olá, agendei um horário na Garagem HL 🚗%0AData: ${formatarData(data)}%0AHora: ${hora}%0ANome: ${nome}`;
+    window.open("https://wa.me/5549999741891?text="+msg,"_blank");
+    alert("✅ Reserva confirmada!");
   }
 }
 
-function formatarData(data){
-  const p=data.split("-");
-  return p[2]+"/"+p[1]+"/"+p[0];
+/* ================== ADMIN: LISTA / EDITA ================== */
+function carregarReservasAdmin(){
+  const ref=db.ref("datas_disponiveis");
+
+  ref.on("value", snapshot=>{
+    const dados=snapshot.val();
+    let html="";
+
+    if(dados){
+      for(let data in dados){
+        const dia=dados[data];
+        const reservas=dia.reservas||{};
+        const horariosDia=dia.horarios||[];
+
+        html+=`<div class="card">
+                 <strong>${formatarData(data)}</strong><br>
+                 Limite: ${dia.limite}
+                 <button class="small-btn gray" onclick="alterarLimite('${data}')">Alterar Limite</button>
+
+                 <div style="margin-top:10px"><strong>Horários:</strong><br>`;
+        horariosDia.forEach(h=>{
+          html+=`<span class="badge">${h}<span class="x" onclick="removerHorario('${data}','${h}')">✖</span></span>`;
+        });
+        html+=`<div><button class="small-btn" onclick="adicionarHorario('${data}')">➕ Adicionar Horário</button></div></div>
+
+               <div style="margin-top:10px"><strong>Reservas:</strong><br>`;
+        for(let hora in reservas){
+          html+=`<div style="margin-top:6px">
+                   ${hora} - ${reservas[hora].cliente}
+                   <button class="small-btn red" onclick="liberarHorario('${data}','${hora}')">Liberar</button>
+                 </div>`;
+        }
+        html+=`</div></div>`;
+      }
+    }
+    document.getElementById("listaReservas").innerHTML=html;
+  });
+
+  carregarHistorico();
+}
+
+/* ================== ADMIN: AÇÕES ================== */
+function liberarHorario(data,hora){
+  db.ref(`datas_disponiveis/${data}/reservas/${hora}`).remove();
+}
+function alterarLimite(data){
+  const novo=prompt("Novo limite de vagas para este dia:");
+  if(novo){
+    db.ref(`datas_disponiveis/${data}`).update({limite:parseInt(novo)});
+  }
+}
+function adicionarHorario(data){
+  const novo=prompt("Digite o novo horário (ex: 18:00):");
+  if(novo){
+    db.ref(`datas_disponiveis/${data}/horarios`).once("value",snap=>{
+      let arr=snap.val()||[];
+      arr.push(novo);
+      db.ref(`datas_disponiveis/${data}`).update({horarios:arr});
+    });
+  }
+}
+function removerHorario(data,hora){
+  db.ref(`datas_disponiveis/${data}/horarios`).once("value",snap=>{
+    let arr=snap.val()||[];
+    arr=arr.filter(h=>h!==hora);
+    db.ref(`datas_disponiveis/${data}`).update({horarios:arr});
+  });
+}
+function resetarAgenda(){
+  if(confirm("Tem certeza que deseja resetar toda a agenda?")){
+    db.ref("datas_disponiveis").remove();
+    db.ref("historico").remove();
+    alert("Agenda e histórico resetados!");
+  }
+}
+
+/* ================== HISTÓRICO ================== */
+function carregarHistorico(){
+  const ref=db.ref("historico");
+  ref.on("value", snap=>{
+    const dados=snap.val();
+    let html="<h3 style='color:#d4af37'>Histórico</h3>";
+    if(dados){
+      for(let id in dados){
+        const r=dados[id];
+        html+=`<div style="font-size:13px;margin-top:6px">${formatarData(r.data)} ${r.hora} - ${r.cliente}</div>`;
+      }
+    }
+    document.getElementById("historicoAtendimentos").innerHTML=html;
+  });
 }
 </script>
 
