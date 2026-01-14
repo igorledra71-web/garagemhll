@@ -32,10 +32,10 @@ section{display:none;min-height:100vh;padding:30px 20px 160px}
 .main-btn{
   width:100%;
   padding:18px;
-  margin:16px 0;
+  margin:14px 0;
   border:none;
   border-radius:16px;
-  font-size:17px;
+  font-size:16px;
   font-weight:600;
   background:linear-gradient(135deg,#00b4ff,#0077ff);
   color:#fff;
@@ -44,7 +44,7 @@ section{display:none;min-height:100vh;padding:30px 20px 160px}
 .alt-btn{
   width:100%;
   padding:16px;
-  margin:14px 0;
+  margin:12px 0;
   border-radius:16px;
   background:transparent;
   border:2px solid #00b4ff;
@@ -115,6 +115,7 @@ input{
   border-top:1px solid #222;
   padding:12px;
   z-index:99;
+  display:none;
 }
 .cart-item{
   display:flex;
@@ -137,7 +138,7 @@ input{
     </div>
     <div class="slogan">ESTÉTICA AUTOMOTIVA</div>
 
-    <button class="main-btn" onclick="abrirServicos()">🚿 SERVIÇOS</button>
+    <button class="main-btn" onclick="abrirServicos()">🚗 SERVIÇOS</button>
 
     <!-- Acesso ADMIN -->
     <input id="buscaAdmin" class="search-input" type="text" placeholder="Pesquisar..." oninput="verificarAdmin()">
@@ -148,6 +149,7 @@ input{
 <section id="servicos">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
   <div class="app-container">
+
     <h2 style="color:#d4af37;margin-bottom:20px">Serviços</h2>
 
     <!-- LAVAÇÃO -->
@@ -156,6 +158,7 @@ input{
       <button class="main-btn" onclick="add('Lavagem Simples',30)">Lavagem Simples - R$30</button>
       <button class="main-btn" onclick="add('Lavagem Completa',50)">Lavagem Completa - R$50</button>
       <button class="main-btn" onclick="add('Lavagem Técnica',70)">Lavagem Técnica - R$70</button>
+      <button class="main-btn" onclick="add('Lavagem de Motor',60)">Lavagem de Motor - R$60</button>
     </div>
 
     <!-- ESTÉTICA -->
@@ -165,6 +168,7 @@ input{
       <button class="main-btn" onclick="add('Polimento Técnico',250)">Polimento Técnico - R$250</button>
       <button class="main-btn" onclick="add('Cristalização de Pintura',180)">Cristalização de Pintura - R$180</button>
       <button class="main-btn" onclick="add('Vitrificação',350)">Vitrificação - R$350</button>
+      <button class="main-btn" onclick="add('Revitalização de Faróis',70)">Revitalização de Faróis - R$70</button>
     </div>
 
     <!-- INTERNA -->
@@ -174,26 +178,36 @@ input{
       <button class="main-btn" onclick="add('Higienização de Bancos',90)">Higienização de Bancos - R$90</button>
       <button class="main-btn" onclick="add('Higienização de Teto',80)">Higienização de Teto - R$80</button>
       <button class="main-btn" onclick="add('Higienização de Carpetes',70)">Higienização de Carpetes - R$70</button>
+      <button class="main-btn" onclick="add('Higienização de Painel',50)">Higienização de Painel - R$50</button>
     </div>
 
-    <!-- MOTOR -->
+    <!-- PROTEÇÃO -->
     <div class="card">
-      <strong>Motor</strong><br>
-      <button class="main-btn" onclick="add('Limpeza de Motor',60)">Limpeza de Motor - R$60</button>
-      <button class="main-btn" onclick="add('Detalhamento de Motor',120)">Detalhamento de Motor - R$120</button>
+      <strong>Proteção</strong><br>
+      <button class="main-btn" onclick="add('Enceramento',40)">Enceramento - R$40</button>
+      <button class="main-btn" onclick="add('Selagem de Pintura',120)">Selagem de Pintura - R$120</button>
+      <button class="main-btn" onclick="add('Impermeabilização de Bancos',150)">Impermeabilização de Bancos - R$150</button>
     </div>
 
     <!-- ADICIONAIS -->
     <div class="card">
       <strong>Adicionais</strong><br>
       <button class="main-btn" onclick="add('Revitalização de Plásticos',50)">Revitalização de Plásticos - R$50</button>
-      <button class="main-btn" onclick="add('Revitalização de Faróis',70)">Revitalização de Faróis - R$70</button>
-      <button class="main-btn" onclick="add('Enceramento',40)">Enceramento - R$40</button>
+      <button class="main-btn" onclick="add('Limpeza de Ar Condicionado',80)">Limpeza de Ar Condicionado - R$80</button>
+      <button class="main-btn" onclick="add('Detalhamento de Rodas',60)">Detalhamento de Rodas - R$60</button>
     </div>
 
   </div>
 </section>
 
+<!-- AGENDAMENTO -->
+<section id="agendamento">
+  <span class="back" onclick="voltarServicos()">⬅ Voltar</span>
+  <div class="app-container">
+    <h2 style="color:#d4af37;margin-bottom:20px">Escolha Data e Horário</h2>
+    <div id="calendario"></div>
+  </div>
+</section>
 
 <!-- ADMIN -->
 <section id="admin">
@@ -206,16 +220,13 @@ input{
     <button class="main-btn" onclick="abrirBloco('blocoReservas')">👀 Ver Reservas</button>
     <button class="main-btn" onclick="resetarAgenda()">♻ Resetar Agenda</button>
 
-    <!-- BLOCO HORÁRIOS -->
     <div id="blocoHorarios" style="display:none"></div>
-
-    <!-- BLOCO RESERVAS -->
     <div id="blocoReservas" style="display:none"></div>
   </div>
 </section>
 
 <!-- CARRINHO -->
-<div id="cart" style="display:none">
+<div id="cart">
   <div id="cartItems"></div>
   <div class="total">Total: R$ <span id="total">0</span></div>
   <button class="main-btn" onclick="irParaAgendamento()">📅 Agendar Horário</button>
@@ -299,7 +310,7 @@ function removeItem(i){
   }
 }
 
-/* ===== CLIENTE: LISTA DATAS E HORÁRIOS ===== */
+/* ===== CLIENTE: DATAS E HORÁRIOS ===== */
 function formatarData(data){
   const p = data.split("-");
   return p[2]+"/"+p[1]+"/"+p[0];
@@ -361,7 +372,7 @@ function confirmarAgendamento(data,hora){
   }
 }
 
-/* ===== ADMIN: EDITAR HORÁRIOS DAS DATAS EXISTENTES ===== */
+/* ===== ADMIN: EDITAR HORÁRIOS ===== */
 function abrirBloco(id){
   ["blocoHorarios","blocoReservas"].forEach(b=>{
     document.getElementById(b).style.display="none";
