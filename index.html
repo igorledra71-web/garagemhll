@@ -6,31 +6,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  width:100%;
-  min-height:100vh;
   background:#0b0b0b;
+  color:#fff;
   font-family:Arial, Helvetica, sans-serif;
-  color:#ffffff;
+  min-height:100vh;
 }
 
 /* TELAS */
 section{
   display:none;
   min-height:100vh;
-  padding:30px 20px 160px;
+  padding:30px 20px 140px;
 }
-#home{ display:block; }
+#home{display:block}
 
-/* CONTAINER APP */
+/* CONTAINER */
 .app-container{
-  width:100%;
   max-width:480px;
   margin:auto;
   text-align:center;
@@ -38,31 +32,28 @@ section{
 
 /* LOGO */
 .logo-container{
-  width:100%;
-  margin:20px auto 10px;
+  margin:20px auto;
 }
 .logo-container img{
   width:100%;
-  max-width:400px;
-  height:auto;
+  max-width:380px;
   display:block;
-  margin:0 auto;
+  margin:auto;
 }
 .slogan{
   color:#d4af37;
-  font-size:14px;
   letter-spacing:2px;
-  margin-top:10px;
+  font-size:14px;
 }
 
 /* BOTÕES */
 button{
   width:100%;
-  padding:22px;
+  padding:20px;
   margin:18px 0;
-  font-size:18px;
   border:none;
   border-radius:18px;
+  font-size:18px;
   font-weight:bold;
 }
 .btn-main{
@@ -77,47 +68,11 @@ button{
 
 /* VOLTAR */
 .back{
-  color:#d4af37;
-  margin-bottom:20px;
   display:inline-block;
-  font-size:15px;
-}
-
-/* SERVIÇOS */
-.service{
-  background:#141414;
-  border:1px solid #2a2a2a;
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:14px;
-}
-.service-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:15px;
+  margin-bottom:20px;
   color:#d4af37;
+  font-size:15px;
   cursor:pointer;
-}
-.service-desc{
-  display:none;
-  margin-top:10px;
-  font-size:13px;
-  color:#cccccc;
-}
-.price{
-  margin-top:6px;
-  font-weight:bold;
-}
-.add-btn{
-  margin-top:10px;
-  width:100%;
-  padding:12px;
-  background:#d4af37;
-  color:#000;
-  border:none;
-  border-radius:12px;
-  font-weight:bold;
 }
 
 /* CARRINHO */
@@ -136,8 +91,8 @@ button{
 .cart-item{
   display:flex;
   justify-content:space-between;
+  padding:6px 0;
   font-size:13px;
-  padding:5px 0;
   border-bottom:1px dashed #333;
 }
 .remove{
@@ -163,13 +118,13 @@ button{
   <div class="app-container">
 
     <div class="logo-container">
-      <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
+      <img src="logo-garagem-hl.png" alt="Garagem HL">
     </div>
 
     <div class="slogan">ESTÉTICA AUTOMOTIVA</div>
 
     <button class="btn-main" onclick="abrirServicos()">🚿 SERVIÇOS DISPONÍVEIS</button>
-    <button class="btn-alt" onclick="abrirAgendamento()">📲 AGENDAMENTO</button>
+    <button class="btn-alt" onclick="abrirAgendamento()">📅 AGENDAMENTO</button>
 
   </div>
 </section>
@@ -179,12 +134,12 @@ button{
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
 
   <div class="app-container">
+    <h2 style="color:#d4af37;margin-bottom:20px">Serviços</h2>
 
-    <div class="logo-container">
-      <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
-    </div>
-
-    <!-- AQUI FICA SUA LISTA DE SERVIÇOS (como já estava, não mexi) -->
+    <button class="btn-main" onclick="add('Lavagem Simples',30)">Lavagem Simples - R$30</button>
+    <button class="btn-main" onclick="add('Lavagem Completa',50)">Lavagem Completa - R$50</button>
+    <button class="btn-main" onclick="add('Polimento',150)">Polimento - R$150</button>
+    <button class="btn-main" onclick="add('Higienização Interna',120)">Higienização Interna - R$120</button>
 
   </div>
 </section>
@@ -194,19 +149,13 @@ button{
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
 
   <div class="app-container">
+    <h2 style="color:#d4af37;margin-bottom:20px">Agendamento</h2>
 
-    <div class="logo-container">
-      <img src="logo-garagem-hl.png" alt="Garagem HL Estética Automotiva">
-    </div>
+    <!-- CALENDÁRIO -->
+    <div id="calendario" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px"></div>
 
-    <h3 style="color:#d4af37;margin:20px 0">📅 Datas disponíveis</h3>
-
-    <!-- 🔥 CALENDÁRIO -->
-    <div id="calendario" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;"></div>
-
-    <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">💬 Henrique – WhatsApp</button>
-    <button class="btn-alt" onclick="window.open('https://wa.me/5547991194498','_blank')">💬 Luan – WhatsApp</button>
-
+    <button class="btn-main" onclick="window.open('https://wa.me/5549999741891','_blank')">Henrique - WhatsApp</button>
+    <button class="btn-alt" onclick="window.open('https://wa.me/5547991194498','_blank')">Luan - WhatsApp</button>
   </div>
 </section>
 
@@ -220,49 +169,44 @@ button{
 let cart = [];
 let total = 0;
 
-function abrirServicos(){ mostrar("servicos"); }
+function abrirServicos(){mostrar('servicos')}
+function voltarHome(){mostrar('home')}
 
-/* 🔥 AQUI ESTÁ A CORREÇÃO */
-function abrirAgendamento(){ 
-  mostrar("agendamento"); 
-  carregarDatas(); 
+/* 🔥 AGENDAMENTO COM AUTO GERAÇÃO */
+function abrirAgendamento(){
+  mostrar('agendamento');
+  gerarDatasAutomaticas();
+  carregarDatas();
 }
-
-function voltarHome(){ mostrar("home"); }
 
 function mostrar(id){
-  document.getElementById("home").style.display="none";
-  document.getElementById("servicos").style.display="none";
-  document.getElementById("agendamento").style.display="none";
-  document.getElementById(id).style.display="block";
+  document.getElementById('home').style.display='none';
+  document.getElementById('servicos').style.display='none';
+  document.getElementById('agendamento').style.display='none';
+  document.getElementById(id).style.display='block';
 }
 
-function toggle(el){
-  const d = el.nextElementSibling;
-  d.style.display = d.style.display==="block" ? "none" : "block";
-}
-
-function add(nome, valor){
-  cart.push({nome, valor});
-  total += valor;
+function add(nome,valor){
+  cart.push({nome,valor});
+  total+=valor;
   renderCart();
-  document.getElementById("cart").style.display="block";
+  document.getElementById('cart').style.display='block';
 }
 
 function renderCart(){
-  let h="";
+  let h='';
   cart.forEach((i,n)=>{
-    h+=`<div class="cart-item">${i.nome} <span class="remove" onclick="removeItem(${n})">❌</span></div>`;
+    h+=`<div class="cart-item">${i.nome}<span class="remove" onclick="removeItem(${n})">❌</span></div>`;
   });
-  document.getElementById("cartItems").innerHTML=h;
-  document.getElementById("total").innerText=total.toFixed(2);
+  document.getElementById('cartItems').innerHTML=h;
+  document.getElementById('total').innerText=total.toFixed(2);
 }
 
 function removeItem(i){
   total-=cart[i].valor;
   cart.splice(i,1);
   renderCart();
-  if(cart.length===0) document.getElementById("cart").style.display="none";
+  if(cart.length===0)document.getElementById('cart').style.display='none';
 }
 
 function finalizar(){
@@ -273,65 +217,90 @@ function finalizar(){
 }
 </script>
 
-<!-- FIREBASE -->
+<!-- FIREBASE REALTIME -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyA1dD4ZfO2lJ7ZCoFhVMtP7sBP3Xcl6-0A",
-  authDomain: "garagem-hl1.firebaseapp.com",
-  projectId: "garagem-hl1",
-  storageBucket: "garagem-hl1.firebasestorage.app",
-  messagingSenderId: "205564911928",
-  appId: "1:205564911928:web:e40862dc3aaecfce44e1cd"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAgpXloiKBrnRHMBTz8UM1PA3Q9oSYiqU4",
+  authDomain: "garagem-hl.firebaseapp.com",
+  databaseURL: "https://garagem-hl-default-rtdb.firebaseio.com",
+  projectId: "garagem-hl",
+  storageBucket: "garagem-hl.firebasestorage.app",
+  messagingSenderId: "1050652036484",
+  appId: "1:1050652036484:web:3a053bcbbc610038a921d1"
+};
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  function carregarDatas(){
-    db.collection("datas_disponiveis").onSnapshot(snapshot => {
-      let html = "";
+/* 🔥 MODO 1 - GERA DATAS AUTOMATICAMENTE */
+function gerarDatasAutomaticas(){
+  const hoje=new Date();
+  const ref=db.ref("datas_disponiveis");
 
-      snapshot.forEach(doc => {
-        const dados = doc.data();
-        if(dados.disponivel === true){
-          html += `
-            <button 
+  for(let i=0;i<30;i++){
+    const d=new Date(hoje);
+    d.setDate(hoje.getDate()+i);
+
+    const ano=d.getFullYear();
+    const mes=String(d.getMonth()+1).padStart(2,"0");
+    const dia=String(d.getDate()).padStart(2,"0");
+
+    const data=`${ano}-${mes}-${dia}`;
+
+    ref.child(data).once("value",snap=>{
+      if(!snap.exists()){
+        ref.child(data).set({disponivel:true});
+      }
+    });
+  }
+}
+
+/* 🔥 CARREGA CALENDÁRIO */
+function carregarDatas(){
+  const ref=db.ref("datas_disponiveis");
+
+  ref.on("value",snapshot=>{
+    const dados=snapshot.val();
+    let html="";
+
+    if(dados){
+      for(let data in dados){
+        if(dados[data].disponivel===true){
+          html+=`
+            <button
               style="padding:14px;border-radius:12px;border:none;font-weight:bold;background:#00b4ff;color:#00141f"
-              onclick="reservarData('${doc.id}')"
+              onclick="reservarData('${data}')"
             >
-              ${formatarData(doc.id)}
+              ${formatarData(data)}
             </button>
           `;
         }
-      });
-
-      if(html === ""){
-        html = "<p style='color:#aaa;text-align:center'>Nenhuma data disponível</p>";
       }
-
-      document.getElementById("calendario").innerHTML = html;
-    });
-  }
-
-  function reservarData(data){
-    if(confirm("Confirmar reserva para " + formatarData(data) + "?")){
-      db.collection("datas_disponiveis").doc(data).update({
-        disponivel: false
-      }).then(() => {
-        alert("✅ Data reservada com sucesso!");
-      });
     }
-  }
 
-  function formatarData(data){
-    const partes = data.split("-");
-    return partes[2] + "/" + partes[1] + "/" + partes[0];
+    if(html===""){
+      html="<p style='color:#aaa;text-align:center'>Nenhuma data disponível</p>";
+    }
+
+    document.getElementById("calendario").innerHTML=html;
+  });
+}
+
+function reservarData(data){
+  if(confirm("Confirmar reserva para "+formatarData(data)+"?")){
+    db.ref("datas_disponiveis/"+data).update({disponivel:false});
+    alert("✅ Data reservada com sucesso!");
   }
+}
+
+function formatarData(data){
+  const p=data.split("-");
+  return p[2]+"/"+p[1]+"/"+p[0];
+}
 </script>
 
 </body>
 </html>
-
