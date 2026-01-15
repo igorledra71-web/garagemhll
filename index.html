@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Garagem HL - Estética Automotiva</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- DESATIVA ZOOM -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -126,6 +128,45 @@ input{
 }
 .remove{color:#ff4d4d;cursor:pointer}
 .total{margin-top:8px;font-weight:600}
+
+/* ===== CALENDÁRIO ADM ===== */
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+.day{
+  padding:10px 0;
+  border-radius:10px;
+  background:#222;
+  text-align:center;
+  font-size:13px;
+  cursor:pointer;
+}
+.day.active{
+  background:#00b4ff;
+  color:#000;
+  font-weight:700;
+}
+.day.disabled{
+  background:#444;
+  color:#888;
+}
+.calendar-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+.calendar-header button{
+  background:#00b4ff;
+  border:none;
+  border-radius:8px;
+  padding:6px 10px;
+  color:#000;
+  font-weight:600;
+}
 </style>
 </head>
 <body>
@@ -152,49 +193,29 @@ input{
 
     <h2 style="color:#d4af37;margin-bottom:20px">Serviços</h2>
 
-    <!-- LAVAÇÃO -->
     <div class="card">
-      <strong>Lavação</strong><br>
-      <button class="main-btn" onclick="add('Lavagem Simples',30)">Lavagem Simples - R$30</button>
-      <button class="main-btn" onclick="add('Lavagem Completa',50)">Lavagem Completa - R$50</button>
-      <button class="main-btn" onclick="add('Lavagem Técnica',70)">Lavagem Técnica - R$70</button>
-      <button class="main-btn" onclick="add('Lavagem de Motor',60)">Lavagem de Motor - R$60</button>
+      <button class="main-btn" onclick="add('Lavação de Motor',0)">Lavação de Motor</button>
+      <button class="main-btn" onclick="add('Lavação Completa',0)">Lavação Completa</button>
+      <button class="main-btn" onclick="add('Lavação Detalhada',0)">Lavação Detalhada</button>
+      <button class="main-btn" onclick="add('Descontaminação de Pintura',0)">Descontaminação de Pintura</button>
+      <button class="main-btn" onclick="add('Polimento Técnico',0)">Polimento Técnico</button>
+      <button class="main-btn" onclick="add('Polimento de Faróis',0)">Polimento de Faróis</button>
+      <button class="main-btn" onclick="add('Aplicação de Cera',0)">Aplicação de Cera</button>
+      <button class="main-btn" onclick="add('Aplicação de Selante',0)">Aplicação de Selante</button>
+      <button class="main-btn" onclick="add('Vitrificação',0)">Vitrificação</button>
+      <button class="main-btn" onclick="add('Revitalização de Plásticos',0)">Revitalização de Plásticos</button>
+      <button class="main-btn" onclick="add('Cristalização de Para-brisa',0)">Cristalização de Para-brisa</button>
+      <button class="main-btn" onclick="add('Remoção de Chuva Ácida dos Vidros',0)">Remoção de Chuva Ácida dos Vidros</button>
+      <button class="main-btn" onclick="add('Higienização em Bancos de Couro',0)">Higienização em Bancos de Couro</button>
+      <button class="main-btn" onclick="add('Higienização Automotiva',0)">Higienização Automotiva</button>
+      <button class="main-btn" onclick="add('Higienização Residencial',0)">Higienização Residencial</button>
     </div>
 
-    <!-- ESTÉTICA -->
-    <div class="card">
-      <strong>Estética Automotiva</strong><br>
-      <button class="main-btn" onclick="add('Polimento Comercial',150)">Polimento Comercial - R$150</button>
-      <button class="main-btn" onclick="add('Polimento Técnico',250)">Polimento Técnico - R$250</button>
-      <button class="main-btn" onclick="add('Cristalização de Pintura',180)">Cristalização de Pintura - R$180</button>
-      <button class="main-btn" onclick="add('Vitrificação',350)">Vitrificação - R$350</button>
-      <button class="main-btn" onclick="add('Revitalização de Faróis',70)">Revitalização de Faróis - R$70</button>
-    </div>
-
-    <!-- INTERNA -->
-    <div class="card">
-      <strong>Parte Interna</strong><br>
-      <button class="main-btn" onclick="add('Higienização Interna',120)">Higienização Interna - R$120</button>
-      <button class="main-btn" onclick="add('Higienização de Bancos',90)">Higienização de Bancos - R$90</button>
-      <button class="main-btn" onclick="add('Higienização de Teto',80)">Higienização de Teto - R$80</button>
-      <button class="main-btn" onclick="add('Higienização de Carpetes',70)">Higienização de Carpetes - R$70</button>
-      <button class="main-btn" onclick="add('Higienização de Painel',50)">Higienização de Painel - R$50</button>
-    </div>
-
-    <!-- PROTEÇÃO -->
-    <div class="card">
-      <strong>Proteção</strong><br>
-      <button class="main-btn" onclick="add('Enceramento',40)">Enceramento - R$40</button>
-      <button class="main-btn" onclick="add('Selagem de Pintura',120)">Selagem de Pintura - R$120</button>
-      <button class="main-btn" onclick="add('Impermeabilização de Bancos',150)">Impermeabilização de Bancos - R$150</button>
-    </div>
-
-    <!-- ADICIONAIS -->
-    <div class="card">
-      <strong>Adicionais</strong><br>
-      <button class="main-btn" onclick="add('Revitalização de Plásticos',50)">Revitalização de Plásticos - R$50</button>
-      <button class="main-btn" onclick="add('Limpeza de Ar Condicionado',80)">Limpeza de Ar Condicionado - R$80</button>
-      <button class="main-btn" onclick="add('Detalhamento de Rodas',60)">Detalhamento de Rodas - R$60</button>
+    <div class="card" style="border:1px dashed #444">
+      <strong style="color:#d4af37">Em breve</strong><br>
+      <button class="alt-btn" disabled>Polimento de Vidros</button>
+      <button class="alt-btn" disabled>Aplicação de PPF</button>
+      <button class="alt-btn" disabled>Martelinho de Ouro</button>
     </div>
 
   </div>
@@ -216,11 +237,28 @@ input{
   <div class="app-container">
     <h2 style="color:#d4af37;margin-bottom:20px">Painel Administrativo</h2>
 
-    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Editar Horários das Datas</button>
+    <button class="main-btn" onclick="abrirBloco('blocoDatas')">📅 Selecionar Datas Disponíveis</button>
+    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Editar Horários</button>
     <button class="main-btn" onclick="abrirBloco('blocoReservas')">👀 Ver Reservas</button>
     <button class="main-btn" onclick="resetarAgenda()">♻ Resetar Agenda</button>
 
+    <!-- BLOCO DATAS -->
+    <div id="blocoDatas" style="display:none">
+      <div class="card">
+        <div class="calendar-header">
+          <button onclick="mesAnterior()">◀</button>
+          <strong id="mesAno"></strong>
+          <button onclick="proximoMes()">▶</button>
+        </div>
+        <div class="calendar" id="calendarAdm"></div>
+        <p style="margin-top:10px;font-size:12px;color:#aaa">Toque nos dias para ativar/desativar</p>
+      </div>
+    </div>
+
+    <!-- BLOCO HORÁRIOS -->
     <div id="blocoHorarios" style="display:none"></div>
+
+    <!-- BLOCO RESERVAS -->
     <div id="blocoReservas" style="display:none"></div>
   </div>
 </section>
@@ -253,9 +291,11 @@ const SENHA_ADMIN = "1234";
 /* ===== NAVEGAÇÃO ===== */
 function mostrar(id){
   ["home","servicos","agendamento","admin"].forEach(s=>{
-    document.getElementById(s).style.display="none";
+    const el = document.getElementById(s);
+    if(el) el.style.display="none";
   });
-  document.getElementById(id).style.display="block";
+  const alvo = document.getElementById(id);
+  if(alvo) alvo.style.display="block";
 }
 function abrirServicos(){mostrar("servicos")}
 function voltarHome(){mostrar("home")}
@@ -273,6 +313,7 @@ function verificarAdmin(){
     document.getElementById("buscaAdmin").value = "";
     if(senha === SENHA_ADMIN){
       mostrar("admin");
+      montarCalendario();
       carregarHorariosAdmin();
       carregarReservasAdmin();
     } else {
@@ -292,7 +333,7 @@ function add(nome,valor){
 }
 
 function renderCart(){
-  let html = "";
+  let html="";
   cart.forEach((i,n)=>{
     html += `<div class="cart-item">${i.nome}<span class="remove" onclick="removeItem(${n})">❌</span></div>`;
   });
@@ -305,25 +346,27 @@ function removeItem(i){
   total -= cart[i].valor;
   cart.splice(i,1);
   renderCart();
-  if(cart.length === 0){
-    document.getElementById("cart").style.display = "none";
+  if(cart.length===0){
+    document.getElementById("cart").style.display="none";
   }
 }
 
-/* ===== CLIENTE: DATAS E HORÁRIOS ===== */
+/* ===== CLIENTE: MOSTRA SÓ DATAS ATIVAS ===== */
 function formatarData(data){
-  const p = data.split("-");
+  const p=data.split("-");
   return p[2]+"/"+p[1]+"/"+p[0];
 }
 
 function carregarDatas(){
   db.ref("datas_disponiveis").on("value", snap=>{
     const dados = snap.val();
-    let html = "";
+    let html="";
 
     if(dados){
       for(let data in dados){
         const dia = dados[data];
+        if(!dia.ativo) continue; // SÓ MOSTRA SE ADM ATIVOU
+
         const reservas = dia.reservas || {};
         const horarios = dia.horarios || [];
 
@@ -339,12 +382,12 @@ function carregarDatas(){
       }
     }
 
-    if(html==="") html = "<p style='color:#aaa;text-align:center'>Nenhum horário disponível</p>";
+    if(html==="") html="<p style='color:#aaa;text-align:center'>Nenhum horário disponível</p>";
     document.getElementById("calendario").innerHTML = html;
   });
 }
 
-/* ===== CONFIRMAÇÃO + FINALIZA ===== */
+/* ===== CONFIRMAÇÃO ===== */
 function confirmarAgendamento(data,hora){
   const nome = prompt("Digite seu nome:");
   if(!nome) return;
@@ -361,20 +404,87 @@ function confirmarAgendamento(data,hora){
     db.ref(`datas_disponiveis/${data}/reservas/${hora}`).set({cliente:nome});
     db.ref(`historico/${data}_${hora}`).set({cliente:nome,data:data,hora:hora,servicos:cart});
 
-    const msg = `Olá, agendei na Garagem HL 🚗%0AData: ${formatarData(data)}%0AHora: ${hora}%0ANome: ${nome}%0AServiços: ${cart.map(i=>i.nome).join(", ")}`;
-    window.open("https://wa.me/5549999741891?text="+msg,"_blank");
-
     alert("✅ Agendamento confirmado!");
-    cart = [];
-    total = 0;
-    document.getElementById("cart").style.display = "none";
+    cart=[];
+    total=0;
+    document.getElementById("cart").style.display="none";
     voltarHome();
   }
 }
 
-/* ===== ADMIN: EDITAR HORÁRIOS ===== */
+/* ===== CALENDÁRIO ADM ===== */
+let dataAtual = new Date();
+
+function montarCalendario(){
+  const ano = dataAtual.getFullYear();
+  const mes = dataAtual.getMonth();
+
+  const primeiroDia = new Date(ano,mes,1).getDay();
+  const totalDias = new Date(ano,mes+1,0).getDate();
+
+  const nomesMes = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  document.getElementById("mesAno").innerText = nomesMes[mes]+" "+ano;
+
+  let html = "";
+  for(let i=0;i<primeiroDia;i++){
+    html += `<div class="day disabled"></div>`;
+  }
+
+  for(let d=1;d<=totalDias;d++){
+    const diaStr = String(d).padStart(2,"0");
+    const mesStr = String(mes+1).padStart(2,"0");
+    const dataKey = `${ano}-${mesStr}-${diaStr}`;
+
+    html += `<div class="day" id="day_${dataKey}" onclick="toggleDia('${dataKey}')">${d}</div>`;
+  }
+
+  document.getElementById("calendarAdm").innerHTML = html;
+
+  // MARCAR OS ATIVOS
+  db.ref("datas_disponiveis").once("value", snap=>{
+    const dados = snap.val();
+    if(dados){
+      for(let data in dados){
+        if(dados[data].ativo){
+          const el = document.getElementById("day_"+data);
+          if(el) el.classList.add("active");
+        }
+      }
+    }
+  });
+}
+
+function toggleDia(data){
+  const ref = db.ref("datas_disponiveis/"+data);
+
+  ref.once("value", snap=>{
+    if(snap.exists()){
+      const ativo = snap.val().ativo;
+      ref.update({ativo: !ativo});
+    } else {
+      ref.set({
+        ativo: true,
+        horarios: ["09:00","10:30","13:30","15:00"],
+        reservas: {}
+      });
+    }
+  });
+
+  setTimeout(montarCalendario,300);
+}
+
+function mesAnterior(){
+  dataAtual.setMonth(dataAtual.getMonth()-1);
+  montarCalendario();
+}
+function proximoMes(){
+  dataAtual.setMonth(dataAtual.getMonth()+1);
+  montarCalendario();
+}
+
+/* ===== ADMIN: HORÁRIOS ===== */
 function abrirBloco(id){
-  ["blocoHorarios","blocoReservas"].forEach(b=>{
+  ["blocoDatas","blocoHorarios","blocoReservas"].forEach(b=>{
     document.getElementById(b).style.display="none";
   });
   document.getElementById(id).style.display="block";
@@ -404,16 +514,13 @@ function carregarHorariosAdmin(){
 
 function salvarHorarios(data){
   const val = document.getElementById("hor_"+data).value;
-  if(!val){
-    alert("Digite os horários");
-    return;
-  }
+  if(!val){ alert("Digite os horários"); return; }
   const arr = val.split(",").map(h=>h.trim());
   db.ref("datas_disponiveis/"+data).update({horarios:arr});
   alert("Horários atualizados!");
 }
 
-/* ===== ADMIN: VER RESERVAS ===== */
+/* ===== ADMIN: RESERVAS ===== */
 function carregarReservasAdmin(){
   db.ref("datas_disponiveis").on("value", snap=>{
     const dados = snap.val();
