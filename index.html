@@ -89,9 +89,7 @@ section{display:none;min-height:100vh;padding:30px 20px 160px}
   margin:6px 6px 0 0;
   transition:all .15s ease;
 }
-.small-btn:active{
-  transform:scale(0.92);
-}
+.small-btn:active{transform:scale(0.92)}
 .small-btn.red{background:linear-gradient(135deg,#ff4d4d,#c70000)}
 
 /* INPUTS */
@@ -138,7 +136,7 @@ input{
 .remove{color:#ff4d4d;cursor:pointer}
 .total{margin-top:8px;font-weight:600}
 
-/* ===== CALENDÁRIO ADM ===== */
+/* CALENDÁRIO ADM */
 .calendar{
   display:grid;
   grid-template-columns:repeat(7,1fr);
@@ -177,7 +175,7 @@ input{
   font-weight:600;
 }
 
-/* ===== RELÓGIO (HORÁRIOS ADM) ===== */
+/* RELÓGIO ADM */
 .clock-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -197,19 +195,7 @@ input{
   background:#00b4ff;
   color:#000;
 }
-.clock-hour:active{
-  transform:scale(0.9);
-}
-
-/* ANIMAÇÃO RESERVA */
-@keyframes pulse {
-  0%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-  100%{transform:scale(1)}
-}
-.pulse{
-  animation:pulse .4s ease;
-}
+.clock-hour:active{transform:scale(0.9)}
 </style>
 </head>
 <body>
@@ -280,12 +266,11 @@ input{
   <div class="app-container">
     <h2 style="color:#d4af37;margin-bottom:20px">Painel Administrativo</h2>
 
-    <button class="main-btn" onclick="abrirBloco('blocoDatas')">📅 Selecionar Datas Disponíveis</button>
-    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Editar Horários (Relógio)</button>
+    <button class="main-btn" onclick="abrirBloco('blocoDatas')">📅 Selecionar Datas</button>
+    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Horários (Relógio)</button>
     <button class="main-btn" onclick="abrirBloco('blocoReservas')">👀 Ver Reservas</button>
     <button class="main-btn" onclick="resetarAgenda()">♻ Resetar Agenda</button>
 
-    <!-- BLOCO DATAS -->
     <div id="blocoDatas" style="display:none">
       <div class="card">
         <div class="calendar-header">
@@ -294,20 +279,16 @@ input{
           <button onclick="proximoMes()">▶</button>
         </div>
         <div class="calendar" id="calendarAdm"></div>
-        <p style="margin-top:10px;font-size:12px;color:#aaa">Toque nos dias para ativar/desativar</p>
       </div>
     </div>
 
-    <!-- BLOCO HORÁRIOS -->
     <div id="blocoHorarios" style="display:none">
       <div class="card">
-        <strong>Selecione uma data ativa acima</strong>
+        <strong>Selecione uma data no calendário</strong>
         <div id="clockContainer" class="clock-grid"></div>
-        <p style="font-size:12px;color:#aaa;margin-top:10px">Toque nos horários para ativar/desativar</p>
       </div>
     </div>
 
-    <!-- BLOCO RESERVAS -->
     <div id="blocoReservas" style="display:none"></div>
   </div>
 </section>
@@ -337,40 +318,41 @@ const db = firebase.database();
 
 const SENHA_ADMIN = "1234";
 
-/* ===== NAVEGAÇÃO ===== */
+/* NAVEGAÇÃO */
 function mostrar(id){
   ["home","servicos","agendamento","admin"].forEach(s=>{
-    const el=document.getElementById(s);
+    const el = document.getElementById(s);
     if(el) el.style.display="none";
   });
-  const alvo=document.getElementById(id);
+  const alvo = document.getElementById(id);
   if(alvo) alvo.style.display="block";
 }
-function abrirServicos(){mostrar("servicos")}
-function voltarHome(){mostrar("home")}
-function voltarServicos(){mostrar("servicos")}
+function abrirServicos(){ mostrar("servicos"); }
+function voltarHome(){ mostrar("home"); }
+function voltarServicos(){ mostrar("servicos"); }
 function irParaAgendamento(){
   mostrar("agendamento");
   carregarDatas();
 }
 
-/* ===== ADMIN VIA BUSCA ===== */
+/* ADMIN */
 function verificarAdmin(){
-  const v=document.getElementById("buscaAdmin").value.toLowerCase();
-  if(v==="admin"){
-    const senha=prompt("Digite a senha de administrador:");
-    document.getElementById("buscaAdmin").value="";
-    if(senha===SENHA_ADMIN){
+  const input = document.getElementById("buscaAdmin");
+  const v = input.value.trim().toLowerCase();
+  if(v === "admin"){
+    input.value = "";
+    const senha = prompt("Digite a senha de administrador:");
+    if(senha === SENHA_ADMIN){
       mostrar("admin");
       montarCalendario();
       carregarReservasAdmin();
-    }else{
+    } else {
       alert("Senha incorreta");
     }
   }
 }
 
-/* ===== CARRINHO ===== */
+/* CARRINHO */
 let cart=[];
 let total=0;
 
@@ -379,7 +361,6 @@ function add(nome,valor){
   total+=valor;
   renderCart();
 }
-
 function renderCart(){
   let html="";
   cart.forEach((i,n)=>{
@@ -389,7 +370,6 @@ function renderCart(){
   document.getElementById("total").innerText=total.toFixed(2);
   document.getElementById("cart").style.display="block";
 }
-
 function removeItem(i){
   total-=cart[i].valor;
   cart.splice(i,1);
@@ -399,7 +379,7 @@ function removeItem(i){
   }
 }
 
-/* ===== CLIENTE: DATAS + HORÁRIOS ===== */
+/* CLIENTE */
 function formatarData(data){
   const p=data.split("-");
   return p[2]+"/"+p[1]+"/"+p[0];
@@ -422,7 +402,7 @@ function carregarDatas(){
 
         horarios.forEach(h=>{
           if(!reservas[h]){
-            html+=`<button class="small-btn" onclick="confirmarAgendamento('${data}','${h}',this)">${h}</button>`;
+            html+=`<button class="small-btn" onclick="confirmarAgendamento('${data}','${h}')">${h}</button>`;
           }
         });
 
@@ -435,12 +415,9 @@ function carregarDatas(){
   });
 }
 
-/* ===== CONFIRMAÇÃO COM ANIMAÇÃO ===== */
-function confirmarAgendamento(data,hora,btn){
-  btn.classList.add("pulse");
-
+function confirmarAgendamento(data,hora){
   const nome=prompt("Digite seu nome:");
-  if(!nome){ btn.classList.remove("pulse"); return; }
+  if(!nome) return;
 
   const ok=confirm(
     `Confirmar agendamento?\n\n`+
@@ -458,18 +435,15 @@ function confirmarAgendamento(data,hora,btn){
     document.getElementById("cart").style.display="none";
     voltarHome();
   }
-
-  btn.classList.remove("pulse");
 }
 
-/* ===== CALENDÁRIO ADM ===== */
+/* CALENDÁRIO ADM */
 let dataAtual=new Date();
 let dataSelecionada=null;
 
 function montarCalendario(){
   const ano=dataAtual.getFullYear();
   const mes=dataAtual.getMonth();
-
   const primeiroDia=new Date(ano,mes,1).getDay();
   const totalDias=new Date(ano,mes+1,0).getDate();
 
@@ -536,7 +510,7 @@ function proximoMes(){
   montarCalendario();
 }
 
-/* ===== RELÓGIO DE HORÁRIOS ADM ===== */
+/* RELÓGIO ADM */
 const horasPadrao=["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00","18:00"];
 
 function carregarRelogio(){
@@ -545,7 +519,7 @@ function carregarRelogio(){
   const cont=document.getElementById("clockContainer");
   cont.innerHTML="";
 
-  db.ref("datas_disponiveis/"+dataSelecionada+"/State).once("value",snap=>{
+  db.ref("datas_disponiveis/"+dataSelecionada).once("value",snap=>{
     const dados=snap.val()||{};
     const ativos=dados.horarios||[];
 
@@ -574,7 +548,16 @@ function salvarHorariosRelogio(){
   db.ref("datas_disponiveis/"+dataSelecionada).update({horarios:ativos});
 }
 
-/* ===== ADMIN: RESERVAS ===== */
+/* ADMIN */
+function abrirBloco(id){
+  ["blocoDatas","blocoHorarios","blocoReservas"].forEach(b=>{
+    const el=document.getElementById(b);
+    if(el) el.style.display="none";
+  });
+  const alvo=document.getElementById(id);
+  if(alvo) alvo.style.display="block";
+}
+
 function carregarReservasAdmin(){
   db.ref("datas_disponiveis").on("value",snap=>{
     const dados=snap.val();
@@ -603,7 +586,6 @@ function liberar(data,hora){
   alert("Horário liberado!");
 }
 
-/* ===== RESET ===== */
 function resetarAgenda(){
   if(confirm("Tem certeza que deseja apagar toda a agenda?")){
     db.ref("datas_disponiveis").remove();
