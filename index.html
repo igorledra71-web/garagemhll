@@ -240,13 +240,6 @@ input{
       <button class="main-btn" onclick="add('Higienização Residencial',0)">Higienização Residencial</button>
     </div>
 
-    <div class="card" style="border:1px dashed #444">
-      <strong style="color:#d4af37">Em breve</strong><br>
-      <button class="alt-btn" disabled>Polimento de Vidros</button>
-      <button class="alt-btn" disabled>Aplicação de PPF</button>
-      <button class="alt-btn" disabled>Martelinho de Ouro</button>
-    </div>
-
   </div>
 </section>
 
@@ -267,7 +260,7 @@ input{
     <h2 style="color:#d4af37;margin-bottom:20px">Painel Administrativo</h2>
 
     <button class="main-btn" onclick="abrirBloco('blocoDatas')">📅 Selecionar Datas</button>
-    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Horários (Relógio)</button>
+    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Horários</button>
     <button class="main-btn" onclick="abrirBloco('blocoReservas')">👀 Ver Reservas</button>
     <button class="main-btn" onclick="resetarAgenda()">♻ Resetar Agenda</button>
 
@@ -321,10 +314,10 @@ const SENHA_ADMIN = "1234";
 /* NAVEGAÇÃO */
 function mostrar(id){
   ["home","servicos","agendamento","admin"].forEach(s=>{
-    const el = document.getElementById(s);
+    const el=document.getElementById(s);
     if(el) el.style.display="none";
   });
-  const alvo = document.getElementById(id);
+  const alvo=document.getElementById(id);
   if(alvo) alvo.style.display="block";
 }
 function abrirServicos(){ mostrar("servicos"); }
@@ -415,26 +408,62 @@ function carregarDatas(){
   });
 }
 
+/* 🔒 AGENDAMENTO COM ESCOLHA DE WHATSAPP */
 function confirmarAgendamento(data,hora){
-  const nome=prompt("Digite seu nome:");
+  const nome = prompt("Digite seu nome para continuar:");
   if(!nome) return;
 
-  const ok=confirm(
-    `Confirmar agendamento?\n\n`+
-    `Serviços: ${cart.map(i=>i.nome).join(", ")}\n`+
-    `Data: ${formatarData(data)}\n`+
-    `Horário: ${hora}\n`+
-    `Nome: ${nome}`
+  const servicos = cart.map(i=>i.nome).join(", ");
+
+  const escolha = prompt(
+    "Com quem deseja falar?\n\n1 - Henrique\n2 - Luan\n\nDigite 1 ou 2"
   );
 
-  if(ok){
-    db.ref(`datas_disponiveis/${data}/reservas/${hora}`).set({cliente:nome});
-    alert("✅ Agendamento confirmado!");
-    cart=[];
-    total=0;
-    document.getElementById("cart").style.display="none";
-    voltarHome();
+  let telefone = "";
+  if(escolha === "1"){
+    telefone = "5549999741891"; // Henrique
+  } else if(escolha === "2"){
+    telefone = "5547991194498"; // Luan
+  } else {
+    alert("Opção inválida");
+    return;
   }
+
+  const ok = confirm(
+    `CONFIRMAR AGENDAMENTO?\n\n`+
+    `👤 Nome: ${nome}\n`+
+    `📅 Data: ${formatarData(data)}\n`+
+    `⏰ Horário: ${hora}\n`+
+    `🧼 Serviços: ${servicos}\n\n`+
+    `Você será direcionado ao WhatsApp para finalizar.`
+  );
+
+  if(!ok) return;
+
+  db.ref(`datas_disponiveis/${data}/reservas/${hora}`).set({
+    cliente: nome,
+    servicos: servicos,
+    status: "pendente",
+    timestamp: Date.now()
+  });
+
+  const msg =
+    `Olá, gostaria de CONFIRMAR meu agendamento na Garagem HL 🚗\n\n`+
+    `👤 Nome: ${nome}\n`+
+    `📅 Data: ${formatarData(data)}\n`+
+    `⏰ Horário: ${hora}\n`+
+    `🧼 Serviços: ${servicos}\n\n`+
+    `Aguardo confirmação. Obrigado!`;
+
+  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
+
+  cart=[];
+  total=0;
+  document.getElementById("cart").style.display="none";
+
+  window.open(url, "_blank");
+  alert("📲 Finalize seu agendamento pelo WhatsApp para garantir sua vaga.");
+  voltarHome();
 }
 
 /* CALENDÁRIO ADM */
@@ -569,7 +598,7 @@ function carregarReservasAdmin(){
         for(let hora in reservas){
           html+=`
             <div class="card">
-              ${formatarData(data)} ${hora} - ${reservas[hora].cliente}
+              ${formatarData(data)} ${hora} - ${reservas[hora].cliente} (${reservas[hora].status})
               <button class="small-btn red" onclick="liberar('${data}','${hora}')">Liberar</button>
             </div>
           `;
