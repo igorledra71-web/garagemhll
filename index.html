@@ -220,24 +220,36 @@ input{
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
   <div class="app-container">
 
-    <h2 style="color:#d4af37;margin-bottom:20px">Serviços</h2>
+    <h2 style="color:#d4af37;margin-bottom:10px">Serviços</h2>
+
+    <!-- 🔹 ÁREA DE DESCRIÇÃO (ADICIONADA) -->
+    <div id="infoServico" style="
+      display:none;
+      margin-bottom:15px;
+      padding:10px;
+      background:#111;
+      border-left:3px solid #00b4ff;
+      border-radius:8px;
+      font-size:12px;
+      color:#ccc;
+    "></div>
 
     <div class="card">
-      <button class="main-btn" onclick="add('Lavação de Motor',0)">Lavação de Motor</button>
-      <button class="main-btn" onclick="add('Lavação Completa',0)">Lavação Completa</button>
-      <button class="main-btn" onclick="add('Lavação Detalhada',0)">Lavação Detalhada</button>
-      <button class="main-btn" onclick="add('Descontaminação de Pintura',0)">Descontaminação de Pintura</button>
-      <button class="main-btn" onclick="add('Polimento Técnico',0)">Polimento Técnico</button>
-      <button class="main-btn" onclick="add('Polimento de Faróis',0)">Polimento de Faróis</button>
-      <button class="main-btn" onclick="add('Aplicação de Cera',0)">Aplicação de Cera</button>
-      <button class="main-btn" onclick="add('Aplicação de Selante',0)">Aplicação de Selante</button>
-      <button class="main-btn" onclick="add('Vitrificação',0)">Vitrificação</button>
-      <button class="main-btn" onclick="add('Revitalização de Plásticos',0)">Revitalização de Plásticos</button>
-      <button class="main-btn" onclick="add('Cristalização de Para-brisa',0)">Cristalização de Para-brisa</button>
-      <button class="main-btn" onclick="add('Remoção de Chuva Ácida dos Vidros',0)">Remoção de Chuva Ácida dos Vidros</button>
-      <button class="main-btn" onclick="add('Higienização em Bancos de Couro',0)">Higienização em Bancos de Couro</button>
-      <button class="main-btn" onclick="add('Higienização Automotiva',0)">Higienização Automotiva</button>
-      <button class="main-btn" onclick="add('Higienização Residencial',0)">Higienização Residencial</button>
+      <button class="main-btn" onclick="mostrarInfo('Lavação de Motor'); add('Lavação de Motor',0)">Lavação de Motor</button>
+      <button class="main-btn" onclick="mostrarInfo('Lavação Completa'); add('Lavação Completa',0)">Lavação Completa</button>
+      <button class="main-btn" onclick="mostrarInfo('Lavação Detalhada'); add('Lavação Detalhada',0)">Lavação Detalhada</button>
+      <button class="main-btn" onclick="mostrarInfo('Descontaminação de Pintura'); add('Descontaminação de Pintura',0)">Descontaminação de Pintura</button>
+      <button class="main-btn" onclick="mostrarInfo('Polimento Técnico'); add('Polimento Técnico',0)">Polimento Técnico</button>
+      <button class="main-btn" onclick="mostrarInfo('Polimento de Faróis'); add('Polimento de Faróis',0)">Polimento de Faróis</button>
+      <button class="main-btn" onclick="mostrarInfo('Aplicação de Cera'); add('Aplicação de Cera',0)">Aplicação de Cera</button>
+      <button class="main-btn" onclick="mostrarInfo('Aplicação de Selante'); add('Aplicação de Selante',0)">Aplicação de Selante</button>
+      <button class="main-btn" onclick="mostrarInfo('Vitrificação'); add('Vitrificação',0)">Vitrificação</button>
+      <button class="main-btn" onclick="mostrarInfo('Revitalização de Plásticos'); add('Revitalização de Plásticos',0)">Revitalização de Plásticos</button>
+      <button class="main-btn" onclick="mostrarInfo('Cristalização de Para-brisa'); add('Cristalização de Para-brisa',0)">Cristalização de Para-brisa</button>
+      <button class="main-btn" onclick="mostrarInfo('Remoção de Chuva Ácida dos Vidros'); add('Remoção de Chuva Ácida dos Vidros',0)">Remoção de Chuva Ácida dos Vidros</button>
+      <button class="main-btn" onclick="mostrarInfo('Higienização em Bancos de Couro'); add('Higienização em Bancos de Couro',0)">Higienização em Bancos de Couro</button>
+      <button class="main-btn" onclick="mostrarInfo('Higienização Automotiva'); add('Higienização Automotiva',0)">Higienização Automotiva</button>
+      <button class="main-btn" onclick="mostrarInfo('Higienização Residencial'); add('Higienização Residencial',0)">Higienização Residencial</button>
     </div>
 
   </div>
@@ -292,9 +304,9 @@ input{
   <div class="total">Total: R$ <span id="total">0</span></div>
   <button class="main-btn" onclick="irParaAgendamento()">📅 Agendar Horário</button>
 </div>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyAgpXloiKBrnRHMBTz8UM1PA3Q9oSYiqU4",
@@ -311,6 +323,34 @@ const db = firebase.database();
 
 const SENHA_ADMIN = "1234";
 
+/* =========================
+   DESCRIÇÕES DOS SERVIÇOS
+========================= */
+const descricoesServicos = {
+  "Lavação de Motor": "Limpeza técnica do cofre do motor com produtos específicos.",
+  "Lavação Completa": "Lavação externa e interna com acabamento completo.",
+  "Lavação Detalhada": "Limpeza minuciosa em cada canto do veículo.",
+  "Descontaminação de Pintura": "Remove resíduos de poluição, piche e seiva da pintura.",
+  "Polimento Técnico": "Remove riscos leves e renova o brilho da pintura.",
+  "Polimento de Faróis": "Restaura a transparência e remove o amarelado dos faróis.",
+  "Aplicação de Cera": "Proteção e brilho intenso na pintura.",
+  "Aplicação de Selante": "Proteção sintética de longa duração.",
+  "Vitrificação": "Proteção cerâmica de alto nível.",
+  "Revitalização de Plásticos": "Restaura a cor original dos plásticos externos.",
+  "Cristalização de Para-brisa": "Tratamento repelente de água nos vidros.",
+  "Remoção de Chuva Ácida dos Vidros": "Remove manchas e marcas de chuva ácida.",
+  "Higienização em Bancos de Couro": "Limpeza profunda e hidratação do couro.",
+  "Higienização Automotiva": "Limpeza interna completa com extração.",
+  "Higienização Residencial": "Limpeza de sofás, colchões e estofados."
+};
+
+function mostrarInfo(servico){
+  const area = document.getElementById("infoServico");
+  if(!area) return;
+  area.innerText = descricoesServicos[servico] || "";
+  area.style.display = "block";
+}
+
 /* NAVEGAÇÃO */
 function mostrar(id){
   ["home","servicos","agendamento","admin"].forEach(s=>{
@@ -323,10 +363,7 @@ function mostrar(id){
 function abrirServicos(){ mostrar("servicos"); }
 function voltarHome(){ mostrar("home"); }
 function voltarServicos(){ mostrar("servicos"); }
-function irParaAgendamento(){
-  mostrar("agendamento");
-  carregarDatas();
-}
+function irParaAgendamento(){ mostrar("agendamento"); carregarDatas(); }
 
 /* ADMIN */
 function verificarAdmin(){
@@ -421,9 +458,9 @@ function confirmarAgendamento(data,hora){
 
   let telefone = "";
   if(escolha === "1"){
-    telefone = "5549999741891"; // Henrique
+    telefone = "5549999741891";
   } else if(escolha === "2"){
-    telefone = "5547991194498"; // Luan
+    telefone = "5547991194498";
   } else {
     alert("Opção inválida");
     return;
