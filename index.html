@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Garagem HL - Estética Automotiva</title>
 
-<!-- DESATIVA ZOOM -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -42,7 +41,13 @@ section{display:none;min-height:100vh;padding:30px 20px 160px}
   background:linear-gradient(135deg,#00b4ff,#0077ff);
   color:#fff;
   box-shadow:0 6px 18px rgba(0,180,255,0.3);
+  transition:all .15s ease;
 }
+.main-btn:active{
+  transform:scale(0.96);
+  box-shadow:0 2px 6px rgba(0,180,255,0.4) inset;
+}
+
 .alt-btn{
   width:100%;
   padding:16px;
@@ -81,7 +86,11 @@ section{display:none;min-height:100vh;padding:30px 20px 160px}
   font-weight:600;
   background:linear-gradient(135deg,#00b4ff,#0077ff);
   color:#fff;
-  margin-top:10px;
+  margin:6px 6px 0 0;
+  transition:all .15s ease;
+}
+.small-btn:active{
+  transform:scale(0.92);
 }
 .small-btn.red{background:linear-gradient(135deg,#ff4d4d,#c70000)}
 
@@ -167,6 +176,40 @@ input{
   color:#000;
   font-weight:600;
 }
+
+/* ===== RELÓGIO (HORÁRIOS ADM) ===== */
+.clock-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+.clock-hour{
+  padding:14px 0;
+  border-radius:12px;
+  background:#222;
+  text-align:center;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .15s ease;
+}
+.clock-hour.active{
+  background:#00b4ff;
+  color:#000;
+}
+.clock-hour:active{
+  transform:scale(0.9);
+}
+
+/* ANIMAÇÃO RESERVA */
+@keyframes pulse {
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
+.pulse{
+  animation:pulse .4s ease;
+}
 </style>
 </head>
 <body>
@@ -238,7 +281,7 @@ input{
     <h2 style="color:#d4af37;margin-bottom:20px">Painel Administrativo</h2>
 
     <button class="main-btn" onclick="abrirBloco('blocoDatas')">📅 Selecionar Datas Disponíveis</button>
-    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Editar Horários</button>
+    <button class="main-btn" onclick="abrirBloco('blocoHorarios')">⏰ Editar Horários (Relógio)</button>
     <button class="main-btn" onclick="abrirBloco('blocoReservas')">👀 Ver Reservas</button>
     <button class="main-btn" onclick="resetarAgenda()">♻ Resetar Agenda</button>
 
@@ -256,7 +299,13 @@ input{
     </div>
 
     <!-- BLOCO HORÁRIOS -->
-    <div id="blocoHorarios" style="display:none"></div>
+    <div id="blocoHorarios" style="display:none">
+      <div class="card">
+        <strong>Selecione uma data ativa acima</strong>
+        <div id="clockContainer" class="clock-grid"></div>
+        <p style="font-size:12px;color:#aaa;margin-top:10px">Toque nos horários para ativar/desativar</p>
+      </div>
+    </div>
 
     <!-- BLOCO RESERVAS -->
     <div id="blocoReservas" style="display:none"></div>
@@ -291,10 +340,10 @@ const SENHA_ADMIN = "1234";
 /* ===== NAVEGAÇÃO ===== */
 function mostrar(id){
   ["home","servicos","agendamento","admin"].forEach(s=>{
-    const el = document.getElementById(s);
+    const el=document.getElementById(s);
     if(el) el.style.display="none";
   });
-  const alvo = document.getElementById(id);
+  const alvo=document.getElementById(id);
   if(alvo) alvo.style.display="block";
 }
 function abrirServicos(){mostrar("servicos")}
@@ -307,43 +356,42 @@ function irParaAgendamento(){
 
 /* ===== ADMIN VIA BUSCA ===== */
 function verificarAdmin(){
-  const v = document.getElementById("buscaAdmin").value.toLowerCase();
-  if(v === "admin"){
-    const senha = prompt("Digite a senha de administrador:");
-    document.getElementById("buscaAdmin").value = "";
-    if(senha === SENHA_ADMIN){
+  const v=document.getElementById("buscaAdmin").value.toLowerCase();
+  if(v==="admin"){
+    const senha=prompt("Digite a senha de administrador:");
+    document.getElementById("buscaAdmin").value="";
+    if(senha===SENHA_ADMIN){
       mostrar("admin");
       montarCalendario();
-      carregarHorariosAdmin();
       carregarReservasAdmin();
-    } else {
+    }else{
       alert("Senha incorreta");
     }
   }
 }
 
 /* ===== CARRINHO ===== */
-let cart = [];
-let total = 0;
+let cart=[];
+let total=0;
 
 function add(nome,valor){
   cart.push({nome,valor});
-  total += valor;
+  total+=valor;
   renderCart();
 }
 
 function renderCart(){
   let html="";
   cart.forEach((i,n)=>{
-    html += `<div class="cart-item">${i.nome}<span class="remove" onclick="removeItem(${n})">❌</span></div>`;
+    html+=`<div class="cart-item">${i.nome}<span class="remove" onclick="removeItem(${n})">❌</span></div>`;
   });
-  document.getElementById("cartItems").innerHTML = html;
-  document.getElementById("total").innerText = total.toFixed(2);
-  document.getElementById("cart").style.display = "block";
+  document.getElementById("cartItems").innerHTML=html;
+  document.getElementById("total").innerText=total.toFixed(2);
+  document.getElementById("cart").style.display="block";
 }
 
 function removeItem(i){
-  total -= cart[i].valor;
+  total-=cart[i].valor;
   cart.splice(i,1);
   renderCart();
   if(cart.length===0){
@@ -351,48 +399,50 @@ function removeItem(i){
   }
 }
 
-/* ===== CLIENTE: MOSTRA SÓ DATAS ATIVAS ===== */
+/* ===== CLIENTE: DATAS + HORÁRIOS ===== */
 function formatarData(data){
   const p=data.split("-");
   return p[2]+"/"+p[1]+"/"+p[0];
 }
 
 function carregarDatas(){
-  db.ref("datas_disponiveis").on("value", snap=>{
-    const dados = snap.val();
+  db.ref("datas_disponiveis").on("value",snap=>{
+    const dados=snap.val();
     let html="";
 
     if(dados){
       for(let data in dados){
-        const dia = dados[data];
-        if(!dia.ativo) continue; // SÓ MOSTRA SE ADM ATIVOU
+        const dia=dados[data];
+        if(!dia.ativo) continue;
 
-        const reservas = dia.reservas || {};
-        const horarios = dia.horarios || [];
+        const reservas=dia.reservas||{};
+        const horarios=dia.horarios||[];
 
-        html += `<div class="card"><strong>${formatarData(data)}</strong><br>`;
+        html+=`<div class="card"><strong>${formatarData(data)}</strong><br>`;
 
         horarios.forEach(h=>{
           if(!reservas[h]){
-            html += `<button class="small-btn" onclick="confirmarAgendamento('${data}','${h}')">${h}</button> `;
+            html+=`<button class="small-btn" onclick="confirmarAgendamento('${data}','${h}',this)">${h}</button>`;
           }
         });
 
-        html += `</div>`;
+        html+=`</div>`;
       }
     }
 
     if(html==="") html="<p style='color:#aaa;text-align:center'>Nenhum horário disponível</p>";
-    document.getElementById("calendario").innerHTML = html;
+    document.getElementById("calendario").innerHTML=html;
   });
 }
 
-/* ===== CONFIRMAÇÃO ===== */
-function confirmarAgendamento(data,hora){
-  const nome = prompt("Digite seu nome:");
-  if(!nome) return;
+/* ===== CONFIRMAÇÃO COM ANIMAÇÃO ===== */
+function confirmarAgendamento(data,hora,btn){
+  btn.classList.add("pulse");
 
-  const ok = confirm(
+  const nome=prompt("Digite seu nome:");
+  if(!nome){ btn.classList.remove("pulse"); return; }
+
+  const ok=confirm(
     `Confirmar agendamento?\n\n`+
     `Serviços: ${cart.map(i=>i.nome).join(", ")}\n`+
     `Data: ${formatarData(data)}\n`+
@@ -402,51 +452,51 @@ function confirmarAgendamento(data,hora){
 
   if(ok){
     db.ref(`datas_disponiveis/${data}/reservas/${hora}`).set({cliente:nome});
-    db.ref(`historico/${data}_${hora}`).set({cliente:nome,data:data,hora:hora,servicos:cart});
-
     alert("✅ Agendamento confirmado!");
     cart=[];
     total=0;
     document.getElementById("cart").style.display="none";
     voltarHome();
   }
+
+  btn.classList.remove("pulse");
 }
 
 /* ===== CALENDÁRIO ADM ===== */
-let dataAtual = new Date();
+let dataAtual=new Date();
+let dataSelecionada=null;
 
 function montarCalendario(){
-  const ano = dataAtual.getFullYear();
-  const mes = dataAtual.getMonth();
+  const ano=dataAtual.getFullYear();
+  const mes=dataAtual.getMonth();
 
-  const primeiroDia = new Date(ano,mes,1).getDay();
-  const totalDias = new Date(ano,mes+1,0).getDate();
+  const primeiroDia=new Date(ano,mes,1).getDay();
+  const totalDias=new Date(ano,mes+1,0).getDate();
 
-  const nomesMes = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-  document.getElementById("mesAno").innerText = nomesMes[mes]+" "+ano;
+  const nomesMes=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  document.getElementById("mesAno").innerText=nomesMes[mes]+" "+ano;
 
-  let html = "";
+  let html="";
   for(let i=0;i<primeiroDia;i++){
-    html += `<div class="day disabled"></div>`;
+    html+=`<div class="day disabled"></div>`;
   }
 
   for(let d=1;d<=totalDias;d++){
-    const diaStr = String(d).padStart(2,"0");
-    const mesStr = String(mes+1).padStart(2,"0");
-    const dataKey = `${ano}-${mesStr}-${diaStr}`;
+    const diaStr=String(d).padStart(2,"0");
+    const mesStr=String(mes+1).padStart(2,"0");
+    const dataKey=`${ano}-${mesStr}-${diaStr}`;
 
-    html += `<div class="day" id="day_${dataKey}" onclick="toggleDia('${dataKey}')">${d}</div>`;
+    html+=`<div class="day" id="day_${dataKey}" onclick="toggleDia('${dataKey}')">${d}</div>`;
   }
 
-  document.getElementById("calendarAdm").innerHTML = html;
+  document.getElementById("calendarAdm").innerHTML=html;
 
-  // MARCAR OS ATIVOS
-  db.ref("datas_disponiveis").once("value", snap=>{
-    const dados = snap.val();
+  db.ref("datas_disponiveis").once("value",snap=>{
+    const dados=snap.val();
     if(dados){
       for(let data in dados){
         if(dados[data].ativo){
-          const el = document.getElementById("day_"+data);
+          const el=document.getElementById("day_"+data);
           if(el) el.classList.add("active");
         }
       }
@@ -455,22 +505,26 @@ function montarCalendario(){
 }
 
 function toggleDia(data){
-  const ref = db.ref("datas_disponiveis/"+data);
+  dataSelecionada=data;
+  const ref=db.ref("datas_disponiveis/"+data);
 
-  ref.once("value", snap=>{
+  ref.once("value",snap=>{
     if(snap.exists()){
-      const ativo = snap.val().ativo;
-      ref.update({ativo: !ativo});
-    } else {
+      const ativo=snap.val().ativo;
+      ref.update({ativo:!ativo});
+    }else{
       ref.set({
-        ativo: true,
-        horarios: ["09:00","10:30","13:30","15:00"],
-        reservas: {}
+        ativo:true,
+        horarios:[],
+        reservas:{}
       });
     }
   });
 
-  setTimeout(montarCalendario,300);
+  setTimeout(()=>{
+    montarCalendario();
+    carregarRelogio();
+  },300);
 }
 
 function mesAnterior(){
@@ -482,55 +536,55 @@ function proximoMes(){
   montarCalendario();
 }
 
-/* ===== ADMIN: HORÁRIOS ===== */
-function abrirBloco(id){
-  ["blocoDatas","blocoHorarios","blocoReservas"].forEach(b=>{
-    document.getElementById(b).style.display="none";
+/* ===== RELÓGIO DE HORÁRIOS ADM ===== */
+const horasPadrao=["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00","18:00"];
+
+function carregarRelogio(){
+  if(!dataSelecionada) return;
+
+  const cont=document.getElementById("clockContainer");
+  cont.innerHTML="";
+
+  db.ref("datas_disponiveis/"+dataSelecionada+"/State).once("value",snap=>{
+    const dados=snap.val()||{};
+    const ativos=dados.horarios||[];
+
+    horasPadrao.forEach(h=>{
+      const div=document.createElement("div");
+      div.className="clock-hour";
+      div.innerText=h;
+      if(ativos.includes(h)) div.classList.add("active");
+
+      div.onclick=()=>{
+        div.classList.toggle("active");
+        salvarHorariosRelogio();
+      };
+
+      cont.appendChild(div);
+    });
   });
-  document.getElementById(id).style.display="block";
 }
 
-function carregarHorariosAdmin(){
-  db.ref("datas_disponiveis").on("value", snap=>{
-    const dados = snap.val();
-    let html = "<h3>Editar Horários</h3>";
-
-    if(dados){
-      for(let data in dados){
-        html += `
-          <div class="card">
-            <strong>${formatarData(data)}</strong><br>
-            Horários atuais: ${(dados[data].horarios || []).join(", ")}<br>
-            <input type="text" id="hor_${data}" placeholder="Ex: 09:00,10:30,14:00">
-            <button class="small-btn" onclick="salvarHorarios('${data}')">Salvar Horários</button>
-          </div>
-        `;
-      }
-    }
-
-    document.getElementById("blocoHorarios").innerHTML = html;
+function salvarHorariosRelogio(){
+  const ativos=[];
+  document.querySelectorAll(".clock-hour.active").forEach(el=>{
+    ativos.push(el.innerText);
   });
-}
 
-function salvarHorarios(data){
-  const val = document.getElementById("hor_"+data).value;
-  if(!val){ alert("Digite os horários"); return; }
-  const arr = val.split(",").map(h=>h.trim());
-  db.ref("datas_disponiveis/"+data).update({horarios:arr});
-  alert("Horários atualizados!");
+  db.ref("datas_disponiveis/"+dataSelecionada).update({horarios:ativos});
 }
 
 /* ===== ADMIN: RESERVAS ===== */
 function carregarReservasAdmin(){
-  db.ref("datas_disponiveis").on("value", snap=>{
-    const dados = snap.val();
-    let html = "<h3>Reservas</h3>";
+  db.ref("datas_disponiveis").on("value",snap=>{
+    const dados=snap.val();
+    let html="<h3>Reservas</h3>";
 
     if(dados){
       for(let data in dados){
-        const reservas = dados[data].reservas || {};
+        const reservas=dados[data].reservas||{};
         for(let hora in reservas){
-          html += `
+          html+=`
             <div class="card">
               ${formatarData(data)} ${hora} - ${reservas[hora].cliente}
               <button class="small-btn red" onclick="liberar('${data}','${hora}')">Liberar</button>
@@ -540,7 +594,7 @@ function carregarReservasAdmin(){
       }
     }
 
-    document.getElementById("blocoReservas").innerHTML = html;
+    document.getElementById("blocoReservas").innerHTML=html;
   });
 }
 
@@ -553,7 +607,6 @@ function liberar(data,hora){
 function resetarAgenda(){
   if(confirm("Tem certeza que deseja apagar toda a agenda?")){
     db.ref("datas_disponiveis").remove();
-    db.ref("historico").remove();
     alert("Agenda resetada!");
   }
 }
