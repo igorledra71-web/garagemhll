@@ -182,100 +182,77 @@ input{
 
     <button class="main-btn" onclick="abrirServicos()">🚗 SERVIÇOS</button>
 
-    <!-- acesso admin -->
-    <input
-      id="buscaAdmin"
-      type="text"
-      placeholder="Pesquisar..."
-      oninput="verificarAdmin()"
-    >
+    <input id="buscaAdmin" placeholder="Pesquisar..." oninput="verificarAdmin()">
   </div>
 </section>
 
 <!-- SERVIÇOS -->
 <section id="servicos">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-
   <div class="app-container">
-    <h2 style="color:#38bdf8;margin-bottom:10px">Serviços</h2>
-
+    <h2 style="color:#38bdf8">Serviços</h2>
     <div id="infoServico"></div>
 
     <div class="card">
 
-      <button class="service-btn" onclick="mostrarInfo('Lavação de Motor'); add('Lavação de Motor',50)">
-        <span>🛠 Lavação de Motor</span>
-        <span>R$ 50</span>
+      <button class="service-btn" onclick="mostrarInfo('Lavação de Motor');add('Lavação de Motor',50)">
+        <span>🛠 Lavação de Motor</span><span>R$ 50</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Lavação Completa'); add('Lavação Completa',80)">
-        <span>🚿 Lavação Completa</span>
-        <span>R$ 80</span>
+      <button class="service-btn" onclick="mostrarInfo('Lavação Completa');add('Lavação Completa',80)">
+        <span>🚿 Lavação Completa</span><span>R$ 80</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Lavação Detalhada'); add('Lavação Detalhada',120)">
-        <span>✨ Lavação Detalhada</span>
-        <span>R$ 120</span>
+      <button class="service-btn" onclick="mostrarInfo('Lavação Detalhada');add('Lavação Detalhada',120)">
+        <span>✨ Lavação Detalhada</span><span>R$ 120</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Descontaminação de Pintura'); add('Descontaminação de Pintura',150)">
-        <span>🧪 Descontaminação de Pintura</span>
-        <span>R$ 150</span>
+      <button class="service-btn" onclick="mostrarInfo('Descontaminação de Pintura');add('Descontaminação de Pintura',150)">
+        <span>🧪 Descontaminação de Pintura</span><span>R$ 150</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Polimento Técnico'); add('Polimento Técnico',250)">
-        <span>💎 Polimento Técnico</span>
-        <span>R$ 250</span>
+      <button class="service-btn" onclick="mostrarInfo('Polimento Técnico');add('Polimento Técnico',250)">
+        <span>💎 Polimento Técnico</span><span>R$ 250</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Polimento de Faróis'); add('Polimento de Faróis',80)">
-        <span>💡 Polimento de Faróis</span>
-        <span>R$ 80</span>
+      <button class="service-btn" onclick="mostrarInfo('Polimento de Faróis');add('Polimento de Faróis',80)">
+        <span>💡 Polimento de Faróis</span><span>R$ 80</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Aplicação de Cera'); add('Aplicação de Cera',60)">
-        <span>🧴 Aplicação de Cera</span>
-        <span>R$ 60</span>
+      <button class="service-btn" onclick="mostrarInfo('Aplicação de Cera');add('Aplicação de Cera',60)">
+        <span>🧴 Aplicação de Cera</span><span>R$ 60</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Aplicação de Selante'); add('Aplicação de Selante',90)">
-        <span>🛡 Aplicação de Selante</span>
-        <span>R$ 90</span>
+      <button class="service-btn" onclick="mostrarInfo('Aplicação de Selante');add('Aplicação de Selante',90)">
+        <span>🛡 Aplicação de Selante</span><span>R$ 90</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Vitrificação'); add('Vitrificação',350)">
-        <span>🔮 Vitrificação</span>
-        <span>R$ 350</span>
+      <button class="service-btn" onclick="mostrarInfo('Vitrificação');add('Vitrificação',350)">
+        <span>🔮 Vitrificação</span><span>R$ 350</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Revitalização de Plásticos'); add('Revitalização de Plásticos',70)">
-        <span>🖤 Revitalização de Plásticos</span>
-        <span>R$ 70</span>
+      <button class="service-btn" onclick="mostrarInfo('Revitalização de Plásticos');add('Revitalização de Plásticos',70)">
+        <span>🖤 Revitalização de Plásticos</span><span>R$ 70</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Cristalização de Para-brisa'); add('Cristalização de Para-brisa',80)">
-        <span>🌧 Cristalização de Para-brisa</span>
-        <span>R$ 80</span>
+      <button class="service-btn" onclick="mostrarInfo('Cristalização de Para-brisa');add('Cristalização de Para-brisa',80)">
+        <span>🌧 Cristalização de Para-brisa</span><span>R$ 80</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Remoção de Chuva Ácida'); add('Remoção de Chuva Ácida',90)">
-        <span>☣ Remoção de Chuva Ácida</span>
-        <span>R$ 90</span>
+      <button class="service-btn" onclick="mostrarInfo('Remoção de Chuva Ácida');add('Remoção de Chuva Ácida',90)">
+        <span>☣ Remoção de Chuva Ácida</span><span>R$ 90</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Higienização Bancos de Couro'); add('Higienização Bancos de Couro',150)">
-        <span>🪑 Higienização Bancos de Couro</span>
-        <span>R$ 150</span>
+      <button class="service-btn" onclick="mostrarInfo('Higienização Bancos de Couro');add('Higienização Bancos de Couro',150)">
+        <span>🪑 Higienização Bancos de Couro</span><span>R$ 150</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Higienização Automotiva'); add('Higienização Automotiva',180)">
-        <span>🧼 Higienização Automotiva</span>
-        <span>R$ 180</span>
+      <button class="service-btn" onclick="mostrarInfo('Higienização Automotiva');add('Higienização Automotiva',180)">
+        <span>🧼 Higienização Automotiva</span><span>R$ 180</span>
       </button>
 
-      <button class="service-btn" onclick="mostrarInfo('Higienização Residencial'); add('Higienização Residencial',200)">
-        <span>🏠 Higienização Residencial</span>
-        <span>R$ 200</span>
+      <button class="service-btn" onclick="mostrarInfo('Higienização Residencial');add('Higienização Residencial',200)">
+        <span>🏠 Higienização Residencial</span><span>R$ 200</span>
       </button>
 
     </div>
@@ -285,9 +262,8 @@ input{
 <!-- AGENDAMENTO -->
 <section id="agendamento">
   <span class="back" onclick="voltarServicos()">⬅ Voltar</span>
-
   <div class="app-container">
-    <h2 style="color:#38bdf8;margin-bottom:10px">Agendar Horário</h2>
+    <h2 style="color:#38bdf8">Agendar Horário</h2>
     <div id="calendario"></div>
   </div>
 </section>
@@ -295,95 +271,56 @@ input{
 <!-- ADMIN -->
 <section id="admin">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
-
   <div class="app-container">
-    <h2 style="color:#38bdf8;margin-bottom:10px">Painel Administrativo</h2>
+    <h2 style="color:#38bdf8">Painel Administrativo</h2>
 
-    <!-- REMOVIDO DIAS DE ATENDIMENTO -->
     <button class="main-btn" onclick="abrirServicoHorario()">🧼 Serviços & Horários</button>
-    <button class="main-btn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="resetarAgenda()">♻ Resetar Agenda</button>
+    <button class="main-btn" style="background:#b91c1c" onclick="resetarAgenda()">♻ Resetar Agenda</button>
 
     <div id="servicoHorario" class="card" style="display:none">
       <div id="listaServicosAdmin"></div>
     </div>
-
   </div>
 </section>
 
-<!-- CARRINHO -->
 <div id="cart">
   <div id="cartItems"></div>
   <div class="total">Total: R$ <span id="total">0</span></div>
   <button class="main-btn" onclick="irParaAgendamento()">📅 AGENDAR</button>
 </div>
 
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-/* =========================
-   FIREBASE
-========================= */
-const firebaseConfig = {
-  apiKey: "AIzaSyAgpXloiKBrnRHMBTz8UM1PA3Q9oSYiqU4",
-  authDomain: "garagem-hl.firebaseapp.com",
-  databaseURL: "https://garagem-hl-default-rtdb.firebaseio.com",
-  projectId: "garagem-hl",
-  storageBucket: "garagem-hl.firebasestorage.app",
-  messagingSenderId: "1050652036484",
-  appId: "1:1050652036484:web:3a053bcbbc610038a921d1"
-};
+firebase.initializeApp({
+  apiKey:"AIzaSyAgpXloiKBrnRHMBTz8UM1PA3Q9oSYiqU4",
+  databaseURL:"https://garagem-hl-default-rtdb.firebaseio.com"
+});
+const db=firebase.database();
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-/* =========================
-   NAVEGAÇÃO
-========================= */
 function mostrar(id){
   ["home","servicos","agendamento","admin"].forEach(t=>{
-    const el = document.getElementById(t);
-    if(el) el.style.display = "none";
+    document.getElementById(t).style.display="none";
   });
-  document.getElementById(id).style.display = "block";
+  document.getElementById(id).style.display="block";
 }
+function abrirServicos(){mostrar("servicos");esconderCarrinho();}
+function voltarHome(){mostrar("home");esconderCarrinho();}
+function voltarServicos(){mostrar("servicos");}
+function irParaAgendamento(){mostrar("agendamento");carregarAgendaCliente();}
 
-function abrirServicos(){
-  mostrar("servicos");
-  esconderCarrinho();
-}
+let cart=[],total=0;
 
-function voltarHome(){
-  mostrar("home");
-  esconderCarrinho();
-}
-
-function voltarServicos(){
-  mostrar("servicos");
-}
-
-function irParaAgendamento(){
-  mostrar("agendamento");
-  carregarAgendaCliente();
-}
-
-/* =========================
-   CARRINHO (COM DESCRIÇÃO)
-========================= */
-let cart = [];
-let total = 0;
-
-function add(nome, valor){
-  const desc = infoServicos[nome] || "";
-  cart.push({ nome, valor, desc });
-  total += valor;
+function add(nome,valor){
+  cart.push({nome,valor,desc:infoServicos[nome]});
+  total+=valor;
   renderCart();
 }
 
 function renderCart(){
-  let html = "";
-  cart.forEach((i, n)=>{
-    html += `
+  let html="";
+  cart.forEach((i,n)=>{
+    html+=`
       <div class="cart-item">
         <strong>${i.nome}</strong>
         <div class="cart-desc">${i.desc}</div>
@@ -391,27 +328,22 @@ function renderCart(){
       </div>
     `;
   });
-
-  document.getElementById("cartItems").innerHTML = html;
-  document.getElementById("total").innerText = total.toFixed(2);
-  document.getElementById("cart").style.display = "block";
+  document.getElementById("cartItems").innerHTML=html;
+  document.getElementById("total").innerText=total.toFixed(2);
+  document.getElementById("cart").style.display="block";
 }
 
 function removeItem(i){
-  total -= cart[i].valor;
+  total-=cart[i].valor;
   cart.splice(i,1);
   renderCart();
-  if(cart.length === 0) esconderCarrinho();
+  if(cart.length===0)esconderCarrinho();
 }
-
 function esconderCarrinho(){
-  document.getElementById("cart").style.display = "none";
+  document.getElementById("cart").style.display="none";
 }
 
-/* =========================
-   INFO SERVIÇOS
-========================= */
-const infoServicos = {
+const infoServicos={
   "Lavação de Motor":"Limpeza detalhada do compartimento do motor.",
   "Lavação Completa":"Lavagem externa e interna do veículo.",
   "Lavação Detalhada":"Limpeza minuciosa com acabamento premium.",
@@ -430,224 +362,129 @@ const infoServicos = {
 };
 
 function mostrarInfo(nome){
-  const div = document.getElementById("infoServico");
-  div.innerText = infoServicos[nome] || "";
-  div.style.display = "block";
+  const div=document.getElementById("infoServico");
+  div.innerText=infoServicos[nome];
+  div.style.display="block";
 }
 
-/* =========================
-   AGENDA CLIENTE
-========================= */
 function carregarAgendaCliente(){
-  const cal = document.getElementById("calendario");
-  cal.innerHTML = "";
-
-  db.ref("agenda").once("value", snap=>{
-    const dados = snap.val();
-    if(!dados){
-      cal.innerHTML = "<p style='text-align:center;color:#aaa'>Nenhuma data disponível</p>";
-      return;
-    }
-
+  const cal=document.getElementById("calendario");
+  cal.innerHTML="";
+  db.ref("agenda").once("value",snap=>{
+    const dados=snap.val();
+    if(!dados)return;
     for(let data in dados){
-      const bloco = document.createElement("div");
-      bloco.className = "card";
-      bloco.innerHTML = `<strong>${formatarData(data)}</strong>`;
-
+      const bloco=document.createElement("div");
+      bloco.className="card";
+      bloco.innerHTML=`<strong>${data.split("-").reverse().join("/")}</strong>`;
       cart.forEach(item=>{
-        const serv = dados[data][item.nome];
-        if(serv){
-          for(let hora in serv){
-            if(serv[hora].vagas > 0){
-              const btn = document.createElement("button");
-              btn.className = "main-btn";
-              btn.innerText = `${item.nome} - ${hora}`;
-              btn.onclick = ()=>confirmarReserva(data, item.nome, hora);
-              bloco.appendChild(btn);
+        if(dados[data][item.nome]){
+          for(let h in dados[data][item.nome]){
+            if(dados[data][item.nome][h].vagas>0){
+              const b=document.createElement("button");
+              b.className="main-btn";
+              b.innerText=`${item.nome} - ${h}`;
+              b.onclick=()=>confirmarReserva(data,item.nome,h);
+              bloco.appendChild(b);
             }
           }
         }
       });
-
       cal.appendChild(bloco);
     }
   });
 }
 
-function confirmarReserva(data, servico, hora){
-  const nome = prompt("Digite seu nome:");
-  if(!nome) return;
-
-  const escolha = prompt("Com quem deseja falar?\n1 - Henrique\n2 - Luan");
-  let tel = "";
-  if(escolha === "1") tel = "5549999741891";
-  else if(escolha === "2") tel = "5547991194498";
-  else return;
-
-  if(!confirm(`Confirmar ${servico}\n${formatarData(data)} às ${hora}?`)) return;
-
-  const ref = db.ref(`agenda/${data}/${servico}/${hora}`);
-  ref.transaction(atual=>{
-    if(atual && atual.vagas > 0){
-      atual.vagas--;
-      return atual;
-    }
-    alert("Horário indisponível");
-    return;
-  });
-
-  const msg = `Olá, confirmei meu agendamento 🚗
-Nome: ${nome}
-Serviço: ${servico}
-Data: ${formatarData(data)}
-Hora: ${hora}`;
-
-  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, "_blank");
-
-  cart = [];
-  total = 0;
-  esconderCarrinho();
-  voltarHome();
-}
-
-/* =========================
-   UTIL
-========================= */
-function formatarData(d){
-  const p = d.split("-");
-  return p[2] + "/" + p[1] + "/" + p[0];
+function confirmarReserva(data,servico,hora){
+  const nome=prompt("Digite seu nome:");
+  if(!nome)return;
+  const escolha=prompt("1 - Henrique\n2 - Luan");
+  const tel=escolha==="1"?"5549999741891":"5547991194498";
+  const ref=db.ref(`agenda/${data}/${servico}/${hora}`);
+  ref.transaction(a=>{if(a&&a.vagas>0){a.vagas--;return a;}});
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(
+    `Agendamento:\n${nome}\n${servico}\n${data}\n${hora}`
+  )}`);
+  cart=[];total=0;esconderCarrinho();voltarHome();
 }
 </script>
 <script>
-/* =========================
-   ADMIN – NOVO FLUXO
-   (sem Dias de Atendimento)
-========================= */
+const SENHA_ADMIN="1234";
+let servicoSelecionadoAdmin=null;
 
-const SENHA_ADMIN = "1234";
-let servicoSelecionadoAdmin = null;
-
-/* LOGIN ADMIN */
 function verificarAdmin(){
-  const input = document.getElementById("buscaAdmin");
-  if(input.value.toLowerCase() === "admin"){
-    input.value = "";
-    const senha = prompt("Digite a senha do administrador:");
-    if(senha === SENHA_ADMIN){
-      mostrar("admin");
-      abrirServicoHorario();
-    }else{
-      alert("Senha incorreta");
-    }
+  const i=document.getElementById("buscaAdmin");
+  if(i.value.toLowerCase()==="admin"){
+    i.value="";
+    if(prompt("Senha:")===SENHA_ADMIN)mostrar("admin");
   }
 }
 
-/* ABRIR BLOCO SERVIÇOS & HORÁRIOS */
 function abrirServicoHorario(){
-  const bloco = document.getElementById("servicoHorario");
-  bloco.style.display = "block";
+  const b=document.getElementById("servicoHorario");
+  b.style.display="block";
   carregarListaServicosAdmin();
 }
 
-/* LISTA TODOS OS SERVIÇOS */
 function carregarListaServicosAdmin(){
-  const lista = document.getElementById("listaServicosAdmin");
-  lista.innerHTML = "<h4 style='margin-bottom:10px'>Selecione um serviço</h4>";
-
-  Object.keys(infoServicos).forEach(servico=>{
-    const btn = document.createElement("button");
-    btn.className = "main-btn";
-    btn.innerText = servico;
-    btn.onclick = ()=>abrirTelaServico(servico);
-    lista.appendChild(btn);
+  const l=document.getElementById("listaServicosAdmin");
+  l.innerHTML="<h4>Selecione o serviço</h4>";
+  Object.keys(infoServicos).forEach(s=>{
+    const btn=document.createElement("button");
+    btn.className="main-btn";
+    btn.innerText=s;
+    btn.onclick=()=>abrirTelaServico(s);
+    l.appendChild(btn);
   });
 }
 
-/* ABRE TELA DO SERVIÇO SELECIONADO */
-function abrirTelaServico(servico){
-  servicoSelecionadoAdmin = servico;
-
-  const lista = document.getElementById("listaServicosAdmin");
-  lista.innerHTML = `
-    <h4 style="color:#38bdf8;margin-bottom:10px">${servico}</h4>
-
-    <label style="font-size:13px">Selecione a data</label>
+function abrirTelaServico(s){
+  servicoSelecionadoAdmin=s;
+  const l=document.getElementById("listaServicosAdmin");
+  l.innerHTML=`
+    <h4>${s}</h4>
     <input type="date" id="dataServicoAdmin">
-
-    <label style="font-size:13px;margin-top:10px;display:block">
-      Selecione os horários
-    </label>
-
     <div id="relogioServico" class="clock-grid"></div>
-
-    <button class="main-btn" onclick="salvarHorariosServico()">
-      Salvar horários deste dia
-    </button>
-
-    <button class="main-btn" style="background:#334155" onclick="carregarListaServicosAdmin()">
-      ⬅ Voltar aos serviços
-    </button>
+    <button class="main-btn" onclick="salvarHorariosServico()">Salvar</button>
+    <button class="main-btn" style="background:#334155" onclick="carregarListaServicosAdmin()">Voltar</button>
   `;
-
   montarRelogioServico();
 }
 
-/* HORÁRIOS 06:00 → 22:00 */
-const horasPadrao = [];
-for(let h=6; h<=22; h++){
-  horasPadrao.push(String(h).padStart(2,"0")+":00");
-}
+const horas=[];
+for(let h=6;h<=22;h++)horas.push(String(h).padStart(2,"0")+":00");
 
 function montarRelogioServico(){
-  const rel = document.getElementById("relogioServico");
-  rel.innerHTML = "";
-
-  horasPadrao.forEach(hora=>{
-    const div = document.createElement("div");
-    div.className = "clock-hour";
-    div.innerText = hora;
-
-    div.onclick = ()=>{
-      const vagas = prompt(`Quantas vagas para ${hora}?`);
-      if(!vagas) return;
-      div.classList.add("active");
-      div.dataset.vagas = vagas;
+  const r=document.getElementById("relogioServico");
+  r.innerHTML="";
+  horas.forEach(h=>{
+    const d=document.createElement("div");
+    d.className="clock-hour";
+    d.innerText=h;
+    d.onclick=()=>{
+      const v=prompt(`Vagas ${h}`);
+      if(!v)return;
+      d.classList.add("active");
+      d.dataset.vagas=v;
     };
-
-    rel.appendChild(div);
+    r.appendChild(d);
   });
 }
 
-/* SALVAR HORÁRIOS DO DIA */
 function salvarHorariosServico(){
-  const data = document.getElementById("dataServicoAdmin").value;
-  if(!data){
-    alert("Selecione a data");
-    return;
-  }
-
-  const horarios = document.querySelectorAll(".clock-hour.active");
-  if(horarios.length === 0){
-    alert("Selecione pelo menos um horário");
-    return;
-  }
-
-  horarios.forEach(h=>{
-    db.ref(`agenda/${data}/${servicoSelecionadoAdmin}/${h.innerText}`)
-      .set({ vagas: parseInt(h.dataset.vagas) });
+  const d=document.getElementById("dataServicoAdmin").value;
+  document.querySelectorAll(".clock-hour.active").forEach(h=>{
+    db.ref(`agenda/${d}/${servicoSelecionadoAdmin}/${h.innerText}`)
+      .set({vagas:parseInt(h.dataset.vagas)});
   });
-
-  alert("Horários salvos com sucesso!");
-
-  /* RESET DA TELA */
+  alert("Salvo");
   carregarListaServicosAdmin();
 }
 
-/* RESET TOTAL DA AGENDA */
 function resetarAgenda(){
-  if(confirm("Deseja apagar TODA a agenda?")){
+  if(confirm("Apagar tudo?")){
     db.ref("agenda").remove();
-    alert("Agenda resetada com sucesso!");
+    alert("Agenda resetada");
   }
 }
 </script>
