@@ -3,86 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <title>Garagem HL - Estética Automotiva</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   background:radial-gradient(circle at top,#0f172a,#020617 70%);
   color:#fff;
   font-family:'Poppins',Arial,sans-serif;
+  font-size:16px;
 }
-section{display:none;min-height:100vh;padding:30px 20px 190px}
+
+section{
+  display:none;
+  min-height:100vh;
+  padding:32px 22px 200px;
+}
 #home{display:block}
-.app-container{max-width:480px;margin:auto;text-align:center}
 
-.logo-container img{width:100%;max-width:360px;margin:auto}
-.slogan{color:#38bdf8;letter-spacing:3px;font-size:12px;margin-bottom:10px}
+.app-container{
+  max-width:520px;
+  margin:auto;
+  text-align:center;
+}
 
+.logo-container img{
+  width:100%;
+  max-width:380px;
+  margin:auto;
+}
+
+.slogan{
+  color:#38bdf8;
+  letter-spacing:3px;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+/* BOTÕES */
 .main-btn{
-  width:100%;padding:18px;margin:14px 0;
-  border:none;border-radius:18px;
-  font-weight:700;color:#fff;
+  width:100%;
+  padding:22px;
+  margin:18px 0;
+  border:none;
+  border-radius:20px;
+  font-size:18px;
+  font-weight:700;
+  color:#fff;
   background:linear-gradient(135deg,#38bdf8,#2563eb);
-  box-shadow:0 0 25px rgba(56,189,248,.35);
-  transition:.15s;
 }
 .main-btn:active{transform:scale(.96)}
 
 .service-btn{
-  width:100%;padding:16px;margin:10px 0;
-  border-radius:16px;border:1px solid #1e293b;
-  background:#020617;color:#fff;
-  display:flex;justify-content:space-between;align-items:center;
-  box-shadow:0 0 18px rgba(0,0,0,.6);
+  width:100%;
+  padding:20px;
+  margin:14px 0;
+  border-radius:18px;
+  border:1px solid #1e293b;
+  background:#020617;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:17px;
 }
-.service-btn span:last-child{color:#38bdf8;font-weight:700}
 
+.service-btn span:last-child{
+  color:#38bdf8;
+  font-weight:800;
+  font-size:20px;
+}
+
+/* CARD */
 .card{
-  background:#020617;border:1px solid #1e293b;
-  border-radius:18px;padding:16px;margin-bottom:16px
+  background:#020617;
+  border:1px solid #1e293b;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:18px;
 }
 
-.back{color:#38bdf8;cursor:pointer;margin-bottom:16px;display:inline-block}
-
+/* INPUT */
 input{
-  width:100%;padding:16px;border-radius:14px;
-  border:1px solid #1e293b;background:#020617;color:#fff
+  width:100%;
+  padding:18px;
+  border-radius:16px;
+  border:1px solid #1e293b;
+  background:#020617;
+  color:#fff;
+  font-size:17px;
 }
-input[type="date"]{cursor:pointer}
 
-/* CARRINHO */
-#cart{
-  position:fixed;bottom:0;left:0;right:0;
-  background:#020617;border-top:2px solid #38bdf8;
-  padding:14px;display:none;z-index:99
+/* CAMPO DATA – ADMIN */
+.date-box{
+  margin-top:14px;
+  padding:16px;
+  border:2px dashed #38bdf8;
+  border-radius:16px;
+  background:#020617;
 }
-.cart-item{border-bottom:1px dashed #1e293b;padding:10px 0}
-.cart-desc{font-size:12px;color:#94a3b8}
-.remove{color:#ef4444;font-size:12px;cursor:pointer}
-.total{color:#38bdf8;font-weight:700;margin-top:8px}
+.date-box label{
+  display:block;
+  font-size:15px;
+  font-weight:700;
+  color:#38bdf8;
+  margin-bottom:8px;
+}
 
 /* ADMIN */
 .clock-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:10px;margin-top:14px
+  gap:14px;
+  margin-top:16px;
 }
 .clock-hour{
-  padding:14px 0;border-radius:14px;
-  background:#020617;border:1px solid #1e293b;
-  cursor:pointer;font-weight:600;
+  padding:18px 0;
+  border-radius:16px;
+  background:#020617;
+  border:1px solid #1e293b;
+  cursor:pointer;
+  font-weight:700;
+  font-size:16px;
 }
-.clock-hour.active{background:#38bdf8;color:#020617}
+.clock-hour.active{
+  background:#38bdf8;
+  color:#020617;
+}
 
 .selected-box{
-  margin-top:14px;padding:14px;
-  border-radius:14px;border:1px dashed #38bdf8;
-  text-align:left;font-size:13px
+  margin-top:18px;
+  padding:16px;
+  border-radius:16px;
+  border:2px solid #38bdf8;
+  text-align:left;
+  font-size:15px;
 }
 .selected-box strong{color:#38bdf8}
+
+/* CARRINHO */
+#cart{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:#020617;
+  border-top:3px solid #38bdf8;
+  padding:18px;
+  display:none;
+  z-index:99;
+}
+.cart-item{
+  padding:12px 0;
+  border-bottom:1px dashed #1e293b;
+  font-size:16px;
+}
+.remove{color:#ef4444;font-size:14px;cursor:pointer}
+.total{
+  color:#38bdf8;
+  font-weight:800;
+  font-size:20px;
+  margin-top:10px;
+}
 </style>
 </head>
 <body>
@@ -100,7 +188,7 @@ input[type="date"]{cursor:pointer}
 <section id="servicos">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
   <div class="app-container">
-    <h2 style="color:#38bdf8">Serviços</h2>
+    <h2 style="color:#38bdf8;font-size:22px">Serviços</h2>
     <div id="infoServico"></div>
     <div class="card" id="listaServicos"></div>
   </div>
@@ -109,7 +197,7 @@ input[type="date"]{cursor:pointer}
 <section id="agendamento">
   <span class="back" onclick="voltarServicos()">⬅ Voltar</span>
   <div class="app-container">
-    <h2 style="color:#38bdf8">Agendar Horário</h2>
+    <h2 style="color:#38bdf8;font-size:22px">Agendar Horário</h2>
     <div id="calendario"></div>
   </div>
 </section>
@@ -117,9 +205,11 @@ input[type="date"]{cursor:pointer}
 <section id="admin">
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
   <div class="app-container">
-    <h2 style="color:#38bdf8">Painel Administrativo</h2>
+    <h2 style="color:#38bdf8;font-size:22px">Painel Administrativo</h2>
+
     <button class="main-btn" onclick="abrirServicoHorario()">🧼 Serviços & Horários</button>
     <button class="main-btn" style="background:#b91c1c" onclick="resetarAgenda()">♻ Resetar Agenda</button>
+
     <div id="servicoHorario" class="card" style="display:none">
       <div id="listaServicosAdmin"></div>
     </div>
@@ -136,8 +226,8 @@ input[type="date"]{cursor:pointer}
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
 firebase.initializeApp({
-  apiKey: "AIzaSyAgpXloiKBrnRHMBTz8UM1PA3Q9oSYiqU4",
-  databaseURL: "https://garagem-hl-default-rtdb.firebaseio.com"
+  apiKey:"AIzaSyAgpXloiKBrnRHMBTz8UM1PA3Q9oSYiqU4",
+  databaseURL:"https://garagem-hl-default-rtdb.firebaseio.com"
 });
 const db=firebase.database();
 
@@ -166,14 +256,11 @@ function montarServicos(){
   l.innerHTML="";
   Object.entries(infoServicos).forEach(([s,p])=>{
     l.innerHTML+=`
-      <button class="service-btn" onclick="mostrarInfo('${s}');add('${s}',${p})">
-        <span>${s}</span><span>R$ ${p}</span>
+      <button class="service-btn" onclick="add('${s}',${p})">
+        <span>${s}</span>
+        <span>R$ ${p}</span>
       </button>`;
   });
-}
-
-function mostrarInfo(s){
-  document.getElementById("infoServico").innerText=s;
 }
 
 function add(nome,valor){
@@ -185,8 +272,11 @@ function add(nome,valor){
 function renderCart(){
   let h="";
   cart.forEach((i,n)=>{
-    h+=`<div class="cart-item">${i.nome}
-      <span class="remove" onclick="removeItem(${n})">❌</span></div>`;
+    h+=`
+      <div class="cart-item">
+        ${i.nome}
+        <span class="remove" onclick="removeItem(${n})">❌</span>
+      </div>`;
   });
   document.getElementById("cartItems").innerHTML=h;
   document.getElementById("total").innerText=total;
@@ -238,24 +328,6 @@ function carregarAgendaCliente(){
   });
 }
 
-function confirmarReserva(data,serv,hora){
-  const nome=prompt("Seu nome:");
-  if(!nome)return;
-  const tel="5549999999999";
-  db.ref(`agenda/${data}/${serv}/${hora}`).transaction(a=>{
-    if(a&&a.vagas>0){a.vagas--;return a;}
-  });
-  const msg=`Olá, confirmei meu agendamento:
-Nome: ${nome}
-Serviço: ${serv}
-Data: ${data.split("-").reverse().join("/")}
-Hora: ${hora}`;
-  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`,"_blank");
-  cart=[];total=0;document.getElementById("cart").style.display="none";
-  voltarHome();
-}
-
-/* ADMIN */
 document.addEventListener("DOMContentLoaded",()=>{
   montarServicos();
   document.getElementById("buscaAdmin").addEventListener("input",function(){
@@ -283,15 +355,25 @@ function abrirConfig(s){
   const l=document.getElementById("listaServicosAdmin");
   l.innerHTML=`
     <h3>${s}</h3>
-    <div>Escolha a data</div>
-    <input type="date" id="dataAdm">
+
+    <div class="date-box">
+      <label>📅 ESCOLHA A DATA</label>
+      <input type="date" id="dataAdm">
+    </div>
+
     <div id="resumo" class="selected-box" style="display:none"></div>
+
     <div class="clock-grid" id="relogio"></div>
+
     <button class="main-btn" onclick="salvar()">Salvar</button>
-    <button class="main-btn" style="background:#334155" onclick="abrirServicoHorario()">Voltar</button>`;
+    <button class="main-btn" style="background:#334155" onclick="abrirServicoHorario()">Voltar</button>
+  `;
+
   document.getElementById("dataAdm").onchange=e=>{
-    dataSel=e.target.value;atualizarResumo();
+    dataSel=e.target.value;
+    atualizarResumo();
   };
+
   montarRelogio();
 }
 
@@ -317,8 +399,10 @@ function atualizarResumo(){
   if(!dataSel)return;
   const r=document.getElementById("resumo");
   r.style.display="block";
-  r.innerHTML=`<strong>Data:</strong> ${dataSel.split("-").reverse().join("/")}<br>
-  <strong>Horários:</strong><br>${horarios.map(h=>"• "+h).join("<br>")}`;
+  r.innerHTML=`
+    <strong>Data:</strong> ${dataSel.split("-").reverse().join("/")}<br>
+    <strong>Horários:</strong><br>${horarios.map(h=>"• "+h).join("<br>")}
+  `;
 }
 
 function salvar(){
@@ -326,7 +410,7 @@ function salvar(){
   horarios.forEach(h=>{
     db.ref(`agenda/${dataSel}/${servicoSel}/${h}`).set({vagas:1});
   });
-  alert("Salvo com sucesso");
+  alert("Horários salvos com sucesso");
   abrirServicoHorario();
 }
 
