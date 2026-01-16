@@ -162,11 +162,15 @@ input{
   text-align:center;
   font-size:13px;
   cursor:pointer;
+  transition:all .15s ease;
 }
 .day.active{
   background:#00b4ff;
   color:#000;
   font-weight:700;
+}
+.day.selected{
+  outline:2px solid #d4af37;
 }
 .day.disabled{
   background:#444;
@@ -376,7 +380,7 @@ function mostrar(id){
   if(alvo) alvo.style.display="block";
 }
 function abrirServicos(){ mostrar("servicos"); }
-function voltarHome(){ mostrar("home"); }
+function voltarHome(){ mostrar("home"); esconderCarrinho(); }
 function voltarServicos(){ mostrar("servicos"); }
 function irParaAgendamento(){ mostrar("agendamento"); carregarDatas(); }
 
@@ -437,6 +441,13 @@ function removeItem(i){
   if(cart.length===0){
     document.getElementById("cart").style.display="none";
   }
+}
+
+function esconderCarrinho(){
+  cart = [];
+  total = 0;
+  document.getElementById("cart").style.display = "none";
+  document.getElementById("cartItems").innerHTML = "";
 }
 
 /* CLIENTE */
@@ -500,9 +511,7 @@ function confirmarAgendamento(data,hora){
   });
 
   alert("Agendamento realizado com sucesso!");
-  cart=[];
-  total=0;
-  document.getElementById("cart").style.display="none";
+  esconderCarrinho();
   voltarHome();
 }
 
@@ -533,16 +542,31 @@ function montarCalendario(){
     const mesStr = String(mes+1).padStart(2,"0");
     const dataKey = `${ano}-${mesStr}-${diaStr}`;
 
-    html+=`<div class="day" onclick="selecionarDia('${dataKey}')">${d}</div>`;
+    html+=`<div class="day" id="day_${dataKey}" onclick="selecionarDia('${dataKey}')">${d}</div>`;
   }
 
   document.getElementById("calendarAdm").innerHTML = html;
+
+  // marca ativos do banco
+  db.ref("datas_disponiveis").once("value", snap=>{
+    const dados = snap.val() || {};
+    Object.keys(dados).forEach(data=>{
+      if(dados[data].ativo){
+        const el = document.getElementById("day_"+data);
+        if(el) el.classList.add("active");
+      }
+    });
+  });
 }
 
 function selecionarDia(data){
   dataSelecionada = data;
   horariosSelecionados = [];
-  document.getElementById("clockContainer").innerHTML = "";
+
+  // marca visualmente seleção
+  document.querySelectorAll(".day").forEach(d=>d.classList.remove("selected"));
+  const el = document.getElementById("day_"+data);
+  if(el) el.classList.add("selected");
 
   carregarRelogio();
 }
@@ -601,9 +625,10 @@ function confirmarHorariosAdmin(){
 
   alert("Horários salvos com sucesso!");
 
-  // LIMPA TUDO
+  // limpa para próxima
   dataSelecionada = null;
   horariosSelecionados = [];
+  document.querySelectorAll(".day").forEach(d=>d.classList.remove("selected"));
   document.getElementById("clockContainer").innerHTML = "";
 }
 
