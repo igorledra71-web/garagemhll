@@ -10,15 +10,24 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   background:#0b0b0b;
   color:#fff;
   font-family:'Poppins',Arial,sans-serif;
   min-height:100vh;
+  pointer-events:auto;
 }
 
 /* TELAS */
-section{display:none;min-height:100vh;padding:30px 20px 160px}
+section{
+  display:none;
+  min-height:100vh;
+  padding:30px 20px 160px;
+  position:relative;
+  z-index:1;
+  pointer-events:auto;
+}
 #home{display:block}
 
 /* CONTAINER */
@@ -42,6 +51,7 @@ section{display:none;min-height:100vh;padding:30px 20px 160px}
   color:#fff;
   box-shadow:0 6px 18px rgba(0,180,255,0.3);
   transition:all .15s ease;
+  cursor:pointer;
 }
 .main-btn:active{
   transform:scale(0.96);
@@ -88,6 +98,7 @@ section{display:none;min-height:100vh;padding:30px 20px 160px}
   color:#fff;
   margin:6px 6px 0 0;
   transition:all .15s ease;
+  cursor:pointer;
 }
 .small-btn:active{transform:scale(0.92)}
 .small-btn.red{background:linear-gradient(135deg,#ff4d4d,#c70000)}
@@ -125,6 +136,7 @@ input{
   padding:12px;
   z-index:99;
   display:none;
+  pointer-events:auto;
 }
 .cart-item{
   display:flex;
@@ -173,6 +185,7 @@ input{
   padding:6px 10px;
   color:#000;
   font-weight:600;
+  cursor:pointer;
 }
 
 /* RELÓGIO ADM */
@@ -289,8 +302,12 @@ input{
 
     <div id="blocoHorarios" style="display:none">
       <div class="card">
-        <strong>Selecione uma data no calendário</strong>
+        <strong>Selecione uma data e os horários</strong>
         <div id="clockContainer" class="clock-grid"></div>
+
+        <button class="main-btn" style="margin-top:15px" onclick="confirmarHorariosAdmin()">
+          ✅ OK – Salvar Horários
+        </button>
       </div>
     </div>
 
@@ -458,32 +475,19 @@ function carregarDatas(){
   });
 }
 
-/* AGENDAMENTO + WHATSAPP */
+/* AGENDAMENTO */
 function confirmarAgendamento(data,hora){
   const nome = prompt("Digite seu nome para continuar:");
   if(!nome) return;
 
   const servicos = cart.map(i=>i.nome).join(", ");
 
-  const escolha = prompt("Com quem deseja falar?\n\n1 - Henrique\n2 - Luan\n\nDigite 1 ou 2");
-
-  let telefone = "";
-  if(escolha === "1"){
-    telefone = "5549999741891";
-  } else if(escolha === "2"){
-    telefone = "5547991194498";
-  } else {
-    alert("Opção inválida");
-    return;
-  }
-
   const ok = confirm(
     `CONFIRMAR AGENDAMENTO?\n\n`+
     `👤 Nome: ${nome}\n`+
     `📅 Data: ${formatarData(data)}\n`+
     `⏰ Horário: ${hora}\n`+
-    `🧼 Serviços: ${servicos}\n\n`+
-    `Você será direcionado ao WhatsApp para finalizar.`
+    `🧼 Serviços: ${servicos}`
   );
 
   if(!ok) return;
@@ -491,91 +495,56 @@ function confirmarAgendamento(data,hora){
   db.ref(`datas_disponiveis/${data}/reservas/${hora}`).set({
     cliente: nome,
     servicos: servicos,
-    status: "pendente",
+    status: "confirmado",
     timestamp: Date.now()
   });
 
-  const msg =
-    `Olá, gostaria de CONFIRMAR meu agendamento na Garagem HL 🚗\n\n`+
-    `👤 Nome: ${nome}\n`+
-    `📅 Data: ${formatarData(data)}\n`+
-    `⏰ Horário: ${hora}\n`+
-    `🧼 Serviços: ${servicos}\n\n`+
-    `Aguardo confirmação. Obrigado!`;
-
-  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
-
+  alert("Agendamento realizado com sucesso!");
   cart=[];
   total=0;
   document.getElementById("cart").style.display="none";
-
-  window.open(url, "_blank");
-  alert("📲 Finalize seu agendamento pelo WhatsApp para garantir sua vaga.");
   voltarHome();
 }
 
-/* CALENDÁRIO ADM */
-let dataAtual=new Date();
-let dataSelecionada=null;
+/* ===========================
+   ADMIN – DATA E HORÁRIOS
+=========================== */
+
+let dataAtual = new Date();
+let dataSelecionada = null;
+let horariosSelecionados = [];
 
 function montarCalendario(){
-  const ano=dataAtual.getFullYear();
-  const mes=dataAtual.getMonth();
-  const primeiroDia=new Date(ano,mes,1).getDay();
-  const totalDias=new Date(ano,mes+1,0).getDate();
+  const ano = dataAtual.getFullYear();
+  const mes = dataAtual.getMonth();
+  const primeiroDia = new Date(ano,mes,1).getDay();
+  const totalDias = new Date(ano,mes+1,0).getDate();
 
   const nomesMes=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-  document.getElementById("mesAno").innerText=nomesMes[mes]+" "+ano;
+  document.getElementById("mesAno").innerText = nomesMes[mes]+" "+ano;
 
   let html="";
   for(let i=0;i<primeiroDia;i++){
     html+=`<div class="day disabled"></div>`;
   }
 
-  for(let d=1;d<=totalDias;d++){
-    const diaStr=String(d).padStart(2,"0");
-    const mesStr=String(mes+1).padStart(2,"0");
-    const dataKey=`${ano}-${mesStr}-${diaStr}`;
+  for(let d=1; d<=totalDias; d++){
+    const diaStr = String(d).padStart(2,"0");
+    const mesStr = String(mes+1).padStart(2,"0");
+    const dataKey = `${ano}-${mesStr}-${diaStr}`;
 
-    html+=`<div class="day" id="day_${dataKey}" onclick="toggleDia('${dataKey}')">${d}</div>`;
+    html+=`<div class="day" onclick="selecionarDia('${dataKey}')">${d}</div>`;
   }
 
-  document.getElementById("calendarAdm").innerHTML=html;
-
-  db.ref("datas_disponiveis").once("value",snap=>{
-    const dados=snap.val();
-    if(dados){
-      for(let data in dados){
-        if(dados[data].ativo){
-          const el=document.getElementById("day_"+data);
-          if(el) el.classList.add("active");
-        }
-      }
-    }
-  });
+  document.getElementById("calendarAdm").innerHTML = html;
 }
 
-function toggleDia(data){
-  dataSelecionada=data;
-  const ref=db.ref("datas_disponiveis/"+data);
+function selecionarDia(data){
+  dataSelecionada = data;
+  horariosSelecionados = [];
+  document.getElementById("clockContainer").innerHTML = "";
 
-  ref.once("value",snap=>{
-    if(snap.exists()){
-      const ativo=snap.val().ativo;
-      ref.update({ativo:!ativo});
-    }else{
-      ref.set({
-        ativo:true,
-        horarios:[],
-        reservas:{}
-      });
-    }
-  });
-
-  setTimeout(()=>{
-    montarCalendario();
-    carregarRelogio();
-  },300);
+  carregarRelogio();
 }
 
 function mesAnterior(){
@@ -587,45 +556,58 @@ function proximoMes(){
   montarCalendario();
 }
 
-/* RELÓGIO ADM */
-const horasPadrao=["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00","18:00"];
+/* RELÓGIO */
+const horasPadrao = ["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00","18:00"];
 
 function carregarRelogio(){
-  if(!dataSelecionada) return;
+  const cont = document.getElementById("clockContainer");
+  cont.innerHTML = "";
 
-  const cont=document.getElementById("clockContainer");
-  cont.innerHTML="";
+  horasPadrao.forEach(h=>{
+    const div = document.createElement("div");
+    div.className = "clock-hour";
+    div.innerText = h;
 
-  db.ref("datas_disponiveis/"+dataSelecionada).once("value",snap=>{
-    const dados=snap.val()||{};
-    const ativos=dados.horarios||[];
+    div.onclick = ()=>{
+      if(div.classList.contains("active")){
+        div.classList.remove("active");
+        horariosSelecionados = horariosSelecionados.filter(x=>x!==h);
+      } else {
+        div.classList.add("active");
+        horariosSelecionados.push(h);
+      }
+    };
 
-    horasPadrao.forEach(h=>{
-      const div=document.createElement("div");
-      div.className="clock-hour";
-      div.innerText=h;
-      if(ativos.includes(h)) div.classList.add("active");
-
-      div.onclick=()=>{
-        div.classList.toggle("active");
-        salvarHorariosRelogio();
-      };
-
-      cont.appendChild(div);
-    });
+    cont.appendChild(div);
   });
 }
 
-function salvarHorariosRelogio(){
-  const ativos=[];
-  document.querySelectorAll(".clock-hour.active").forEach(el=>{
-    ativos.push(el.innerText);
+function confirmarHorariosAdmin(){
+  if(!dataSelecionada){
+    alert("Selecione uma data primeiro.");
+    return;
+  }
+
+  if(horariosSelecionados.length === 0){
+    alert("Selecione pelo menos um horário.");
+    return;
+  }
+
+  db.ref("datas_disponiveis/" + dataSelecionada).set({
+    ativo:true,
+    horarios:horariosSelecionados,
+    reservas:{}
   });
 
-  db.ref("datas_disponiveis/"+dataSelecionada).update({horarios:ativos});
+  alert("Horários salvos com sucesso!");
+
+  // LIMPA TUDO
+  dataSelecionada = null;
+  horariosSelecionados = [];
+  document.getElementById("clockContainer").innerHTML = "";
 }
 
-/* ADMIN */
+/* RESERVAS ADMIN */
 function abrirBloco(id){
   ["blocoDatas","blocoHorarios","blocoReservas"].forEach(b=>{
     const el=document.getElementById(b);
@@ -646,8 +628,7 @@ function carregarReservasAdmin(){
         for(let hora in reservas){
           html+=`
             <div class="card">
-              ${formatarData(data)} ${hora} - ${reservas[hora].cliente} (${reservas[hora].status})
-              <button class="small-btn red" onclick="liberar('${data}','${hora}')">Liberar</button>
+              ${formatarData(data)} ${hora} - ${reservas[hora].cliente}
             </div>
           `;
         }
@@ -656,11 +637,6 @@ function carregarReservasAdmin(){
 
     document.getElementById("blocoReservas").innerHTML=html;
   });
-}
-
-function liberar(data,hora){
-  db.ref(\`datas_disponiveis/\${data}/reservas/\${hora}\`).remove();
-  alert("Horário liberado!");
 }
 
 function resetarAgenda(){
