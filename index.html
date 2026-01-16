@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Garagem HL - Estética Automotiva</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -23,6 +21,8 @@ section{
   display:none;
   min-height:100vh;
   padding:28px 18px 180px;
+  position:relative;
+  z-index:1;
 }
 #home{display:block}
 
@@ -155,8 +155,11 @@ input{
   cursor:pointer;
   border:1px solid #1e293b;
 }
-.day.active{background:#38bdf8;color:#020617;font-weight:700}
-.day.selected{outline:2px solid #38bdf8}
+.day.active{
+  background:#38bdf8;
+  color:#020617;
+  font-weight:700;
+}
 
 /* RELÓGIO */
 .clock-grid{
@@ -301,6 +304,11 @@ input{
     <button class="main-btn" onclick="abrirBloco('horarios')">⏰ Horários</button>
     <button class="main-btn" onclick="abrirBloco('reservas')">📋 Reservas</button>
 
+    <!-- BOTÃO RESET RESTAURADO -->
+    <button class="main-btn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="resetarHorarios()">
+      ♻ Resetar Horários
+    </button>
+
     <div id="datas" class="card" style="display:none">
       <div class="calendar" id="calendarAdm"></div>
     </div>
@@ -360,7 +368,6 @@ const descricoesServicos = {
 let cart=[];
 let total=0;
 let dataSelecionada=null;
-let horariosSelecionados=[];
 
 /* NAVEGAÇÃO */
 function mostrar(id){
@@ -483,23 +490,35 @@ Total: R$ ${total.toFixed(2)}`;
   voltarHome();
 }
 
-/* ADMIN DATAS E HORÁRIOS */
+/* ====== ADMIN DATAS E HORÁRIOS (CORRIGIDO) ====== */
+
 function montarCalendario(){
-  const hoje=new Date();
-  const ano=hoje.getFullYear();
-  const mes=hoje.getMonth()+1;
-  let html="";
-  for(let i=1;i<=31;i++){
-    const d=String(i).padStart(2,"0");
-    const m=String(mes).padStart(2,"0");
-    const key=`${ano}-${m}-${d}`;
-    html+=`<div class="day" onclick="selecionarDia('${key}')">${i}</div>`;
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = hoje.getMonth() + 1;
+
+  let html = "";
+
+  for(let i = 1; i <= 31; i++){
+    const d = String(i).padStart(2,"0");
+    const m = String(mes).padStart(2,"0");
+    const key = `${ano}-${m}-${d}`;
+
+    html += `<div class="day" id="day_${key}" onclick="selecionarDia('${key}')">${i}</div>`;
   }
-  document.getElementById("calendarAdm").innerHTML=html;
+
+  document.getElementById("calendarAdm").innerHTML = html;
 }
 
 function selecionarDia(data){
-  dataSelecionada=data;
+  dataSelecionada = data;
+
+  // limpa seleção visual anterior
+  document.querySelectorAll(".day").forEach(el => el.classList.remove("active"));
+
+  const el = document.getElementById("day_" + data);
+  if(el) el.classList.add("active");
+
   carregarRelogio();
 }
 
@@ -523,6 +542,20 @@ function salvarHorarios(){
   document.querySelectorAll(".clock-hour.active").forEach(el=>ativos.push(el.innerText));
   db.ref("datas/"+dataSelecionada).set(ativos);
   alert("Horários salvos!");
+}
+
+/* RESETAR HORÁRIOS (RESTAURADO) */
+function resetarHorarios(){
+  if(!confirm("Tem certeza que deseja apagar TODOS os horários?")) return;
+
+  db.ref("datas").remove();
+
+  dataSelecionada = null;
+  document.getElementById("calendarAdm").innerHTML = "";
+  document.getElementById("clockContainer").innerHTML = "";
+
+  alert("Todos os horários foram resetados com sucesso.");
+  montarCalendario();
 }
 
 /* ADMIN RESERVAS */
