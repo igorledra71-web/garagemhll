@@ -191,7 +191,6 @@ input{
     <div class="slogan">ESTÉTICA AUTOMOTIVA PREMIUM</div>
 
     <button class="main-btn" onclick="abrirServicos()">🚗 SERVIÇOS</button>
-
     <input id="buscaAdmin" type="text" placeholder="Pesquisar..." oninput="verificarAdmin()">
   </div>
 </section>
@@ -205,7 +204,6 @@ input{
     <div id="infoServico"></div>
 
     <div class="card">
-
       <button class="service-btn" onclick="mostrarInfo('Lavação de Motor'); add('Lavação de Motor',50)">
         <span class="service-name">🛠 Lavação de Motor</span>
         <span class="service-price">R$ 50</span>
@@ -280,7 +278,6 @@ input{
         <span class="service-name">🏠 Higienização Residencial</span>
         <span class="service-price">R$ 200</span>
       </button>
-
     </div>
   </div>
 </section>
@@ -304,10 +301,7 @@ input{
     <button class="main-btn" onclick="abrirBloco('horarios')">⏰ Horários</button>
     <button class="main-btn" onclick="abrirBloco('reservas')">📋 Reservas</button>
 
-    <!-- BOTÃO RESET RESTAURADO -->
-    <button class="main-btn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="resetarHorarios()">
-      ♻ Resetar Horários
-    </button>
+    <button class="main-btn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="resetarHorarios()">♻ Resetar Horários</button>
 
     <div id="datas" class="card" style="display:none">
       <div class="calendar" id="calendarAdm"></div>
@@ -490,34 +484,29 @@ Total: R$ ${total.toFixed(2)}`;
   voltarHome();
 }
 
-/* ====== ADMIN DATAS E HORÁRIOS (CORRIGIDO) ====== */
+/* ADMIN DATAS E HORÁRIOS */
 
 function montarCalendario(){
-  const hoje = new Date();
-  const ano = hoje.getFullYear();
-  const mes = hoje.getMonth() + 1;
+  const hoje=new Date();
+  const ano=hoje.getFullYear();
+  const mes=hoje.getMonth()+1;
 
-  let html = "";
-
-  for(let i = 1; i <= 31; i++){
-    const d = String(i).padStart(2,"0");
-    const m = String(mes).padStart(2,"0");
-    const key = `${ano}-${m}-${d}`;
-
-    html += `<div class="day" id="day_${key}" onclick="selecionarDia('${key}')">${i}</div>`;
+  let html="";
+  for(let i=1;i<=31;i++){
+    const d=String(i).padStart(2,"0");
+    const m=String(mes).padStart(2,"0");
+    const key=`${ano}-${m}-${d}`;
+    html+=`<div class="day" id="day_${key}" onclick="selecionarDia('${key}')">${i}</div>`;
   }
-
-  document.getElementById("calendarAdm").innerHTML = html;
+  document.getElementById("calendarAdm").innerHTML=html;
 }
 
 function selecionarDia(data){
-  dataSelecionada = data;
+  dataSelecionada=data;
 
-  // limpa seleção visual anterior
-  document.querySelectorAll(".day").forEach(el => el.classList.remove("active"));
-
-  const el = document.getElementById("day_" + data);
-  if(el) el.classList.add("active");
+  document.querySelectorAll(".day").forEach(el=>el.classList.remove("active"));
+  const el=document.getElementById("day_"+data);
+  if(el)el.classList.add("active");
 
   carregarRelogio();
 }
@@ -538,13 +527,21 @@ function carregarRelogio(){
 
 function salvarHorarios(){
   if(!dataSelecionada){alert("Selecione uma data");return;}
+
   const ativos=[];
   document.querySelectorAll(".clock-hour.active").forEach(el=>ativos.push(el.innerText));
+
   db.ref("datas/"+dataSelecionada).set(ativos);
+
   alert("Horários salvos!");
+
+  /* ===== LIMPA TUDO PARA NOVA SELEÇÃO ===== */
+  dataSelecionada = null;
+  document.getElementById("clockContainer").innerHTML = "";
+  document.querySelectorAll(".day").forEach(el=>el.classList.remove("active"));
 }
 
-/* RESETAR HORÁRIOS (RESTAURADO) */
+/* RESETAR HORÁRIOS */
 function resetarHorarios(){
   if(!confirm("Tem certeza que deseja apagar TODOS os horários?")) return;
 
@@ -554,7 +551,7 @@ function resetarHorarios(){
   document.getElementById("calendarAdm").innerHTML = "";
   document.getElementById("clockContainer").innerHTML = "";
 
-  alert("Todos os horários foram resetados com sucesso.");
+  alert("Todos os horários foram resetados.");
   montarCalendario();
 }
 
