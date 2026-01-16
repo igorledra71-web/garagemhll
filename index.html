@@ -9,69 +9,155 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:radial-gradient(circle at top,#0f172a,#020617 70%);
-  color:#fff;font-family:Poppins,Arial,sans-serif;
-}
-section{display:none;min-height:100vh;padding:30px 20px 180px}
-#home{display:block}
-.app-container{max-width:480px;margin:auto;text-align:center}
-.logo-container img{width:100%;max-width:360px;margin:auto}
-.slogan{color:#38bdf8;letter-spacing:2px;font-size:13px}
-.main-btn{
-  width:100%;padding:18px;margin:14px 0;
-  border:none;border-radius:18px;
-  font-weight:700;color:#fff;
-  background:linear-gradient(135deg,#38bdf8,#2563eb)
-}
-.service-btn{
-  width:100%;padding:16px;margin:10px 0;
-  border-radius:16px;border:1px solid #1e293b;
-  background:#020617;color:#fff;
-  display:flex;justify-content:space-between
-}
-.card{
-  background:#020617;border:1px solid #1e293b;
-  border-radius:18px;padding:14px;margin-bottom:16px
-}
-.back{color:#38bdf8;cursor:pointer;margin-bottom:16px;display:inline-block}
-input{
-  width:100%;padding:14px;border-radius:14px;
-  border:1px solid #1e293b;background:#020617;color:#fff
-}
-input[type="date"]{cursor:pointer}
 
-/* carrinho */
+body{
+  background:radial-gradient(circle at top,#0b1220,#020617 70%);
+  color:#fff;
+  font-family:Poppins,Arial,sans-serif;
+}
+
+section{display:none;min-height:100vh;padding:30px 20px 190px}
+#home{display:block}
+
+.app-container{max-width:480px;margin:auto;text-align:center}
+
+.logo-container img{width:100%;max-width:360px;margin:auto}
+
+.slogan{
+  color:#38bdf8;
+  letter-spacing:3px;
+  font-size:12px;
+  margin-bottom:10px
+}
+
+/* BOTÕES PREMIUM */
+.main-btn{
+  width:100%;
+  padding:18px;
+  margin:14px 0;
+  border:none;
+  border-radius:18px;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#38bdf8,#2563eb);
+  box-shadow:0 0 25px rgba(56,189,248,.35);
+  transition:.15s;
+}
+.main-btn:active{
+  transform:scale(.96);
+  box-shadow:0 0 10px rgba(56,189,248,.2) inset;
+}
+
+.service-btn{
+  width:100%;
+  padding:16px;
+  margin:10px 0;
+  border-radius:16px;
+  border:1px solid #1e293b;
+  background:#020617;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 0 18px rgba(0,0,0,.6);
+  transition:.15s;
+}
+.service-btn:active{
+  transform:scale(.97);
+  box-shadow:0 0 8px rgba(56,189,248,.4) inset;
+}
+.service-btn span:last-child{
+  color:#38bdf8;
+  font-weight:700;
+}
+
+/* CARD */
+.card{
+  background:#020617;
+  border:1px solid #1e293b;
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:16px;
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:16px;
+  border-radius:14px;
+  border:1px solid #1e293b;
+  background:#020617;
+  color:#fff;
+  font-size:14px;
+}
+
+/* DATA – VISUAL */
+input[type="date"]{
+  cursor:pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator{
+  filter:invert(1);
+}
+
+/* ADMIN */
+.clock-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+.clock-hour{
+  padding:14px 0;
+  border-radius:14px;
+  background:#020617;
+  border:1px solid #1e293b;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:0 0 10px rgba(0,0,0,.6);
+  transition:.15s;
+}
+.clock-hour.active{
+  background:#38bdf8;
+  color:#020617;
+  box-shadow:0 0 18px rgba(56,189,248,.8);
+}
+.clock-hour:active{
+  transform:scale(.95);
+}
+
+/* RESUMO */
+.selected-box{
+  margin-top:14px;
+  padding:14px;
+  border-radius:14px;
+  border:1px dashed #38bdf8;
+  text-align:left;
+  font-size:13px;
+}
+.selected-box strong{color:#38bdf8}
+
+/* CARRINHO */
 #cart{
-  position:fixed;bottom:0;left:0;right:0;
-  background:#020617;border-top:2px solid #38bdf8;
-  padding:14px;display:none;z-index:99
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:#020617;
+  border-top:2px solid #38bdf8;
+  padding:14px;
+  display:none;
+  z-index:99;
 }
 .cart-item{border-bottom:1px dashed #1e293b;padding:10px 0}
 .cart-desc{font-size:12px;color:#94a3b8}
 .remove{color:#ef4444;font-size:12px;cursor:pointer}
 .total{color:#38bdf8;font-weight:700;margin-top:8px}
-
-/* admin */
-.clock-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
-.clock-hour{
-  padding:14px 0;border-radius:12px;
-  background:#020617;border:1px solid #1e293b;
-  cursor:pointer;font-weight:600
-}
-.clock-hour.active{background:#38bdf8;color:#020617}
-.selected-box{
-  margin-top:12px;padding:12px;
-  border:1px dashed #38bdf8;border-radius:12px;
-  text-align:left;font-size:13px
-}
-.selected-box strong{color:#38bdf8}
 </style>
 </head>
 <body>
 <section id="home">
   <div class="app-container">
-    <div class="logo-container"><img src="logo-garagem-hl.png"></div>
+    <div class="logo-container">
+      <img src="logo-garagem-hl.png">
+    </div>
     <div class="slogan">ESTÉTICA AUTOMOTIVA</div>
     <button class="main-btn" onclick="abrirServicos()">🚗 SERVIÇOS</button>
     <input id="buscaAdmin" placeholder="Pesquisar...">
@@ -99,8 +185,10 @@ input[type="date"]{cursor:pointer}
   <span class="back" onclick="voltarHome()">⬅ Voltar</span>
   <div class="app-container">
     <h2 style="color:#38bdf8">Painel Administrativo</h2>
+
     <button class="main-btn" onclick="abrirServicoHorario()">🧼 Serviços & Horários</button>
     <button class="main-btn" style="background:#b91c1c" onclick="resetarAgenda()">♻ Resetar Agenda</button>
+
     <div id="servicoHorario" class="card" style="display:none">
       <div id="listaServicosAdmin"></div>
     </div>
@@ -123,67 +211,74 @@ firebase.initializeApp({
 const db=firebase.database();
 
 const infoServicos={
-"Lavação de Motor":"Limpeza detalhada do compartimento do motor.",
-"Lavação Completa":"Lavagem externa e interna do veículo.",
-"Lavação Detalhada":"Limpeza minuciosa com acabamento premium.",
-"Descontaminação de Pintura":"Remove impurezas da pintura.",
-"Polimento Técnico":"Correção profissional da pintura.",
-"Polimento de Faróis":"Restauração da transparência dos faróis.",
-"Aplicação de Cera":"Proteção e brilho para a pintura.",
-"Aplicação de Selante":"Proteção duradoura para a pintura.",
-"Vitrificação":"Proteção cerâmica.",
-"Revitalização de Plásticos":"Restaura o aspecto original.",
-"Cristalização de Para-brisa":"Melhora visibilidade.",
-"Remoção de Chuva Ácida":"Remove manchas.",
-"Higienização Bancos de Couro":"Limpeza profunda.",
-"Higienização Automotiva":"Limpeza interna completa.",
-"Higienização Residencial":"Estofados residenciais."
+  "Lavação de Motor":50,
+  "Lavação Completa":80,
+  "Lavação Detalhada":120,
+  "Descontaminação de Pintura":150,
+  "Polimento Técnico":250,
+  "Polimento de Faróis":80,
+  "Aplicação de Cera":60,
+  "Aplicação de Selante":90,
+  "Vitrificação":350,
+  "Revitalização de Plásticos":70,
+  "Cristalização de Para-brisa":80,
+  "Remoção de Chuva Ácida":90,
+  "Higienização Bancos de Couro":150,
+  "Higienização Automotiva":180,
+  "Higienização Residencial":200
 };
 
 function montarServicos(){
   const l=document.getElementById("listaServicos");
   l.innerHTML="";
-  Object.keys(infoServicos).forEach((s,i)=>{
-    const preco=[50,80,120,150,250,80,60,90,350,70,80,90,150,180,200][i];
+  Object.keys(infoServicos).forEach(s=>{
     l.innerHTML+=`
-    <button class="service-btn" onclick="mostrarInfo('${s}');add('${s}',${preco})">
-      <span>${s}</span><span>R$ ${preco}</span>
-    </button>`;
+      <button class="service-btn" onclick="add('${s}',${infoServicos[s]})">
+        <span>${s}</span>
+        <span>R$ ${infoServicos[s]}</span>
+      </button>
+    `;
   });
 }
 
 function mostrar(id){
-  ["home","servicos","agendamento","admin"].forEach(t=>document.getElementById(t).style.display="none");
+  ["home","servicos","agendamento","admin"].forEach(t=>{
+    document.getElementById(t).style.display="none";
+  });
   document.getElementById(id).style.display="block";
 }
 function abrirServicos(){mostrar("servicos");esconderCarrinho()}
 function voltarHome(){mostrar("home");esconderCarrinho()}
 function voltarServicos(){mostrar("servicos")}
-function irParaAgendamento(){mostrar("agendamento");carregarAgendaCliente()}
+function irParaAgendamento(){mostrar("agendamento");}
 
 let cart=[],total=0;
 function add(nome,valor){
-  cart.push({nome,valor,desc:infoServicos[nome]});
-  total+=valor;renderCart();
+  cart.push({nome,valor});
+  total+=valor;
+  renderCart();
 }
 function renderCart(){
   let h="";
   cart.forEach((i,n)=>{
-    h+=`<div class="cart-item"><strong>${i.nome}</strong>
-    <div class="cart-desc">${i.desc}</div>
-    <span class="remove" onclick="removeItem(${n})">❌</span></div>`;
+    h+=`
+      <div class="cart-item">
+        <strong>${i.nome}</strong>
+        <span class="remove" onclick="removeItem(${n})">❌</span>
+      </div>`;
   });
-  cart.length?cartBox(true):cartBox(false);
   document.getElementById("cartItems").innerHTML=h;
-  document.getElementById("total").innerText=total.toFixed(2);
+  document.getElementById("total").innerText=total;
+  document.getElementById("cart").style.display="block";
 }
-function cartBox(show){document.getElementById("cart").style.display=show?"block":"none"}
-function removeItem(i){total-=cart[i].valor;cart.splice(i,1);renderCart()}
-function esconderCarrinho(){cartBox(false)}
-
-function mostrarInfo(s){
-  const d=document.getElementById("infoServico");
-  d.innerText=infoServicos[s];d.style.display="block";
+function removeItem(i){
+  total-=cart[i].valor;
+  cart.splice(i,1);
+  renderCart();
+  if(cart.length===0)esconderCarrinho();
+}
+function esconderCarrinho(){
+  document.getElementById("cart").style.display="none";
 }
 </script>
 <script>
@@ -191,15 +286,14 @@ document.addEventListener("DOMContentLoaded",()=>{
   montarServicos();
 
   document.getElementById("buscaAdmin").addEventListener("input",function(){
-    if(this.value.trim().toLowerCase()==="admin"){
+    if(this.value.toLowerCase()==="admin"){
       this.value="";
       if(prompt("Senha:")==="1234")mostrar("admin");
-      else alert("Senha incorreta");
     }
   });
 });
 
-let servicoSelecionado=null,dataSel=null,horarios=[];
+let servicoSel=null,dataSel=null,horarios=[];
 const horas=[...Array(17)].map((_,i)=>String(i+6).padStart(2,"0")+":00");
 
 function abrirServicoHorario(){
@@ -212,45 +306,66 @@ function abrirServicoHorario(){
 }
 
 function abrirConfig(s){
-  servicoSelecionado=s;horarios=[];dataSel=null;
+  servicoSel=s;horarios=[];dataSel=null;
   const l=document.getElementById("listaServicosAdmin");
   l.innerHTML=`
-  <h4>${s}</h4>
-  <input type="date" id="dataAdmin">
-  <div id="resumo" class="selected-box" style="display:none"></div>
-  <div id="relogio" class="clock-grid"></div>
-  <button class="main-btn" onclick="salvar()">Salvar</button>
-  <button class="main-btn" style="background:#334155" onclick="abrirServicoHorario()">Voltar</button>`;
-  document.getElementById("dataAdmin").onchange=e=>{dataSel=e.target.value;atualizar()};
+    <h3>${s}</h3>
+    <div style="margin-top:10px;font-size:13px;color:#38bdf8">Escolha a data</div>
+    <input type="date" id="dataAdmin">
+    <div id="resumo" class="selected-box" style="display:none"></div>
+    <div class="clock-grid" id="relogio"></div>
+    <button class="main-btn" onclick="salvar()">Salvar</button>
+    <button class="main-btn" style="background:#334155" onclick="abrirServicoHorario()">Voltar</button>
+  `;
+  document.getElementById("dataAdmin").onchange=e=>{
+    dataSel=e.target.value;
+    atualizarResumo();
+  };
   montarRelogio();
 }
 
 function montarRelogio(){
-  const r=document.getElementById("relogio");r.innerHTML="";
+  const r=document.getElementById("relogio");
+  r.innerHTML="";
   horas.forEach(h=>{
     const d=document.createElement("div");
-    d.className="clock-hour";d.innerText=h;
-    d.onclick=()=>{if(!horarios.includes(h)){horarios.push(h);d.classList.add("active");atualizar()}};
+    d.className="clock-hour";
+    d.innerText=h;
+    d.onclick=()=>{
+      if(!horarios.includes(h)){
+        horarios.push(h);
+        d.classList.add("active");
+        atualizarResumo();
+      }
+    };
     r.appendChild(d);
   });
 }
 
-function atualizar(){
+function atualizarResumo(){
   if(!dataSel)return;
   const r=document.getElementById("resumo");
   r.style.display="block";
-  r.innerHTML=`<strong>Data:</strong> ${dataSel.split("-").reverse().join("/")}<br>
-  <strong>Horários:</strong><br>${horarios.map(h=>"• "+h).join("<br>")}`;
+  r.innerHTML=`
+    <strong>Data:</strong> ${dataSel.split("-").reverse().join("/")}<br>
+    <strong>Horários:</strong><br>${horarios.map(h=>"• "+h).join("<br>")}
+  `;
 }
 
 function salvar(){
-  if(!dataSel||!horarios.length)return;
-  horarios.forEach(h=>db.ref(`agenda/${dataSel}/${servicoSelecionado}/${h}`).set({vagas:1}));
-  alert("Salvo");abrirServicoHorario();
+  if(!dataSel||horarios.length===0)return;
+  horarios.forEach(h=>{
+    db.ref(\`agenda/\${dataSel}/\${servicoSel}/\${h}\`).set({vagas:1});
+  });
+  alert("Configuração salva");
+  abrirServicoHorario();
 }
 
 function resetarAgenda(){
-  if(confirm("Apagar agenda?")){db.ref("agenda").remove();alert("Agenda resetada")}
+  if(confirm("Apagar toda agenda?")){
+    db.ref("agenda").remove();
+    alert("Agenda resetada");
+  }
 }
 </script>
 
