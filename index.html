@@ -208,72 +208,58 @@ input{
         <span class="service-name">🛠 Lavação de Motor</span>
         <span class="service-price">R$ 50</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Lavação Completa'); add('Lavação Completa',80)">
         <span class="service-name">🚿 Lavação Completa</span>
         <span class="service-price">R$ 80</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Lavação Detalhada'); add('Lavação Detalhada',120)">
         <span class="service-name">✨ Lavação Detalhada</span>
         <span class="service-price">R$ 120</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Descontaminação de Pintura'); add('Descontaminação de Pintura',150)">
         <span class="service-name">🧪 Descontaminação de Pintura</span>
         <span class="service-price">R$ 150</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Polimento Técnico'); add('Polimento Técnico',250)">
         <span class="service-name">💎 Polimento Técnico</span>
         <span class="service-price">R$ 250</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Polimento de Faróis'); add('Polimento de Faróis',80)">
         <span class="service-name">💡 Polimento de Faróis</span>
         <span class="service-price">R$ 80</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Aplicação de Cera'); add('Aplicação de Cera',60)">
         <span class="service-name">🧴 Aplicação de Cera</span>
         <span class="service-price">R$ 60</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Aplicação de Selante'); add('Aplicação de Selante',90)">
         <span class="service-name">🛡 Aplicação de Selante</span>
         <span class="service-price">R$ 90</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Vitrificação'); add('Vitrificação',350)">
         <span class="service-name">🔮 Vitrificação</span>
         <span class="service-price">R$ 350</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Revitalização de Plásticos'); add('Revitalização de Plásticos',70)">
         <span class="service-name">🖤 Revitalização de Plásticos</span>
         <span class="service-price">R$ 70</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Cristalização de Para-brisa'); add('Cristalização de Para-brisa',80)">
         <span class="service-name">🌧 Cristalização de Para-brisa</span>
         <span class="service-price">R$ 80</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Remoção de Chuva Ácida'); add('Remoção de Chuva Ácida',90)">
         <span class="service-name">☣ Remoção de Chuva Ácida</span>
         <span class="service-price">R$ 90</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Higienização em Bancos de Couro'); add('Higienização em Bancos de Couro',150)">
         <span class="service-name">🪑 Higienização Bancos de Couro</span>
         <span class="service-price">R$ 150</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Higienização Automotiva'); add('Higienização Automotiva',180)">
         <span class="service-name">🧼 Higienização Automotiva</span>
         <span class="service-price">R$ 180</span>
       </button>
-
       <button class="service-btn" onclick="mostrarInfo('Higienização Residencial'); add('Higienização Residencial',200)">
         <span class="service-name">🏠 Higienização Residencial</span>
         <span class="service-price">R$ 200</span>
@@ -300,7 +286,6 @@ input{
     <button class="main-btn" onclick="abrirBloco('datas')">📅 Datas</button>
     <button class="main-btn" onclick="abrirBloco('horarios')">⏰ Horários</button>
     <button class="main-btn" onclick="abrirBloco('reservas')">📋 Reservas</button>
-
     <button class="main-btn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="resetarHorarios()">♻ Resetar Horários</button>
 
     <div id="datas" class="card" style="display:none">
@@ -340,6 +325,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 const SENHA_ADMIN = "1234";
+const WHATS_ADMIN = "5549999741891"; // HENRIQUE (admin)
 
 const descricoesServicos = {
   "Lavação de Motor":"Limpeza técnica do cofre do motor.",
@@ -432,7 +418,7 @@ function esconderCarrinho(){
   document.getElementById("cartItems").innerHTML="";
 }
 
-/* AGENDAMENTO CLIENTE */
+/* AGENDAMENTO CLIENTE – BLOQUEIA HORÁRIOS RESERVADOS */
 function formatarData(data){
   const p=data.split("-");
   return p[2]+"/"+p[1]+"/"+p[0];
@@ -455,6 +441,7 @@ function carregarDatas(){
   });
 }
 
+/* CONFIRMA + BLOQUEIA + AVISA ADMIN */
 function confirmarAgendamento(data,hora){
   const nome=prompt("Seu nome:");
   if(!nome)return;
@@ -478,14 +465,42 @@ ${lista}
 
 Total: R$ ${total.toFixed(2)}`;
 
+  // SALVA RESERVA (BLOQUEIA)
+  db.ref("reservas/"+data+"/"+hora).set({
+    nome,
+    servicos: cart,
+    total
+  });
+
+  // REMOVE HORÁRIO DA LISTA
+  db.ref("datas/"+data).once("value",snap=>{
+    const listaHorarios=snap.val()||[];
+    const novaLista=listaHorarios.filter(h=>h!==hora);
+    db.ref("datas/"+data).set(novaLista);
+  });
+
+  // WHATS CLIENTE
   window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,"_blank");
+
+  // WHATS ADMIN AUTOMÁTICO
+  const msgAdmin = `📢 NOVO AGENDAMENTO - GARAGEM HL
+
+👤 Cliente: ${nome}
+📅 Data: ${formatarData(data)}
+⏰ Horário: ${hora}
+
+Serviços:
+${lista}
+
+💰 Total: R$ ${total.toFixed(2)}`;
+
+  window.open(`https://wa.me/${WHATS_ADMIN}?text=${encodeURIComponent(msgAdmin)}`,"_blank");
 
   esconderCarrinho();
   voltarHome();
 }
 
 /* ADMIN DATAS E HORÁRIOS */
-
 function montarCalendario(){
   const hoje=new Date();
   const ano=hoje.getFullYear();
@@ -503,11 +518,9 @@ function montarCalendario(){
 
 function selecionarDia(data){
   dataSelecionada=data;
-
   document.querySelectorAll(".day").forEach(el=>el.classList.remove("active"));
   const el=document.getElementById("day_"+data);
   if(el)el.classList.add("active");
-
   carregarRelogio();
 }
 
@@ -530,32 +543,23 @@ function salvarHorarios(){
 
   const ativos=[];
   document.querySelectorAll(".clock-hour.active").forEach(el=>ativos.push(el.innerText));
-
   db.ref("datas/"+dataSelecionada).set(ativos);
 
   alert("Horários salvos!");
-
-  /* ===== LIMPA TUDO PARA NOVA SELEÇÃO ===== */
-  dataSelecionada = null;
-  document.getElementById("clockContainer").innerHTML = "";
+  dataSelecionada=null;
+  document.getElementById("clockContainer").innerHTML="";
   document.querySelectorAll(".day").forEach(el=>el.classList.remove("active"));
 }
 
-/* RESETAR HORÁRIOS */
+/* RESET */
 function resetarHorarios(){
   if(!confirm("Tem certeza que deseja apagar TODOS os horários?")) return;
-
   db.ref("datas").remove();
-
-  dataSelecionada = null;
-  document.getElementById("calendarAdm").innerHTML = "";
-  document.getElementById("clockContainer").innerHTML = "";
-
-  alert("Todos os horários foram resetados.");
+  alert("Horários resetados!");
   montarCalendario();
 }
 
-/* ADMIN RESERVAS */
+/* ADMIN UI */
 function abrirBloco(id){
   ["datas","horarios","reservas"].forEach(b=>{
     document.getElementById(b).style.display="none";
