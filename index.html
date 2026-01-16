@@ -222,7 +222,7 @@ input{
 
     <h2 style="color:#d4af37;margin-bottom:10px">Serviços</h2>
 
-    <!-- 🔹 ÁREA DE DESCRIÇÃO (ADICIONADA) -->
+    <!-- DESCRIÇÃO DO SERVIÇO -->
     <div id="infoServico" style="
       display:none;
       margin-bottom:15px;
@@ -323,9 +323,7 @@ const db = firebase.database();
 
 const SENHA_ADMIN = "1234";
 
-/* =========================
-   DESCRIÇÕES DOS SERVIÇOS
-========================= */
+/* DESCRIÇÕES */
 const descricoesServicos = {
   "Lavação de Motor": "Limpeza técnica do cofre do motor com produtos específicos.",
   "Lavação Completa": "Lavação externa e interna com acabamento completo.",
@@ -391,15 +389,30 @@ function add(nome,valor){
   total+=valor;
   renderCart();
 }
+
 function renderCart(){
-  let html="";
-  cart.forEach((i,n)=>{
-    html+=`<div class="cart-item">${i.nome}<span class="remove" onclick="removeItem(${n})">❌</span></div>`;
+  let html = "";
+
+  cart.forEach((item, index)=>{
+    const desc = descricoesServicos[item.nome] || "";
+    html += `
+      <div class="cart-item" style="flex-direction:column;align-items:flex-start">
+        <div style="width:100%;display:flex;justify-content:space-between;align-items:center">
+          <strong>${item.nome}</strong>
+          <span class="remove" onclick="removeItem(${index})">❌</span>
+        </div>
+        <div style="font-size:11px;color:#aaa;margin-top:2px;line-height:1.3">
+          ${desc}
+        </div>
+      </div>
+    `;
   });
-  document.getElementById("cartItems").innerHTML=html;
-  document.getElementById("total").innerText=total.toFixed(2);
-  document.getElementById("cart").style.display="block";
+
+  document.getElementById("cartItems").innerHTML = html;
+  document.getElementById("total").innerText = total.toFixed(2);
+  document.getElementById("cart").style.display = "block";
 }
+
 function removeItem(i){
   total-=cart[i].valor;
   cart.splice(i,1);
@@ -445,16 +458,14 @@ function carregarDatas(){
   });
 }
 
-/* 🔒 AGENDAMENTO COM ESCOLHA DE WHATSAPP */
+/* AGENDAMENTO + WHATSAPP */
 function confirmarAgendamento(data,hora){
   const nome = prompt("Digite seu nome para continuar:");
   if(!nome) return;
 
   const servicos = cart.map(i=>i.nome).join(", ");
 
-  const escolha = prompt(
-    "Com quem deseja falar?\n\n1 - Henrique\n2 - Luan\n\nDigite 1 ou 2"
-  );
+  const escolha = prompt("Com quem deseja falar?\n\n1 - Henrique\n2 - Luan\n\nDigite 1 ou 2");
 
   let telefone = "";
   if(escolha === "1"){
@@ -648,7 +659,7 @@ function carregarReservasAdmin(){
 }
 
 function liberar(data,hora){
-  db.ref(`datas_disponiveis/${data}/reservas/${hora}`).remove();
+  db.ref(\`datas_disponiveis/\${data}/reservas/\${hora}\`).remove();
   alert("Horário liberado!");
 }
 
