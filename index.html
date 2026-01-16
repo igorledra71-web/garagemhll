@@ -77,9 +77,7 @@ input[type="date"]{cursor:pointer}
   background:#020617;border:1px solid #1e293b;
   cursor:pointer;font-weight:600
 }
-.clock-hour.active{
-  background:#38bdf8;color:#020617
-}
+.clock-hour.active{background:#38bdf8;color:#020617}
 
 .selected-box{
   margin-top:12px;
@@ -101,7 +99,7 @@ input[type="date"]{cursor:pointer}
     </div>
     <div class="slogan">ESTÉTICA AUTOMOTIVA</div>
     <button class="main-btn" onclick="abrirServicos()">🚗 SERVIÇOS</button>
-    <input id="buscaAdmin" placeholder="Pesquisar..." oninput="verificarAdmin()">
+    <input id="buscaAdmin" placeholder="Pesquisar...">
   </div>
 </section>
 
@@ -202,6 +200,7 @@ function mostrar(id){
   });
   document.getElementById(id).style.display="block";
 }
+
 function abrirServicos(){mostrar("servicos");esconderCarrinho();}
 function voltarHome(){mostrar("home");esconderCarrinho();}
 function voltarServicos(){mostrar("servicos");}
@@ -270,16 +269,23 @@ let servicoSelecionadoAdmin=null;
 let dataSelecionada=null;
 let horariosSelecionados=[];
 
-function verificarAdmin(){
+/* ADMIN LOGIN – FIX DEFINITIVO */
+document.getElementById("buscaAdmin").addEventListener("input",()=>{
   const i=document.getElementById("buscaAdmin");
-  if(i.value.toLowerCase()==="admin"){
+  if(i.value.trim().toLowerCase()==="admin"){
     i.value="";
-    if(prompt("Senha:")===SENHA_ADMIN)mostrar("admin");
+    if(prompt("Digite a senha do administrador:")===SENHA_ADMIN){
+      mostrar("admin");
+      document.getElementById("servicoHorario").style.display="none";
+    }else{
+      alert("Senha incorreta");
+    }
   }
-}
+});
 
 function abrirServicoHorario(){
-  document.getElementById("servicoHorario").style.display="block";
+  const b=document.getElementById("servicoHorario");
+  b.style.display="block";
   carregarListaServicosAdmin();
 }
 
@@ -287,11 +293,12 @@ function carregarListaServicosAdmin(){
   const l=document.getElementById("listaServicosAdmin");
   l.innerHTML="<h4>Selecione o serviço</h4>";
   Object.keys(infoServicos).forEach(s=>{
-    const b=document.createElement("button");
-    b.className="main-btn";
-    b.innerText=s;
-    b.onclick=()=>abrirTelaServico(s);
-    l.appendChild(b);
+    const btn=document.createElement("button");
+    btn.type="button";
+    btn.className="main-btn";
+    btn.innerText=s;
+    btn.addEventListener("click",()=>abrirTelaServico(s));
+    l.appendChild(btn);
   });
 }
 
@@ -302,18 +309,19 @@ function abrirTelaServico(servico){
   const l=document.getElementById("listaServicosAdmin");
   l.innerHTML=`
     <h4>${servico}</h4>
-    <input type="date" id="dataServicoAdmin" onchange="selecionarData(this.value)">
+    <input type="date" id="dataServicoAdmin">
     <div id="resumoSelecionado" class="selected-box" style="display:none"></div>
     <div id="relogioServico" class="clock-grid"></div>
     <button class="main-btn" onclick="salvarHorariosServico()">Salvar</button>
     <button class="main-btn" style="background:#334155" onclick="carregarListaServicosAdmin()">Voltar</button>
   `;
-  montarRelogioServico();
-}
 
-function selecionarData(data){
-  dataSelecionada=data;
-  atualizarResumo();
+  document.getElementById("dataServicoAdmin").addEventListener("change",e=>{
+    dataSelecionada=e.target.value;
+    atualizarResumo();
+  });
+
+  montarRelogioServico();
 }
 
 const horas=[];
@@ -326,13 +334,13 @@ function montarRelogioServico(){
     const d=document.createElement("div");
     d.className="clock-hour";
     d.innerText=h;
-    d.onclick=()=>{
+    d.addEventListener("click",()=>{
       if(!horariosSelecionados.includes(h)){
         horariosSelecionados.push(h);
         d.classList.add("active");
         atualizarResumo();
       }
-    };
+    });
     r.appendChild(d);
   });
 }
@@ -349,7 +357,7 @@ function atualizarResumo(){
 }
 
 function salvarHorariosServico(){
-  if(!dataSelecionada || horariosSelecionados.length===0)return;
+  if(!dataSelecionada||horariosSelecionados.length===0)return;
   horariosSelecionados.forEach(h=>{
     db.ref(`agenda/${dataSelecionada}/${servicoSelecionadoAdmin}/${h}`).set({vagas:1});
   });
