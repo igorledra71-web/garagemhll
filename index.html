@@ -47,7 +47,7 @@ section{
   font-size:13px;
 }
 
-/* BOTÕES PRINCIPAIS */
+/* BOTÕES */
 .main-btn{
   width:100%;
   padding:18px;
@@ -58,12 +58,9 @@ section{
   font-weight:700;
   background:linear-gradient(135deg,#38bdf8,#2563eb);
   color:#fff;
-  box-shadow:0 8px 24px rgba(56,189,248,.35);
-  transition:.15s ease;
 }
 .main-btn:active{transform:scale(.96)}
 
-/* BOTÕES SERVIÇOS */
 .service-btn{
   width:100%;
   padding:16px;
@@ -76,13 +73,7 @@ section{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  text-align:left;
-  box-shadow:0 4px 14px rgba(0,0,0,.6);
 }
-.service-btn:active{transform:scale(.97)}
-
-.service-name{font-size:14px;font-weight:600}
-.service-price{color:#38bdf8;font-weight:700}
 
 /* INFO SERVIÇO */
 #infoServico{
@@ -137,10 +128,13 @@ input{
   display:none;
   z-index:99;
 }
-
 .cart-item{
   padding:10px 0;
   border-bottom:1px dashed #1e293b;
+}
+.cart-desc{
+  font-size:12px;
+  color:#94a3b8;
 }
 .remove{
   color:#ef4444;
@@ -154,29 +148,7 @@ input{
   font-size:16px;
 }
 
-/* CALENDÁRIO */
-.calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:8px;
-  margin-top:10px;
-}
-.day{
-  padding:10px 0;
-  border-radius:10px;
-  background:#020617;
-  text-align:center;
-  font-size:13px;
-  cursor:pointer;
-  border:1px solid #1e293b;
-}
-.day.active{
-  background:#38bdf8;
-  color:#020617;
-  font-weight:700;
-}
-
-/* RELÓGIO */
+/* ADMIN */
 .clock-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -232,78 +204,78 @@ input{
     <div class="card">
 
       <button class="service-btn" onclick="mostrarInfo('Lavação de Motor'); add('Lavação de Motor',50)">
-        <span class="service-name">🛠 Lavação de Motor</span>
-        <span class="service-price">R$ 50</span>
+        <span>🛠 Lavação de Motor</span>
+        <span>R$ 50</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Lavação Completa'); add('Lavação Completa',80)">
-        <span class="service-name">🚿 Lavação Completa</span>
-        <span class="service-price">R$ 80</span>
+        <span>🚿 Lavação Completa</span>
+        <span>R$ 80</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Lavação Detalhada'); add('Lavação Detalhada',120)">
-        <span class="service-name">✨ Lavação Detalhada</span>
-        <span class="service-price">R$ 120</span>
+        <span>✨ Lavação Detalhada</span>
+        <span>R$ 120</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Descontaminação de Pintura'); add('Descontaminação de Pintura',150)">
-        <span class="service-name">🧪 Descontaminação de Pintura</span>
-        <span class="service-price">R$ 150</span>
+        <span>🧪 Descontaminação de Pintura</span>
+        <span>R$ 150</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Polimento Técnico'); add('Polimento Técnico',250)">
-        <span class="service-name">💎 Polimento Técnico</span>
-        <span class="service-price">R$ 250</span>
+        <span>💎 Polimento Técnico</span>
+        <span>R$ 250</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Polimento de Faróis'); add('Polimento de Faróis',80)">
-        <span class="service-name">💡 Polimento de Faróis</span>
-        <span class="service-price">R$ 80</span>
+        <span>💡 Polimento de Faróis</span>
+        <span>R$ 80</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Aplicação de Cera'); add('Aplicação de Cera',60)">
-        <span class="service-name">🧴 Aplicação de Cera</span>
-        <span class="service-price">R$ 60</span>
+        <span>🧴 Aplicação de Cera</span>
+        <span>R$ 60</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Aplicação de Selante'); add('Aplicação de Selante',90)">
-        <span class="service-name">🛡 Aplicação de Selante</span>
-        <span class="service-price">R$ 90</span>
+        <span>🛡 Aplicação de Selante</span>
+        <span>R$ 90</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Vitrificação'); add('Vitrificação',350)">
-        <span class="service-name">🔮 Vitrificação</span>
-        <span class="service-price">R$ 350</span>
+        <span>🔮 Vitrificação</span>
+        <span>R$ 350</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Revitalização de Plásticos'); add('Revitalização de Plásticos',70)">
-        <span class="service-name">🖤 Revitalização de Plásticos</span>
-        <span class="service-price">R$ 70</span>
+        <span>🖤 Revitalização de Plásticos</span>
+        <span>R$ 70</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Cristalização de Para-brisa'); add('Cristalização de Para-brisa',80)">
-        <span class="service-name">🌧 Cristalização de Para-brisa</span>
-        <span class="service-price">R$ 80</span>
+        <span>🌧 Cristalização de Para-brisa</span>
+        <span>R$ 80</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Remoção de Chuva Ácida'); add('Remoção de Chuva Ácida',90)">
-        <span class="service-name">☣ Remoção de Chuva Ácida</span>
-        <span class="service-price">R$ 90</span>
+        <span>☣ Remoção de Chuva Ácida</span>
+        <span>R$ 90</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Higienização Bancos de Couro'); add('Higienização Bancos de Couro',150)">
-        <span class="service-name">🪑 Higienização Bancos de Couro</span>
-        <span class="service-price">R$ 150</span>
+        <span>🪑 Higienização Bancos de Couro</span>
+        <span>R$ 150</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Higienização Automotiva'); add('Higienização Automotiva',180)">
-        <span class="service-name">🧼 Higienização Automotiva</span>
-        <span class="service-price">R$ 180</span>
+        <span>🧼 Higienização Automotiva</span>
+        <span>R$ 180</span>
       </button>
 
       <button class="service-btn" onclick="mostrarInfo('Higienização Residencial'); add('Higienização Residencial',200)">
-        <span class="service-name">🏠 Higienização Residencial</span>
-        <span class="service-price">R$ 200</span>
+        <span>🏠 Higienização Residencial</span>
+        <span>R$ 200</span>
       </button>
 
     </div>
@@ -327,33 +299,13 @@ input{
   <div class="app-container">
     <h2 style="color:#38bdf8;margin-bottom:10px">Painel Administrativo</h2>
 
-    <button class="main-btn" onclick="abrirBloco('datas')">📅 Dias de Atendimento</button>
-    <button class="main-btn" onclick="abrirBloco('servicoHorario')">🧼 Serviços & Horários</button>
-    <button class="main-btn" onclick="abrirBloco('reservas')">📋 Reservas</button>
+    <!-- REMOVIDO DIAS DE ATENDIMENTO -->
+    <button class="main-btn" onclick="abrirServicoHorario()">🧼 Serviços & Horários</button>
     <button class="main-btn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="resetarAgenda()">♻ Resetar Agenda</button>
 
-    <!-- DIAS -->
-    <div id="datas" class="card" style="display:none">
-      <h4>Dias de Atendimento</h4>
-      <div class="calendar" id="calendarAdm"></div>
-      <button class="main-btn" onclick="salvarDias()">Salvar Dias</button>
-    </div>
-
-    <!-- SERVIÇO / HORÁRIO -->
     <div id="servicoHorario" class="card" style="display:none">
-      <h4>Serviços & Horários</h4>
-
-      <div id="adminDataSelecionada" style="margin-bottom:10px;color:#38bdf8"></div>
-
       <div id="listaServicosAdmin"></div>
-
-      <div id="relogioServico" class="clock-grid"></div>
-
-      <button class="main-btn" onclick="salvarHorariosServico()">Salvar Horários</button>
     </div>
-
-    <!-- RESERVAS -->
-    <div id="reservas" class="card" style="display:none"></div>
 
   </div>
 </section>
@@ -416,13 +368,14 @@ function irParaAgendamento(){
 }
 
 /* =========================
-   CARRINHO
+   CARRINHO (COM DESCRIÇÃO)
 ========================= */
 let cart = [];
 let total = 0;
 
 function add(nome, valor){
-  cart.push({ nome, valor });
+  const desc = infoServicos[nome] || "";
+  cart.push({ nome, valor, desc });
   total += valor;
   renderCart();
 }
@@ -432,7 +385,8 @@ function renderCart(){
   cart.forEach((i, n)=>{
     html += `
       <div class="cart-item">
-        ${i.nome}
+        <strong>${i.nome}</strong>
+        <div class="cart-desc">${i.desc}</div>
         <span class="remove" onclick="removeItem(${n})">❌</span>
       </div>
     `;
@@ -566,17 +520,14 @@ function formatarData(d){
 </script>
 <script>
 /* =========================
-   ADMIN - CONTROLE TOTAL
+   ADMIN – NOVO FLUXO
+   (sem Dias de Atendimento)
 ========================= */
 
 const SENHA_ADMIN = "1234";
-
-let dataSelecionadaAdmin = null;
 let servicoSelecionadoAdmin = null;
 
-/* =========================
-   ACESSO ADMIN
-========================= */
+/* LOGIN ADMIN */
 function verificarAdmin(){
   const input = document.getElementById("buscaAdmin");
   if(input.value.toLowerCase() === "admin"){
@@ -584,91 +535,66 @@ function verificarAdmin(){
     const senha = prompt("Digite a senha do administrador:");
     if(senha === SENHA_ADMIN){
       mostrar("admin");
-      montarCalendarioAdmin();
-      carregarListaServicosAdmin();
-      carregarReservasAdmin();
+      abrirServicoHorario();
     }else{
       alert("Senha incorreta");
     }
   }
 }
 
-/* =========================
-   ABRIR BLOCOS
-========================= */
-function abrirBloco(id){
-  ["datas","servicoHorario","reservas"].forEach(b=>{
-    const el = document.getElementById(b);
-    if(el) el.style.display = "none";
-  });
-  document.getElementById(id).style.display = "block";
+/* ABRIR BLOCO SERVIÇOS & HORÁRIOS */
+function abrirServicoHorario(){
+  const bloco = document.getElementById("servicoHorario");
+  bloco.style.display = "block";
+  carregarListaServicosAdmin();
 }
 
-/* =========================
-   CALENDÁRIO ADMIN (DIAS)
-========================= */
-function montarCalendarioAdmin(){
-  const cal = document.getElementById("calendarAdm");
-  cal.innerHTML = "";
-
-  const hoje = new Date();
-  const ano = hoje.getFullYear();
-  const mes = hoje.getMonth();
-  const totalDias = new Date(ano, mes + 1, 0).getDate();
-
-  for(let d = 1; d <= totalDias; d++){
-    const dia = String(d).padStart(2,"0");
-    const mesStr = String(mes + 1).padStart(2,"0");
-    const dataKey = `${ano}-${mesStr}-${dia}`;
-
-    const div = document.createElement("div");
-    div.className = "day";
-    div.innerText = d;
-
-    div.onclick = ()=>{
-      div.classList.toggle("active");
-      db.ref(`agenda/${dataKey}`).once("value", snap=>{
-        if(!snap.exists()){
-          db.ref(`agenda/${dataKey}`).set({});
-        }
-      });
-    };
-
-    cal.appendChild(div);
-  }
-}
-
-function salvarDias(){
-  alert("Dias de atendimento salvos com sucesso!");
-  document.querySelectorAll(".day").forEach(d=>d.classList.remove("active"));
-}
-
-/* =========================
-   SERVIÇOS ADMIN
-========================= */
+/* LISTA TODOS OS SERVIÇOS */
 function carregarListaServicosAdmin(){
   const lista = document.getElementById("listaServicosAdmin");
-  lista.innerHTML = "";
+  lista.innerHTML = "<h4 style='margin-bottom:10px'>Selecione um serviço</h4>";
 
   Object.keys(infoServicos).forEach(servico=>{
     const btn = document.createElement("button");
     btn.className = "main-btn";
     btn.innerText = servico;
-    btn.onclick = ()=>{
-      servicoSelecionadoAdmin = servico;
-      document.getElementById("adminDataSelecionada").innerText =
-        `Serviço selecionado: ${servico}`;
-      montarRelogioServico();
-    };
+    btn.onclick = ()=>abrirTelaServico(servico);
     lista.appendChild(btn);
   });
 }
 
-/* =========================
-   HORÁRIOS (06:00 → 22:00)
-========================= */
+/* ABRE TELA DO SERVIÇO SELECIONADO */
+function abrirTelaServico(servico){
+  servicoSelecionadoAdmin = servico;
+
+  const lista = document.getElementById("listaServicosAdmin");
+  lista.innerHTML = `
+    <h4 style="color:#38bdf8;margin-bottom:10px">${servico}</h4>
+
+    <label style="font-size:13px">Selecione a data</label>
+    <input type="date" id="dataServicoAdmin">
+
+    <label style="font-size:13px;margin-top:10px;display:block">
+      Selecione os horários
+    </label>
+
+    <div id="relogioServico" class="clock-grid"></div>
+
+    <button class="main-btn" onclick="salvarHorariosServico()">
+      Salvar horários deste dia
+    </button>
+
+    <button class="main-btn" style="background:#334155" onclick="carregarListaServicosAdmin()">
+      ⬅ Voltar aos serviços
+    </button>
+  `;
+
+  montarRelogioServico();
+}
+
+/* HORÁRIOS 06:00 → 22:00 */
 const horasPadrao = [];
-for(let h = 6; h <= 22; h++){
+for(let h=6; h<=22; h++){
   horasPadrao.push(String(h).padStart(2,"0")+":00");
 }
 
@@ -685,80 +611,39 @@ function montarRelogioServico(){
       const vagas = prompt(`Quantas vagas para ${hora}?`);
       if(!vagas) return;
       div.classList.add("active");
-      div.setAttribute("data-vagas", vagas);
+      div.dataset.vagas = vagas;
     };
 
     rel.appendChild(div);
   });
 }
 
-/* =========================
-   SALVAR HORÁRIOS SERVIÇO
-========================= */
+/* SALVAR HORÁRIOS DO DIA */
 function salvarHorariosServico(){
-  if(!servicoSelecionadoAdmin){
-    alert("Selecione um serviço");
+  const data = document.getElementById("dataServicoAdmin").value;
+  if(!data){
+    alert("Selecione a data");
     return;
   }
 
-  const data = prompt("Digite a data no formato AAAA-MM-DD:");
-  if(!data) return;
-
-  const horasSelecionadas = document.querySelectorAll(".clock-hour.active");
-  if(horasSelecionadas.length === 0){
+  const horarios = document.querySelectorAll(".clock-hour.active");
+  if(horarios.length === 0){
     alert("Selecione pelo menos um horário");
     return;
   }
 
-  horasSelecionadas.forEach(h=>{
-    const hora = h.innerText;
-    const vagas = parseInt(h.getAttribute("data-vagas"));
-    db.ref(`agenda/${data}/${servicoSelecionadoAdmin}/${hora}`).set({
-      vagas: vagas
-    });
+  horarios.forEach(h=>{
+    db.ref(`agenda/${data}/${servicoSelecionadoAdmin}/${h.innerText}`)
+      .set({ vagas: parseInt(h.dataset.vagas) });
   });
 
   alert("Horários salvos com sucesso!");
 
-  servicoSelecionadoAdmin = null;
-  document.getElementById("adminDataSelecionada").innerText = "";
-  document.getElementById("relogioServico").innerHTML = "";
+  /* RESET DA TELA */
+  carregarListaServicosAdmin();
 }
 
-/* =========================
-   RESERVAS ADMIN
-========================= */
-function carregarReservasAdmin(){
-  const bloco = document.getElementById("reservas");
-
-  db.ref("agenda").on("value", snap=>{
-    const dados = snap.val();
-    let html = "<h4>Reservas</h4>";
-
-    if(dados){
-      for(let data in dados){
-        for(let serv in dados[data]){
-          for(let hora in dados[data][serv]){
-            const vagas = dados[data][serv][hora].vagas;
-            html += `
-              <div class="card">
-                ${formatarData(data)}<br>
-                <strong>${serv}</strong> - ${hora}<br>
-                Vagas restantes: ${vagas}
-              </div>
-            `;
-          }
-        }
-      }
-    }
-
-    bloco.innerHTML = html;
-  });
-}
-
-/* =========================
-   RESET TOTAL
-========================= */
+/* RESET TOTAL DA AGENDA */
 function resetarAgenda(){
   if(confirm("Deseja apagar TODA a agenda?")){
     db.ref("agenda").remove();
