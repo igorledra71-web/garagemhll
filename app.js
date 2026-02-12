@@ -184,7 +184,14 @@ let horariosAdmin = [];
 const todasHoras = [...Array(17)].map((_, i) => String(i + 6).padStart(2, "0") + ":00");
 
 function abrirServicoHorario() {
-  document.getElementById("servicoHorario").style.display = "block";
+  const panel = document.getElementById("servicoHorario");
+  const isOpen = panel.style.display !== "none" && panel.style.display !== "";
+  document.getElementById("gerenciarServicosPanel").style.display = "none";
+  if (isOpen) {
+    panel.style.display = "none";
+    return;
+  }
+  panel.style.display = "block";
   const lista = document.getElementById("listaServicosAdmin");
   lista.innerHTML = "";
   Object.keys(servicos).forEach(nome => {
@@ -318,7 +325,14 @@ function resetarAgenda() {
 }
 
 function abrirGerenciarServicos() {
-  document.getElementById("gerenciarServicosPanel").style.display = "block";
+  const panel = document.getElementById("gerenciarServicosPanel");
+  const isOpen = panel.style.display !== "none" && panel.style.display !== "";
+  document.getElementById("servicoHorario").style.display = "none";
+  if (isOpen) {
+    panel.style.display = "none";
+    return;
+  }
+  panel.style.display = "block";
   renderListaServicosGerenciar();
 }
 
