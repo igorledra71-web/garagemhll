@@ -18,7 +18,6 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
             html = f.read()
         html = html.replace('styles.css?v=3', f'styles.css?t={ts}')
         html = html.replace('app.js"', f'app.js?t={ts}"')
-        html = html.replace('logo-lavacao-alemao.png"', f'logo-lavacao-alemao.png?t={ts}"')
         content = html.encode('utf-8')
         self.send_response(200)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
@@ -35,5 +34,4 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
 socketserver.TCPServer.allow_reuse_address = True
 PORT = 5000
 with socketserver.TCPServer(("0.0.0.0", PORT), NoCacheHandler) as httpd:
-    print(f"Serving Lavacao do Alemao on port {PORT}")
     httpd.serve_forever()
